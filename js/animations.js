@@ -172,9 +172,12 @@
     if (isCoarse) return;
     var cursor = document.getElementById('custom-cursor');
     if (!cursor) return;
-    var mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    cursor.style.opacity = '0';
+    var mx = -100, my = -100;
     var cx = mx, cy = my;
-    document.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+    document.addEventListener('mousemove', function (e) {
+      mx = e.clientX; my = e.clientY; cursor.style.opacity = '1';
+    }, { passive: true });
     function render() {
       cx += (mx - cx) * 0.14; cy += (my - cy) * 0.14;
       cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px) translate(-50%,-50%)';
