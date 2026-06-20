@@ -1,0 +1,76 @@
+/* ==========================================================================
+   ITS合同会社 — animations.css
+   Scroll-reveal, page curtain, cursor, progress, decorative motion
+   ========================================================================== */
+
+/* ---------- Page load curtain ---------- */
+#page-reveal {
+  position: fixed; inset: 0; z-index: 9999; background: var(--color-dark);
+  display: grid; place-items: center; transform-origin: top;
+  transition: transform .75s var(--ease-snap);
+}
+#page-reveal.is-done { transform: scaleY(0); }
+.page-reveal__mark {
+  font-family: var(--font-product); font-weight: 700; font-size: clamp(40px, 8vw, 72px);
+  letter-spacing: 0.06em; background: var(--grad-primary);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: pageMarkPulse 1.1s var(--ease-out) infinite alternate;
+}
+@keyframes pageMarkPulse { from { opacity: .55; transform: translateY(0); } to { opacity: 1; transform: translateY(-6px); } }
+
+/* ---------- Scroll progress bar ---------- */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 1200;
+  background: linear-gradient(90deg, #0A84FF, #C9A84C, #FF6B9D);
+  transform: scaleX(0); transform-origin: left; will-change: transform;
+}
+
+/* ---------- Custom cursor ---------- */
+#custom-cursor {
+  position: fixed; top: 0; left: 0; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--color-primary); pointer-events: none; z-index: 9000;
+  transform: translate(-50%, -50%); transition: width .3s var(--ease-out), height .3s var(--ease-out), background .3s, border .3s;
+  mix-blend-mode: multiply; will-change: transform;
+}
+#custom-cursor.is-hover { width: 44px; height: 44px; background: transparent; border: 1.5px solid var(--color-primary); }
+@media (pointer: coarse) { #custom-cursor { display: none; } }
+
+/* ---------- Fade up ---------- */
+.js-fade { opacity: 0; transform: translateY(28px); transition: opacity .75s var(--ease-out), transform .75s var(--ease-out); will-change: opacity, transform; }
+.js-fade.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Stagger ---------- */
+.js-stagger-item { opacity: 0; transform: translateY(30px); transition: opacity .62s var(--ease-out), transform .62s var(--ease-out); will-change: opacity, transform; }
+.js-stagger-item.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Text reveal (clip-path per line) ---------- */
+.js-text-reveal__line { display: block; clip-path: inset(0 0 100% 0); transform: translateY(0.3em); transition: clip-path .7s var(--ease-out), transform .7s var(--ease-out); }
+.js-text-reveal__line.is-revealed { clip-path: inset(0 0 -10% 0); transform: translateY(0); }
+
+/* ---------- Card 3D tilt ---------- */
+.js-tilt { transition: transform .3s var(--ease-out); }
+
+/* ---------- Decorative loops ---------- */
+.float-anim { animation: floatY 4.2s ease-in-out infinite; }
+@keyframes floatY { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-14px) rotate(var(--rot,0deg)); } }
+.iphone--back.float-anim { animation-name: floatBack; }
+.iphone--front.float-anim { animation-name: floatFront; }
+@keyframes floatBack { 0%,100% { transform: rotate(-7deg) translateY(0); } 50% { transform: rotate(-7deg) translateY(-16px); } }
+@keyframes floatFront { 0%,100% { transform: rotate(4deg) translateY(0); } 50% { transform: rotate(4deg) translateY(-18px); } }
+
+.pulse-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--color-green); flex-shrink: 0; }
+.pulse-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--color-green); animation: pulseRing 2.2s var(--ease-out) infinite; }
+@keyframes pulseRing { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(3.4); opacity: 0; } }
+
+/* ==========================================================================
+   prefers-reduced-motion — disable all motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+  .marquee-band { display: none; }
+  .js-fade, .js-stagger-item { opacity: 1 !important; transform: none !important; }
+  .js-text-reveal__line { clip-path: none !important; transform: none !important; }
+  #page-reveal { display: none; }
+  .hero__eyebrow, .hero__en, .hero__sub, .hero__actions, .hero__chips, .scroll-indicator { opacity: 1 !important; animation: none !important; }
+  #custom-cursor { display: none; }
+}
