@@ -214,10 +214,7 @@
     initLineReveal();
     initNavHighlight();
     if (!prefersReduced) {
-      initParallax();
       initMagnetic();
-      initCursor();
-      initCardTilt();
     }
   });
 }());

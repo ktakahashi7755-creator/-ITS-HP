@@ -19,32 +19,32 @@
 <link rel="stylesheet" href="css/sections.css">
 <link rel="stylesheet" href="css/animations.css">
 <style>
-  .subhero { position: relative; padding: calc(var(--nav-h) + 90px) 0 90px; background: radial-gradient(120% 120% at 80% 0%, #0A1A38 0%, #050A14 60%); color: #fff; overflow: hidden; }
-  .subhero__blob { position: absolute; width: 420px; height: 420px; border-radius: 50%; filter: blur(70px); top: -120px; right: -80px; background: radial-gradient(circle, rgba(10,132,255,.5), transparent 70%); }
+  .subhero { position: relative; padding: calc(var(--nav-h) + 96px) 0 84px; background: var(--paper); color: var(--ink); overflow: hidden; border-bottom: 1px solid var(--line); }
+  .subhero__blob { display: none; }
   .subhero__inner { position: relative; z-index: 2; }
-  .subhero__crumb { font-family: var(--font-product); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 18px; }
-  .subhero__crumb a { color: var(--color-gold); }
-  .subhero__title { font-size: clamp(34px, 6vw, 64px); font-weight: 900; line-height: 1.1; margin-bottom: 18px; }
-  .subhero__en { font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: clamp(18px, 3vw, 28px); color: rgba(255,255,255,.5); }
+  .subhero__crumb { font-family: var(--font-product); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 22px; }
+  .subhero__crumb a { color: var(--accent); }
+  .subhero__title { font-family: var(--font-display); font-size: clamp(2.6rem, 7vw, 5.2rem); font-weight: 600; line-height: 1.08; margin-bottom: 18px; }
+  .subhero__en { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(18px, 3vw, 28px); color: var(--ink-faint); }
   .svc-detail { padding: var(--section-y) 0; }
-  .svc-detail:nth-child(even) { background: var(--color-alt); }
-  .svc-detail__inner { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(36px, 6vw, 72px); align-items: center; }
+  .svc-detail:nth-child(even) { background: var(--paper); }
+  .svc-detail__inner { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(36px, 6vw, 80px); align-items: center; }
   .svc-detail:nth-child(even) .svc-detail__media { order: 2; }
-  .svc-detail__num { font-family: var(--font-product); font-size: clamp(60px, 12vw, 130px); font-weight: 700; line-height: 1; background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: .9; }
-  .svc-detail__media { display: grid; place-items: center; aspect-ratio: 4/3; border-radius: var(--radius-xl); background: linear-gradient(150deg, #0A1A38, #0A84FF 150%); box-shadow: var(--shadow-lg); }
-  .svc-detail__media svg { width: 40%; height: 40%; color: rgba(255,255,255,.92); }
-  .svc-detail__label { font-family: var(--font-product); font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 14px; }
-  .svc-detail__title { font-size: clamp(24px, 3.4vw, 36px); font-weight: 900; color: var(--color-dark); margin-bottom: 18px; }
-  .svc-detail__text { font-size: 15px; line-height: 2.05; color: var(--color-text-2); margin-bottom: 22px; max-width: 520px; }
-  .svc-detail__list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 520px; }
-  .svc-detail__list li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--color-text); }
-  .svc-detail__list li::before { content: '✓'; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; color: #fff; background: var(--color-primary); flex-shrink: 0; }
+  .svc-detail__num { font-family: var(--font-display); font-size: clamp(60px, 12vw, 130px); font-weight: 600; line-height: 1; color: var(--ink); opacity: .14; margin-bottom: 4px; }
+  .svc-detail__media { display: grid; place-items: center; aspect-ratio: 4/3; border-radius: var(--radius-lg); background: var(--bg); border: 1px solid var(--line); color: var(--ink); }
+  .svc-detail:nth-child(even) .svc-detail__media { background: var(--bg); }
+  .svc-detail__media svg { width: 34%; height: 34%; color: var(--ink); }
+  .svc-detail__label { font-family: var(--font-product); font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .svc-detail__title { font-family: var(--font-display); font-size: clamp(26px, 3.6vw, 40px); font-weight: 600; color: var(--ink); margin-bottom: 20px; }
+  .svc-detail__text { font-size: 15.5px; line-height: 2.1; color: var(--ink-soft); margin-bottom: 26px; max-width: 520px; }
+  .svc-detail__list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; max-width: 520px; }
+  .svc-detail__list li { display: flex; align-items: center; gap: 12px; font-size: 14.5px; color: var(--ink); padding: 13px 0; border-top: 1px solid var(--line); }
+  .svc-detail__list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
   @media (max-width: 900px) { .svc-detail__inner { grid-template-columns: 1fr; } .svc-detail:nth-child(even) .svc-detail__media { order: -1; } .svc-detail__list { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 <div id="scroll-progress" aria-hidden="true"></div>
-<div id="custom-cursor" aria-hidden="true"></div>
 
 <header class="nav is-scrolled" id="nav">
   <div class="nav__inner container">
