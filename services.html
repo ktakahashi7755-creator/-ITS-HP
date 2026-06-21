@@ -31,16 +31,13 @@
   .svc-detail__inner { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(36px, 6vw, 80px); align-items: center; }
   .svc-detail:nth-child(even) .svc-detail__media { order: 2; }
   .svc-detail__num { font-family: var(--font-display); font-size: clamp(60px, 12vw, 130px); font-weight: 600; line-height: 1; color: var(--ink); opacity: .14; margin-bottom: 4px; }
-  /* 案4 — Duotone (brand-unified terracotta tone) */
-  .svc-detail__media { position: relative; display: grid; place-items: center; aspect-ratio: 4/3; border-radius: var(--radius-lg); background: var(--accent); border: 1px solid var(--line); color: var(--ink); overflow: hidden; box-shadow: 0 30px 60px -40px rgba(176,81,47,.5); }
-  .svc-detail__img { width: 100%; height: 100%; object-fit: cover; display: block; mix-blend-mode: luminosity; opacity: .92; filter: contrast(1.04); }
-  .svc-detail__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(176,81,47,.40) 0%, rgba(26,24,20,.32) 100%); pointer-events: none; }
-  .svc-detail__badge { position: absolute; left: 22px; bottom: 20px; z-index: 2; width: 34px; height: 34px; display: grid; place-items: center; color: #fff; }
-  .svc-detail__badge svg { width: 30px; height: 30px; }
-  /* graceful fallback: if a photo fails to load, show centered icon on paper (no tint) */
-  .svc-detail__media.is-fallback { background: var(--bg); }
-  .svc-detail__media.is-fallback::after { display: none; }
-  .svc-detail__media.is-fallback .svc-detail__badge { position: static; width: 34%; height: auto; aspect-ratio: 1; color: var(--ink); }
+  /* clean natural photo (minimal editorial) — no duotone */
+  .svc-detail__media { position: relative; display: grid; place-items: center; aspect-ratio: 4/3; border-radius: var(--radius-lg); background: var(--paper); border: 1px solid var(--line); color: var(--ink); overflow: hidden; box-shadow: 0 26px 56px -38px rgba(26,24,20,.34); }
+  .svc-detail__img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.94) contrast(1.02); }
+  /* icon badge hidden when photo is present; only shown as graceful fallback */
+  .svc-detail__badge { display: none; }
+  .svc-detail__media.is-fallback { background: var(--bg); box-shadow: none; }
+  .svc-detail__media.is-fallback .svc-detail__badge { display: grid; place-items: center; width: 34%; height: auto; aspect-ratio: 1; color: var(--ink); }
   .svc-detail__media.is-fallback .svc-detail__badge svg { width: 100%; height: 100%; }
   .svc-detail__label { font-family: var(--font-product); font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
   .svc-detail__title { font-family: var(--font-display); font-size: clamp(26px, 3.6vw, 40px); font-weight: 600; color: var(--ink); margin-bottom: 20px; }
@@ -95,7 +92,7 @@
   <section class="svc-detail">
     <div class="container svc-detail__inner">
       <div class="svc-detail__media js-fade">
-        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="システム開発：エディタにコードが表示された開発の様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="システム開発：ノートPCでコードを書く開発の様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
         <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M13 6l-2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
       <div class="svc-detail__body js-fade">
@@ -111,7 +108,7 @@
   <section class="svc-detail">
     <div class="container svc-detail__inner">
       <div class="svc-detail__media js-fade">
-        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="ITコンサルティング：分析ダッシュボードと数値で意思決定を支援する様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="ITコンサルティング：データを見ながら戦略を検討する様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
         <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
       <div class="svc-detail__body js-fade">
@@ -127,7 +124,7 @@
   <section class="svc-detail">
     <div class="container svc-detail__inner">
       <div class="svc-detail__media js-fade">
-        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="Web制作・開発：整理されたデスクでノートPCを使い制作する様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="Web制作・開発：チームで画面を見ながら制作を進める様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
         <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 21h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
       </div>
       <div class="svc-detail__body js-fade">
@@ -143,7 +140,7 @@
   <section class="svc-detail">
     <div class="container svc-detail__inner">
       <div class="svc-detail__media js-fade">
-        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="デザイン：ワイヤーフレームを描きながらUI/UXを設計する様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="デザイン：デザインツールでUI/UXを制作する様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
         <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M12 4a8 8 0 010 16M9 9h.01M15 15h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
       </div>
       <div class="svc-detail__body js-fade">
