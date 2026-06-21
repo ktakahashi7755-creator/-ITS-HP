@@ -39,6 +39,8 @@
 .about { background: var(--bg); padding: var(--section-y) 0; }
 .about__inner { display: grid; grid-template-columns: 1fr 1.12fr; gap: clamp(44px, 7vw, 96px); align-items: start; }
 .about__lead { margin: 26px 0 30px; font-size: 17px; line-height: 2.15; color: var(--ink-soft); }
+.about__media { margin-top: 40px; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 16 / 10; background: var(--paper); }
+.about__img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.94) contrast(1.02); }
 .about__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .mvv-card {
   background: var(--bg); padding: 34px 30px; transition: background .4s var(--ease-out);
@@ -148,11 +150,17 @@
 .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.5vw, 32px); }
 .work-card { background: var(--bg); border: 1px solid var(--line); overflow: hidden; transition: transform .4s var(--ease-out), box-shadow .4s var(--ease-out); }
 .work-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-.work-card__thumb { height: 190px; display: grid; place-items: center; position: relative; overflow: hidden; background: var(--paper); border-bottom: 1px solid var(--line); }
-.work-card__thumb--1, .work-card__thumb--2, .work-card__thumb--3 { background: var(--paper); }
-.work-card__index { font-family: var(--font-display); font-size: 72px; font-weight: 600; color: var(--ink); opacity: .12; line-height: 1; }
-.work-card__icon { position: absolute; color: var(--ink); }
-.work-card__icon svg { width: 40px; height: 40px; }
+.work-card__thumb { height: 210px; position: relative; overflow: hidden; background: var(--paper); border-bottom: 1px solid var(--line); }
+.work-card__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; filter: saturate(.94) contrast(1.02); transition: transform .7s var(--ease-out); }
+.work-card:hover .work-card__img { transform: scale(1.05); }
+.work-card__thumb::after { content: ''; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(20,18,15,.5), rgba(20,18,15,0) 60%); }
+.work-card__index { position: absolute; z-index: 3; left: 20px; bottom: 16px; font-family: var(--font-display); font-size: 30px; font-weight: 600; color: #fff; line-height: 1; }
+.work-card__icon { display: none; }
+/* graceful fallback if a photo fails to load */
+.work-card__thumb.is-fallback::after { display: none; }
+.work-card__thumb.is-fallback .work-card__index { left: 50%; top: 50%; bottom: auto; transform: translate(-50%,-50%); color: var(--ink); opacity: .12; font-size: 72px; }
+.work-card__thumb.is-fallback .work-card__icon { display: block; position: absolute; z-index: 3; left: 50%; top: 50%; transform: translate(-50%,-50%); color: var(--ink); }
+.work-card__thumb.is-fallback .work-card__icon svg { width: 40px; height: 40px; }
 .work-card__body { padding: 28px 26px 32px; }
 .work-card__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 .work-card__tags li { font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 100px; color: var(--accent); border: 1px solid var(--accent-soft); background: var(--accent-soft); }
