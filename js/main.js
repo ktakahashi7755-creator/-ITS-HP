@@ -193,6 +193,66 @@
     });
   }
 
+  /* ---------- Hoku Produce showcase (spotlight carousel) ---------- */
+  function initHokuStage() {
+    var stage = document.querySelector('.js-hoku');
+    if (!stage) return;
+    var figs = Array.prototype.slice.call(stage.querySelectorAll('.hoku-fig'));
+    if (!figs.length) return;
+    var roleEl = stage.querySelector('.hoku-stage__role');
+    var subEl = stage.querySelector('.hoku-stage__sub');
+    var dotsWrap = stage.querySelector('.hoku-stage__dots');
+    var n = figs.length, active = 0, timer = null;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var dots = [];
+    figs.forEach(function (f, i) {
+      f.addEventListener('click', function () { go(i); restart(); });
+      var d = document.createElement('button');
+      d.className = 'hoku-dot'; d.type = 'button';
+      d.setAttribute('aria-label', (i + 1) + '番目のHokuを表示');
+      d.addEventListener('click', function () { go(i); restart(); });
+      dotsWrap.appendChild(d); dots.push(d);
+    });
+
+    function layout() {
+      var step = window.innerWidth < 700 ? 118 : 190;
+      figs.forEach(function (f, i) {
+        var rel = i - active;
+        if (rel > n / 2) rel -= n;
+        if (rel < -n / 2) rel += n;
+        var ar = Math.abs(rel);
+        var off = rel * step;
+        var scale = rel === 0 ? 1 : (ar === 1 ? 0.6 : 0.42);
+        var op = rel === 0 ? 1 : (ar === 1 ? 0.5 : (ar === 2 ? 0.16 : 0));
+        f.style.transform = 'translate(calc(-50% + ' + off + 'px), -50%) scale(' + scale + ')';
+        f.style.opacity = op;
+        f.style.zIndex = String(10 - ar);
+        f.classList.toggle('is-active', rel === 0);
+        f.setAttribute('aria-hidden', rel === 0 ? 'false' : 'true');
+        f.tabIndex = rel === 0 ? 0 : -1;
+      });
+      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === active); });
+      var af = figs[active];
+      if (roleEl) roleEl.textContent = af.getAttribute('data-role');
+      if (subEl) subEl.textContent = af.getAttribute('data-sub');
+    }
+    function go(i) { active = (i % n + n) % n; layout(); }
+    function next() { go(active + 1); }
+    function start() { if (reduce || timer) return; timer = setInterval(next, 2800); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function restart() { stop(); start(); }
+
+    layout();
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) start(); else stop(); });
+    }, { threshold: 0.2 });
+    io.observe(stage);
+    stage.addEventListener('mouseenter', stop);
+    stage.addEventListener('mouseleave', start);
+    window.addEventListener('resize', layout, { passive: true });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initNav();
     initDrawer();
@@ -200,5 +260,6 @@
     initHeroCanvas();
     initContactForm();
     initImgFallback();
+    initHokuStage();
   });
 }());
