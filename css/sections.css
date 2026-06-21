@@ -168,11 +168,12 @@
 .work-card__thumb::after { content: ''; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(20,18,15,.5), rgba(20,18,15,0) 60%); }
 .work-card__index { position: absolute; z-index: 3; left: 20px; bottom: 16px; font-family: var(--font-display); font-size: 30px; font-weight: 600; color: #fff; line-height: 1; }
 .work-card__icon { display: none; }
-/* UI screenshot variant: show the whole image (no crop), clean white bg */
-.work-card__thumb--ui { background: #fff; }
-.work-card__thumb--ui .work-card__img { object-fit: contain; filter: none; }
+/* UI screenshot variant: show the whole image framed with even padding (no crop) */
+.work-card__thumb--ui { background: var(--paper); }
+.work-card__thumb--ui .work-card__img { object-fit: contain; object-position: center top; filter: none; padding: 16px 16px 30px; }
+.work-card__thumb--ui:hover .work-card__img { transform: none; }
 .work-card__thumb--ui::after { display: none; }
-.work-card__thumb--ui .work-card__index { color: var(--ink); opacity: .55; text-shadow: 0 1px 3px rgba(255,255,255,.9); }
+.work-card__thumb--ui .work-card__index { color: var(--ink); opacity: .5; bottom: 12px; }
 /* graceful fallback if a photo fails to load */
 .work-card__thumb.is-fallback::after { display: none; }
 .work-card__thumb.is-fallback .work-card__index { left: 50%; top: 50%; bottom: auto; transform: translate(-50%,-50%); color: var(--ink); opacity: .12; font-size: 72px; }
