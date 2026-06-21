@@ -1,22 +1,24 @@
-# Familink 画像（ローカル・フォールバック用）
+# Familink 画像（このリポジトリで自前ホスト）
 
-サイトの Familink セクションの画像は、まず Familink 公式 Pages
-（`https://ktakahashi7755-creator.github.io/Familink/press/...`）を読み込み、
-**失敗した場合はこのフォルダ内の同名ファイルにフォールバック**します（js/main.js の initImgFallback）。
+Familink公式リポジトリ（`ktakahashi7755-creator/Familink`）の `docs/press/` から
+取得した実機スクリーンショット等を、ここに同梱して**自前ホスト**しています。
+公式 Pages（`/Familink/press/...`）が読めない環境でも確実に表示するためです。
 
-公式URLが読み込めない場合（例：press フォルダが Pages に公開されていない等）は、
-下記のファイル名で**実機スクリーンショット等をこのフォルダに置く**と確実に表示されます。
+各 `<img>` は `src` がこのローカル画像、`data-fallback` が公式URL（予備）です。
+（js/main.js の initImgFallback：ローカル失敗時のみ公式へ、両方失敗なら非表示）
 
-| ローカルファイル名 | 内容 | 公式URL（1次ソース） |
+| ファイル | 内容 | 取得元（Familink/docs/press） |
 |---|---|---|
-| `app-icon.png` | アプリアイコン | press/app-icon-256.png |
-| `home.png` | ホーム画面 | press/screens/home.png |
-| `calendar.png` | カレンダー画面 | press/screens/calendar.png |
-| `budget.png` | 家計画面 | press/screens/budget.png |
-| `health.png` | 体調・成長画面 | press/screens/health.png |
-| `tasks.png` | やること画面 | press/screens/tasks.png |
-| `board.png` | 家族ボード画面 | press/screens/board.png |
-| `hoku-screen.png` | Hoku 画面 | press/screens/hoku.png |
-| `hoku.png` | Hoku キャラクター | press/hoku-soft.png |
+| `app-icon.png` | アプリアイコン | app-icon-256.png |
+| `home.jpg` | ホーム画面 | screens/home.png |
+| `calendar.jpg` | カレンダー画面 | screens/calendar.png |
+| `budget.jpg` | 家計画面 | screens/budget.png |
+| `health.jpg` | 体調・成長画面 | screens/health.png |
+| `tasks.jpg` | やること画面 | screens/tasks.png |
+| `board.jpg` | 家族ボード画面 | screens/board.png |
+| `hoku-screen.jpg` | Hoku 画面 | screens/hoku.png |
+| `hoku.png` | Hoku キャラクター（透過） | hoku-soft.png |
 
-※ ファイルを置いたら自動で表示されます（公式URLが生きていれば公式が優先）。
+スクリーンショットは表示サイズに合わせて幅620pxへ縮小しJPEG(q82)化、
+アイコン/キャラクターは透過PNGのまま最適化しています（合計約0.7MB・遅延読込）。
+最新の公式画像に差し替えたい場合は、同名でこのフォルダのファイルを置き換えてください。
