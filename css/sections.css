@@ -246,10 +246,11 @@
 }
 @media (max-width: 900px) {
   .fl-showcase__inner { grid-template-columns: 1fr; }
-  .fl-shots { height: 480px; margin-top: 8px; }
+  /* mobile: single phone in natural flow (no fixed-height overflow) */
+  .fl-shots { position: relative; height: auto; margin-top: 14px; display: flex; justify-content: center; }
   .fl-shot--back { display: none; }
-  .fl-shot--front { right: auto; left: 50%; top: 12px; transform: translateX(-50%); width: 244px; }
-  .fl-hoku { left: 6px; bottom: 22px; width: 104px; }
+  .fl-shot--front { position: static; transform: none; width: min(240px, 62vw); }
+  .fl-hoku { position: absolute; left: 2%; bottom: -6px; width: 90px; }
   .ceo__inner { grid-template-columns: 1fr; }
   .ceo__photo-col { order: -1; align-items: flex-start; }
 }
