@@ -86,7 +86,16 @@
 .fl-showcase__bg { display: none; }
 .fl-showcase__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(44px, 6vw, 84px); align-items: center; }
 .fl-showcase__eyebrow { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-product); font-size: 11.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; }
-.fl-showcase__name { font-family: var(--font-product); font-size: clamp(2.8rem, 6vw, 4.6rem); font-weight: 600; line-height: 1; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 18px; }
+.fl-showcase__brand { display: flex; align-items: center; gap: 18px; margin-bottom: 18px; }
+.fl-showcase__appicon { width: 60px; height: 60px; border-radius: 15px; box-shadow: var(--shadow-md); border: 1px solid var(--line); }
+.fl-showcase__name { font-family: var(--font-product); font-size: clamp(2.8rem, 6vw, 4.6rem); font-weight: 600; line-height: 1; letter-spacing: -0.01em; color: var(--ink); }
+
+/* real screenshot mockups */
+.fl-shots { position: relative; height: 580px; }
+.fl-shot { position: absolute; display: block; background: #fff; border: 9px solid var(--ink); border-radius: 40px; box-shadow: var(--shadow-lg); }
+.fl-shot--back { width: 230px; left: 4%; top: 54px; transform: rotate(-6deg); z-index: 1; }
+.fl-shot--front { width: 262px; right: 4%; top: 0; transform: rotate(3deg); z-index: 2; }
+.fl-hoku { position: absolute; left: -6px; bottom: 28px; width: 124px; height: auto; z-index: 3; filter: drop-shadow(0 10px 18px rgba(26,24,20,.16)); animation: floatY 5s ease-in-out infinite; }
 .fl-showcase__tag { font-family: var(--font-display); font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; color: var(--ink); margin-bottom: 18px; }
 .fl-showcase__desc { font-size: 15px; line-height: 2.05; color: var(--ink-soft); max-width: 480px; }
 .fl-showcase__features { margin: 30px 0 40px; display: grid; gap: 0; }
@@ -237,7 +246,10 @@
 }
 @media (max-width: 900px) {
   .fl-showcase__inner { grid-template-columns: 1fr; }
-  .fl-showcase__mockups { display: none; }
+  .fl-shots { height: 480px; margin-top: 8px; }
+  .fl-shot--back { display: none; }
+  .fl-shot--front { right: auto; left: 50%; top: 12px; transform: translateX(-50%); width: 244px; }
+  .fl-hoku { left: 6px; bottom: 22px; width: 104px; }
   .ceo__inner { grid-template-columns: 1fr; }
   .ceo__photo-col { order: -1; align-items: flex-start; }
 }
