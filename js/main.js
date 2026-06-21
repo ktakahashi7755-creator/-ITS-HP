@@ -173,11 +173,32 @@
     });
   }
 
+  /* ---------- Image fallback (external -> local -> hide) ---------- */
+  function initImgFallback() {
+    var imgs = document.querySelectorAll('img[data-fallback]');
+    Array.prototype.forEach.call(imgs, function (img) {
+      function onErr() {
+        img.removeEventListener('error', onErr);
+        var fb = img.getAttribute('data-fallback');
+        img.removeAttribute('data-fallback');
+        if (fb) {
+          img.addEventListener('error', function () { img.style.visibility = 'hidden'; });
+          img.src = fb;
+        } else {
+          img.style.visibility = 'hidden';
+        }
+      }
+      img.addEventListener('error', onErr);
+      if (img.complete && img.naturalWidth === 0) onErr();
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initNav();
     initDrawer();
     initSmoothScroll();
     initHeroCanvas();
     initContactForm();
+    initImgFallback();
   });
 }());
