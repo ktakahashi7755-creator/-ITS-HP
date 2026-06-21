@@ -31,13 +31,16 @@
   .svc-detail__inner { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(36px, 6vw, 80px); align-items: center; }
   .svc-detail:nth-child(even) .svc-detail__media { order: 2; }
   .svc-detail__num { font-family: var(--font-display); font-size: clamp(60px, 12vw, 130px); font-weight: 600; line-height: 1; color: var(--ink); opacity: .14; margin-bottom: 4px; }
-  .svc-detail__media { position: relative; display: grid; place-items: center; aspect-ratio: 4/3; border-radius: var(--radius-lg); background: var(--bg); border: 1px solid var(--line); color: var(--ink); overflow: hidden; }
-  .svc-detail__img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .svc-detail__badge { position: absolute; left: 20px; bottom: 20px; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--ink); border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(26,24,20,.10); }
-  .svc-detail__badge svg { width: 22px; height: 22px; }
-  /* graceful fallback: if a photo fails to load, show the centered icon as before */
+  /* 案4 — Duotone (brand-unified terracotta tone) */
+  .svc-detail__media { position: relative; display: grid; place-items: center; aspect-ratio: 4/3; border-radius: var(--radius-lg); background: var(--accent); border: 1px solid var(--line); color: var(--ink); overflow: hidden; box-shadow: 0 30px 60px -40px rgba(176,81,47,.5); }
+  .svc-detail__img { width: 100%; height: 100%; object-fit: cover; display: block; mix-blend-mode: luminosity; opacity: .92; filter: contrast(1.04); }
+  .svc-detail__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(176,81,47,.40) 0%, rgba(26,24,20,.32) 100%); pointer-events: none; }
+  .svc-detail__badge { position: absolute; left: 22px; bottom: 20px; z-index: 2; width: 34px; height: 34px; display: grid; place-items: center; color: #fff; }
+  .svc-detail__badge svg { width: 30px; height: 30px; }
+  /* graceful fallback: if a photo fails to load, show centered icon on paper (no tint) */
   .svc-detail__media.is-fallback { background: var(--bg); }
-  .svc-detail__media.is-fallback .svc-detail__badge { position: static; width: 34%; height: auto; aspect-ratio: 1; background: transparent; border: none; box-shadow: none; }
+  .svc-detail__media.is-fallback::after { display: none; }
+  .svc-detail__media.is-fallback .svc-detail__badge { position: static; width: 34%; height: auto; aspect-ratio: 1; color: var(--ink); }
   .svc-detail__media.is-fallback .svc-detail__badge svg { width: 100%; height: 100%; }
   .svc-detail__label { font-family: var(--font-product); font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
   .svc-detail__title { font-family: var(--font-display); font-size: clamp(26px, 3.6vw, 40px); font-weight: 600; color: var(--ink); margin-bottom: 20px; }
