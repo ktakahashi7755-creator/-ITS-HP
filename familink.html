@@ -185,20 +185,24 @@
       <div class="hoku-stage js-hoku">
         <div class="hoku-stage__glow" aria-hidden="true"></div>
         <div class="hoku-stage__track" aria-hidden="true"></div>
-        <div class="hoku-stage__viewport">
-          <button class="hoku-fig" type="button" data-role="消防士のHoku" data-sub="いざという時も、頼れる相棒。" aria-label="消防士のHoku"><img src="images/familink/hoku/firefighter.webp" alt="消防士のHoku" loading="lazy" decoding="async"></button>
-          <button class="hoku-fig" type="button" data-role="ドクターHoku" data-sub="体調や成長の記録も、やさしくサポート。" aria-label="ドクターのHoku"><img src="images/familink/hoku/doctor.webp" alt="ドクターのHoku" loading="lazy" decoding="async"></button>
-          <button class="hoku-fig" type="button" data-role="先生Hoku" data-sub="学びも、毎日の予定も、ひとつに。" aria-label="先生のHoku"><img src="images/familink/hoku/teacher.webp" alt="先生のHoku" loading="lazy" decoding="async"></button>
-          <button class="hoku-fig" type="button" data-role="宇宙飛行士Hoku" data-sub="どんな未来へも、家族と一緒に。" aria-label="宇宙飛行士のHoku"><img src="images/familink/hoku/astronaut.webp" alt="宇宙飛行士のHoku" loading="lazy" decoding="async"></button>
-          <button class="hoku-fig" type="button" data-role="海賊Hoku" data-sub="冒険みたいな毎日を、ナビゲート。" aria-label="海賊のHoku"><img src="images/familink/hoku/pirate.webp" alt="海賊のHoku" loading="lazy" decoding="async"></button>
-          <button class="hoku-fig" type="button" data-role="探偵Hoku" data-sub="「あれどこ？」も、Hokuにおまかせ。" aria-label="探偵のHoku"><img src="images/familink/hoku/detective.webp" alt="探偵のHoku" loading="lazy" decoding="async"></button>
-        </div>
+        <div class="hoku-stage__viewport"></div>
         <div class="hoku-stage__caption" aria-live="polite">
           <span class="hoku-stage__role">消防士のHoku</span>
           <span class="hoku-stage__sub">いざという時も、頼れる相棒。</span>
         </div>
         <div class="hoku-stage__dots" aria-hidden="true"></div>
       </div>
+      <!-- ▼ Hoku一覧（追加はここに1行足して webp を images/familink/hoku/ に置くだけ）▼ -->
+      <script type="application/json" id="hoku-data">
+      [
+        {"file":"images/familink/hoku/firefighter.webp","role":"消防士のHoku","sub":"いざという時も、頼れる相棒。"},
+        {"file":"images/familink/hoku/doctor.webp","role":"ドクターHoku","sub":"体調や成長の記録も、やさしくサポート。"},
+        {"file":"images/familink/hoku/teacher.webp","role":"先生Hoku","sub":"学びも、毎日の予定も、ひとつに。"},
+        {"file":"images/familink/hoku/astronaut.webp","role":"宇宙飛行士Hoku","sub":"どんな未来へも、家族と一緒に。"},
+        {"file":"images/familink/hoku/pirate.webp","role":"海賊Hoku","sub":"冒険みたいな毎日を、ナビゲート。"},
+        {"file":"images/familink/hoku/detective.webp","role":"探偵Hoku","sub":"「あれどこ？」も、Hokuにおまかせ。"}
+      ]
+      </script>
     </div>
   </section>
 

@@ -197,6 +197,26 @@
   function initHokuStage() {
     var stage = document.querySelector('.js-hoku');
     if (!stage) return;
+    // Build figures from JSON config (#hoku-data) so new Hoku = 1 config line + a webp
+    var viewport = stage.querySelector('.hoku-stage__viewport');
+    var dataEl = document.getElementById('hoku-data');
+    if (viewport && dataEl) {
+      try {
+        var list = JSON.parse(dataEl.textContent);
+        if (list && list.length) {
+          viewport.innerHTML = '';
+          list.forEach(function (h) {
+            var btn = document.createElement('button');
+            btn.className = 'hoku-fig'; btn.type = 'button';
+            btn.setAttribute('data-role', h.role || ''); btn.setAttribute('data-sub', h.sub || '');
+            btn.setAttribute('aria-label', h.role || 'Hoku');
+            var img = document.createElement('img');
+            img.src = h.file; img.alt = h.role || 'Hoku'; img.loading = 'lazy'; img.decoding = 'async';
+            btn.appendChild(img); viewport.appendChild(btn);
+          });
+        }
+      } catch (e) {}
+    }
     var figs = Array.prototype.slice.call(stage.querySelectorAll('.hoku-fig'));
     if (!figs.length) return;
     var roleEl = stage.querySelector('.hoku-stage__role');
