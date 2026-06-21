@@ -159,7 +159,7 @@
 
 /* ---------- 09 WORKS ---------- */
 .works { background: var(--paper); padding: var(--section-y) 0; }
-.works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.5vw, 32px); }
+.works-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2.5vw, 32px); max-width: 840px; margin: 0 auto; }
 .work-card { background: var(--bg); border: 1px solid var(--line); overflow: hidden; transition: transform .4s var(--ease-out), box-shadow .4s var(--ease-out); }
 .work-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
 .work-card__thumb { height: 210px; position: relative; overflow: hidden; background: var(--paper); border-bottom: 1px solid var(--line); }
@@ -168,11 +168,6 @@
 .work-card__thumb::after { content: ''; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(20,18,15,.5), rgba(20,18,15,0) 60%); }
 .work-card__index { position: absolute; z-index: 3; left: 20px; bottom: 16px; font-family: var(--font-display); font-size: 30px; font-weight: 600; color: #fff; line-height: 1; }
 .work-card__icon { display: none; }
-/* UI screenshot variant: pre-framed image (even margins baked in) fills the standard thumb */
-.work-card__thumb--ui { background: var(--paper); }
-.work-card__thumb--ui .work-card__img { filter: none; }
-.work-card__thumb--ui::after { display: none; }
-.work-card__thumb--ui .work-card__index { display: none; }
 /* graceful fallback if a photo fails to load */
 .work-card__thumb.is-fallback::after { display: none; }
 .work-card__thumb.is-fallback .work-card__index { left: 50%; top: 50%; bottom: auto; transform: translate(-50%,-50%); color: var(--ink); opacity: .12; font-size: 72px; }
@@ -183,6 +178,24 @@
 .work-card__tags li { font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 100px; color: var(--accent); border: 1px solid var(--accent-soft); background: var(--accent-soft); }
 .work-card__title { font-family: var(--font-display); font-size: 21px; font-weight: 600; color: var(--ink); margin-bottom: 12px; line-height: 1.45; }
 .work-card__text { font-size: 14px; line-height: 1.95; color: var(--ink-soft); }
+
+/* ---------- 09b AI AUTOMATION FEATURE ---------- */
+.ai-auto { background: var(--bg); padding: var(--section-y) 0; border-top: 1px solid var(--line); }
+.ai-auto__screens { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.2vw, 28px); max-width: 980px; margin: 0 auto clamp(44px, 5vw, 68px); align-items: start; }
+.ai-auto__screen { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; box-shadow: 0 22px 50px -28px rgba(26,24,20,.35); }
+.ai-auto__screen img { width: 100%; height: auto; display: block; }
+.ai-auto__screen--mid { transform: translateY(-20px); }
+.ai-auto__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(22px, 3vw, 44px); max-width: 900px; margin: 0 auto; }
+.ai-stat { text-align: center; }
+.ai-stat__icon { width: 50px; height: 50px; margin: 0 auto 16px; display: grid; place-items: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent); }
+.ai-stat__icon svg { width: 23px; height: 23px; }
+.ai-stat__title { font-family: var(--font-display); font-size: 19px; font-weight: 600; color: var(--ink); margin-bottom: 9px; }
+.ai-stat__text { font-size: 13.5px; line-height: 1.95; color: var(--ink-soft); max-width: 260px; margin: 0 auto; }
+@media (max-width: 760px) {
+  .ai-auto__screens { grid-template-columns: 1fr; max-width: 320px; gap: 22px; }
+  .ai-auto__screen--mid { transform: none; }
+  .ai-auto__stats { grid-template-columns: 1fr; gap: 28px; }
+}
 
 /* ---------- 10 CEO MESSAGE (light editorial) ---------- */
 .ceo { background: var(--bg); color: var(--ink); padding: var(--section-y) 0; }
