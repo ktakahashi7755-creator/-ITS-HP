@@ -47,22 +47,21 @@
   .hoku-produce__head .section-eyebrow::before { display: none; }
   .hoku-produce__head .section-title { word-break: keep-all; }
   .hoku-produce__lead { font-size: 16px; line-height: 2.1; color: var(--ink-soft); max-width: 540px; margin: 22px auto 0; }
-  .hoku-stage { position: relative; z-index: 2; height: clamp(290px, 40vw, 420px); margin-top: clamp(28px, 4vw, 52px); }
-  .hoku-stage__glow { position: absolute; left: 50%; top: 46%; width: clamp(260px, 34vw, 420px); aspect-ratio: 1; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(255,221,150,.5), rgba(255,221,150,0) 68%); filter: blur(8px); pointer-events: none; }
-  .hoku-stage__track { position: absolute; left: 8%; right: 8%; top: 70%; height: 0; border-top: 2px dotted #D9CDB8; }
+  .hoku-stage { position: relative; z-index: 2; margin-top: clamp(28px, 4vw, 52px); }
+  .hoku-stage__stage { position: relative; height: clamp(300px, 40vw, 430px); }
+  .hoku-stage__glow { position: absolute; left: 50%; top: 50%; width: clamp(260px, 34vw, 420px); aspect-ratio: 1; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(255,221,150,.5), rgba(255,221,150,0) 68%); filter: blur(8px); pointer-events: none; }
   .hoku-stage__viewport { position: absolute; inset: 0; }
-  .hoku-fig { position: absolute; left: 50%; top: 48%; width: clamp(150px, 22vw, 234px); padding: 0; background: none; border: none; cursor: pointer; opacity: 0; transform: translate(-50%,-50%); transition: transform .7s var(--ease-out), opacity .7s var(--ease-out); will-change: transform, opacity; }
+  .hoku-fig { position: absolute; left: 50%; top: 50%; width: clamp(150px, 22vw, 234px); padding: 0; background: none; border: none; cursor: pointer; opacity: 0; transform: translate(-50%,-50%); transition: transform .7s var(--ease-out), opacity .7s var(--ease-out); will-change: transform, opacity; }
   .hoku-fig img { width: 100%; height: auto; display: block; filter: drop-shadow(0 16px 22px rgba(26,24,20,.22)); }
   .hoku-fig.is-active img { animation: hokuFloat 3s ease-in-out infinite; }
   @keyframes hokuFloat { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-16px) rotate(1deg); } }
-  .hoku-stage__caption { position: absolute; left: 0; right: 0; bottom: -6px; text-align: center; }
+  .hoku-stage__caption { text-align: center; margin-top: clamp(20px, 3vw, 34px); }
   .hoku-stage__role { display: block; font-family: var(--font-display); font-size: clamp(22px, 3vw, 30px); font-weight: 600; color: var(--ink); }
-  .hoku-stage__sub { display: block; font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
-  .hoku-stage__dots { position: absolute; left: 0; right: 0; bottom: -46px; display: flex; gap: 9px; justify-content: center; }
+  .hoku-stage__sub { display: block; font-size: 14px; color: var(--ink-soft); margin-top: 6px; }
+  .hoku-stage__dots { display: flex; gap: 9px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
   .hoku-dot { width: 8px; height: 8px; border-radius: 50%; background: #D9CDB8; border: none; padding: 0; cursor: pointer; transition: transform .3s, background .3s; }
   .hoku-dot.is-active { background: var(--accent); transform: scale(1.35); }
-  .hoku-produce { padding-bottom: calc(var(--section-y) + 40px); }
-  @media (max-width: 700px) { .hoku-stage { height: clamp(260px, 64vw, 330px); } .hoku-stage__track { top: 66%; } }
+  @media (max-width: 700px) { .hoku-stage__stage { height: clamp(270px, 66vw, 330px); } }
   @media (max-width: 900px) {
     .fl-hero__inner { grid-template-columns: 1fr; }
     .fl-hero__visual { min-height: 0; }
@@ -183,9 +182,10 @@
       </div>
 
       <div class="hoku-stage js-hoku">
-        <div class="hoku-stage__glow" aria-hidden="true"></div>
-        <div class="hoku-stage__track" aria-hidden="true"></div>
-        <div class="hoku-stage__viewport"></div>
+        <div class="hoku-stage__stage">
+          <div class="hoku-stage__glow" aria-hidden="true"></div>
+          <div class="hoku-stage__viewport"></div>
+        </div>
         <div class="hoku-stage__caption" aria-live="polite">
           <span class="hoku-stage__role">消防士のHoku</span>
           <span class="hoku-stage__sub">いざという時も、頼れる相棒。</span>
