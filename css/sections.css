@@ -2,20 +2,23 @@
    ITS合同会社 — sections.css  (Editorial / Design-Studio light theme)
    ========================================================================== */
 
-/* ---------- 02 MARQUEE BAND ---------- */
+/* ---------- 02 MARQUEE BAND (seamless infinite loop) ---------- */
 .marquee-band {
   background: var(--bg); height: 64px; overflow: hidden;
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  display: flex; align-items: center;
 }
-.marquee-inner { display: flex; align-items: center; height: 100%; overflow: hidden; }
-.marquee-track { display: flex; align-items: center; white-space: nowrap; animation: anim-marquee 48s linear infinite; will-change: transform; }
-.marquee-track:hover { animation-play-state: paused; }
+.marquee-inner { width: 100%; overflow: hidden; }
+.marquee-track { display: flex; width: max-content; animation: anim-marquee 60s linear infinite; will-change: transform; }
+.marquee-group { display: flex; align-items: center; flex-shrink: 0; }
+@media (hover: hover) { .marquee-track:hover { animation-play-state: paused; } }
 .marquee-item {
+  flex-shrink: 0; white-space: nowrap;
   font-family: var(--font-display); font-style: italic; font-size: 19px; font-weight: 400;
   letter-spacing: 0.01em; color: var(--ink); padding: 0 26px;
 }
-.marquee-sep { color: var(--accent); font-size: 7px; }
-@keyframes anim-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-sep { flex-shrink: 0; color: var(--accent); font-size: 7px; }
+@keyframes anim-marquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }
 
 /* ---------- 03 PHILOSOPHY ---------- */
 .philosophy { background: var(--paper); padding: clamp(100px, 14vw, 184px) 0; text-align: center; }
@@ -46,8 +49,8 @@
   background: var(--bg); padding: 34px 30px; transition: background .4s var(--ease-out);
 }
 .mvv-card:hover { background: var(--paper); }
-.mvv-card__label { font-family: var(--font-product); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
-.mvv-card__title { margin: 14px 0 12px; font-family: var(--font-display); font-size: 23px; font-weight: 600; color: var(--ink); }
+.mvv-card__label { display: block; font-family: var(--font-product); font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.mvv-card__title { margin: 0 0 12px; font-family: var(--font-display); font-size: 23px; font-weight: 600; color: var(--ink); }
 .mvv-card__text { font-size: 14px; line-height: 2; color: var(--ink-soft); }
 .mvv-card--accent { background: var(--ink); }
 .mvv-card--accent:hover { background: var(--ink); }
