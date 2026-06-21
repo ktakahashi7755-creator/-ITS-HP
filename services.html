@@ -31,9 +31,14 @@
   .svc-detail__inner { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(36px, 6vw, 80px); align-items: center; }
   .svc-detail:nth-child(even) .svc-detail__media { order: 2; }
   .svc-detail__num { font-family: var(--font-display); font-size: clamp(60px, 12vw, 130px); font-weight: 600; line-height: 1; color: var(--ink); opacity: .14; margin-bottom: 4px; }
-  .svc-detail__media { display: grid; place-items: center; aspect-ratio: 4/3; border-radius: var(--radius-lg); background: var(--bg); border: 1px solid var(--line); color: var(--ink); }
-  .svc-detail:nth-child(even) .svc-detail__media { background: var(--bg); }
-  .svc-detail__media svg { width: 34%; height: 34%; color: var(--ink); }
+  .svc-detail__media { position: relative; display: grid; place-items: center; aspect-ratio: 4/3; border-radius: var(--radius-lg); background: var(--bg); border: 1px solid var(--line); color: var(--ink); overflow: hidden; }
+  .svc-detail__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .svc-detail__badge { position: absolute; left: 20px; bottom: 20px; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--ink); border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(26,24,20,.10); }
+  .svc-detail__badge svg { width: 22px; height: 22px; }
+  /* graceful fallback: if a photo fails to load, show the centered icon as before */
+  .svc-detail__media.is-fallback { background: var(--bg); }
+  .svc-detail__media.is-fallback .svc-detail__badge { position: static; width: 34%; height: auto; aspect-ratio: 1; background: transparent; border: none; box-shadow: none; }
+  .svc-detail__media.is-fallback .svc-detail__badge svg { width: 100%; height: 100%; }
   .svc-detail__label { font-family: var(--font-product); font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
   .svc-detail__title { font-family: var(--font-display); font-size: clamp(26px, 3.6vw, 40px); font-weight: 600; color: var(--ink); margin-bottom: 20px; }
   .svc-detail__text { font-size: 15.5px; line-height: 2.1; color: var(--ink-soft); margin-bottom: 26px; max-width: 520px; }
@@ -86,7 +91,10 @@
 
   <section class="svc-detail">
     <div class="container svc-detail__inner">
-      <div class="svc-detail__media js-fade" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M13 6l-2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="svc-detail__media js-fade">
+        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="システム開発：エディタにコードが表示された開発の様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M13 6l-2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
       <div class="svc-detail__body js-fade">
         <div class="svc-detail__num">01</div>
         <p class="svc-detail__label">System Development</p>
@@ -99,7 +107,10 @@
 
   <section class="svc-detail">
     <div class="container svc-detail__inner">
-      <div class="svc-detail__media js-fade" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="svc-detail__media js-fade">
+        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="ITコンサルティング：分析ダッシュボードと数値で意思決定を支援する様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
       <div class="svc-detail__body js-fade">
         <div class="svc-detail__num">02</div>
         <p class="svc-detail__label">IT Consulting</p>
@@ -112,7 +123,10 @@
 
   <section class="svc-detail">
     <div class="container svc-detail__inner">
-      <div class="svc-detail__media js-fade" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 21h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      <div class="svc-detail__media js-fade">
+        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="Web制作・開発：整理されたデスクでノートPCを使い制作する様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 21h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      </div>
       <div class="svc-detail__body js-fade">
         <div class="svc-detail__num">03</div>
         <p class="svc-detail__label">Web Production</p>
@@ -125,7 +139,10 @@
 
   <section class="svc-detail">
     <div class="container svc-detail__inner">
-      <div class="svc-detail__media js-fade" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M12 4a8 8 0 010 16M9 9h.01M15 15h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      <div class="svc-detail__media js-fade">
+        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="デザイン：ワイヤーフレームを描きながらUI/UXを設計する様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M12 4a8 8 0 010 16M9 9h.01M15 15h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      </div>
       <div class="svc-detail__body js-fade">
         <div class="svc-detail__num">04</div>
         <p class="svc-detail__label">Design</p>
