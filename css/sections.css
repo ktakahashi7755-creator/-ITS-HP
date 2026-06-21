@@ -168,9 +168,10 @@
 .work-card__thumb::after { content: ''; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(20,18,15,.5), rgba(20,18,15,0) 60%); }
 .work-card__index { position: absolute; z-index: 3; left: 20px; bottom: 16px; font-family: var(--font-display); font-size: 30px; font-weight: 600; color: #fff; line-height: 1; }
 .work-card__icon { display: none; }
-/* framed UI-screenshot variant: pre-margined image fills thumb, no dark scrim/number */
-.work-card__thumb--frame { background: #fff; }
-.work-card__thumb--frame .work-card__img { filter: none; }
+/* framed UI-screenshot variant: image shows fully at card width (no crop, any device) */
+.work-card__thumb--frame { height: auto; background: #fff; }
+.work-card__thumb--frame .work-card__img { position: static; inset: auto; width: 100%; height: auto; object-fit: fill; filter: none; }
+.work-card__thumb--frame:hover .work-card__img { transform: none; }
 .work-card__thumb--frame::after { display: none; }
 .work-card__thumb--frame .work-card__index { display: none; }
 /* graceful fallback if a photo fails to load */
