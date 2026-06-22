@@ -98,6 +98,20 @@
               filter:drop-shadow(0 10px 16px rgba(0,0,0,.14));z-index:3;pointer-events:none}
   @keyframes floaty{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
 
+  /* ---------- Hero Hoku — cinematic 3D entrance ---------- */
+  .hoku-fx{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none}
+  .hoku-hero{position:absolute;left:-6%;bottom:8%;width:clamp(92px,18vw,124px);height:auto;z-index:5;
+             transform-origin:50% 62%;will-change:transform,opacity,filter;pointer-events:none;
+             filter:drop-shadow(0 12px 20px rgba(0,0,0,.16))}
+  .hoku-hero.is-anim{opacity:0}
+  /* gentle perpetual idle once landed (added by JS) */
+  @keyframes hokuIdle{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-5px) rotate(1.5deg)}}
+  .hoku-hero.is-idle{animation:hokuIdle 4.6s ease-in-out infinite}
+  @media(prefers-reduced-motion:reduce){
+    .hoku-fx{display:none}
+    .hoku-hero{opacity:1!important;transform:none!important;animation:floaty 5s ease-in-out infinite}
+  }
+
   /* ---------- header ---------- */
   header.nav{position:sticky;top:0;z-index:50;height:var(--nav-h);display:flex;align-items:center;
              background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(16px);
@@ -287,7 +301,8 @@
     <div class="hero__visual">
       <span class="hero__blob" aria-hidden="true"></span>
       <div class="phone"><img src="images/familink/lp/home.jpg" alt="Familink ホーム画面：家族ボード・やること・今週の予定・体調をひと目で確認" width="640" height="1385" fetchpriority="high"></div>
-      <img class="float-hoku" src="images/familink/hoku/main.webp" alt="AIガイド Hoku" width="118" height="117" loading="eager">
+      <canvas class="hoku-fx" aria-hidden="true"></canvas>
+      <img class="hoku-hero" src="images/familink/hoku/main.webp" alt="AIガイド Hoku — 家族を支えるAIパートナー" width="124" height="123" loading="eager">
     </div>
   </div>
 </section>
@@ -461,6 +476,140 @@
       es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
     },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
     els.forEach(function(e){io.observe(e)});
+  })();
+
+  // ---- Hero Hoku: cinematic 3D entrance + Canvas particle FX ----
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var hoku = document.querySelector('.hoku-hero');
+    var canvas = document.querySelector('.hoku-fx');
+    if(!hoku || !canvas || reduce) return;
+    var stage = hoku.parentElement;            // .hero__visual
+    var ctx = canvas.getContext('2d');
+    var DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var W=0, H=0;
+    function resize(){
+      var r = stage.getBoundingClientRect();
+      W=r.width; H=r.height;
+      canvas.width = Math.round(W*DPR); canvas.height = Math.round(H*DPR);
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+    }
+    resize();
+    window.addEventListener('resize', resize, {passive:true});
+
+    var parts=[], rings=[], halo=0, haloTarget=0, trailOn=false;
+    function emit(x,y,o){
+      o=o||{}; var n=o.n||1;
+      for(var i=0;i<n;i++){
+        var a=Math.random()*Math.PI*2, sp=(o.sp||0.4)*(0.4+Math.random());
+        parts.push({x:x+(Math.random()-.5)*(o.spread||6), y:y+(Math.random()-.5)*(o.spread||6),
+          vx:Math.cos(a)*sp+(o.vx||0), vy:Math.sin(a)*sp+(o.vy||0),
+          life:1, decay:o.decay||(0.012+Math.random()*0.01),
+          size:o.size||(1.2+Math.random()*2.2),
+          star:o.star!=null?o.star:(Math.random()<0.35),
+          hue:o.hue!=null?o.hue:45+Math.random()*12});
+      }
+    }
+    function drawStar(x,y,r,rot){
+      ctx.save();ctx.translate(x,y);ctx.rotate(rot||0);ctx.beginPath();
+      for(var i=0;i<5;i++){
+        var o=(i*2*Math.PI/5)-Math.PI/2;
+        ctx.lineTo(Math.cos(o)*r,Math.sin(o)*r);
+        var o2=o+Math.PI/5; ctx.lineTo(Math.cos(o2)*r*0.46,Math.sin(o2)*r*0.46);
+      }
+      ctx.closePath();ctx.fill();ctx.restore();
+    }
+    function center(){
+      var hr=hoku.getBoundingClientRect(), sr=stage.getBoundingClientRect();
+      return {x:hr.left-sr.left+hr.width/2, y:hr.top-sr.top+hr.height/2, w:hr.width};
+    }
+    function loop(){
+      ctx.clearRect(0,0,W,H);
+      var c=center();
+      halo += (haloTarget-halo)*0.12;
+      if(halo>0.01){
+        var rad=c.w*(0.7+halo*0.9);
+        var g=ctx.createRadialGradient(c.x,c.y,0,c.x,c.y,rad);
+        g.addColorStop(0,'rgba(255,247,210,'+(0.55*halo)+')');
+        g.addColorStop(0.4,'rgba(255,214,128,'+(0.30*halo)+')');
+        g.addColorStop(1,'rgba(255,200,110,0)');
+        ctx.fillStyle=g;ctx.beginPath();ctx.arc(c.x,c.y,rad,0,7);ctx.fill();
+      }
+      ctx.globalCompositeOperation='lighter';
+      for(var ri=rings.length-1;ri>=0;ri--){
+        var rg=rings[ri]; rg.t+=0.022; if(rg.t>=1){rings.splice(ri,1);continue;}
+        var rr=c.w*(0.4+rg.t*2.5);
+        ctx.strokeStyle='rgba(255,'+Math.round(240-rg.t*45)+','+Math.round(195-rg.t*70)+','+(0.55*(1-rg.t))+')';
+        ctx.lineWidth=Math.max(1,4*(1-rg.t));
+        ctx.beginPath();ctx.arc(c.x,c.y,rr,0,7);ctx.stroke();
+      }
+      if(trailOn) emit(c.x, c.y+c.w*0.06, {n:2, sp:0.22, spread:c.w*0.16, decay:0.022, size:1.6});
+      for(var i=parts.length-1;i>=0;i--){
+        var p=parts[i];
+        p.x+=p.vx; p.y+=p.vy; p.vy+=0.015; p.vx*=0.99; p.life-=p.decay;
+        if(p.life<=0){parts.splice(i,1);continue;}
+        ctx.fillStyle='hsla('+p.hue+',100%,70%,'+Math.max(0,p.life)+')';
+        if(p.star) drawStar(p.x,p.y,p.size*1.6,p.life*6);
+        else{ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,7);ctx.fill();}
+      }
+      ctx.globalCompositeOperation='source-over';
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+
+    function P(t){return 'perspective(640px) '+t;}
+    function run(){
+      var s = stage.clientWidth || 360;
+      var sx=s*0.52, sy=-s*0.46;
+      var k=[
+        {transform:P('translate('+sx+'px,'+sy+'px) scale(.12) rotate(28deg)'), opacity:0, offset:0, easing:'cubic-bezier(.2,.7,.3,1)'},
+        {transform:P('translate('+(sx*0.62)+'px,'+(sy*0.66)+'px) scale(.42) rotate(16deg)'), opacity:1, offset:0.13},
+        {transform:P('translate('+(sx*0.20)+'px,'+(sy*0.30-s*0.06)+'px) scale(.72) rotate(-8deg) rotateY(180deg)'), opacity:1, offset:0.30, easing:'ease-in-out'},
+        {transform:P('translate('+(-s*0.14)+'px,'+(sy*0.22)+'px) scale(.86) rotate(6deg) rotateY(360deg)'), opacity:1, offset:0.44, easing:'ease-in-out'},
+        {transform:P('translate('+(s*0.06)+'px,'+(-s*0.04)+'px) scale(.92) rotate(-4deg) rotateY(360deg)'), opacity:1, offset:0.56, easing:'ease-in-out'},
+        {transform:P('translate('+(s*0.02)+'px,'+(-s*0.01)+'px) scale(.88) rotate(-2deg)'), opacity:1, offset:0.66, easing:'ease-out'},
+        {transform:P('translate('+(s*0.02)+'px,'+(-s*0.01)+'px) scale(.84) rotate(-1deg)'), opacity:1, offset:0.72, easing:'ease-in'},
+        {transform:P('translate(0,0) scale(1.06) rotate(1deg)'), opacity:1, offset:0.80, easing:'cubic-bezier(.2,1.4,.4,1)'},
+        {transform:P('translate(0,0) scale(1) rotate(-2deg)'), opacity:1, offset:0.90, easing:'ease-out'},
+        {transform:P('translate(0,0) scale(1) rotate(0deg)'), opacity:1, offset:1}
+      ];
+      var anim=hoku.animate(k,{duration:5200, fill:'forwards'});
+      trailOn=true;
+      setTimeout(function(){haloTarget=0.5;},80);
+      setTimeout(function(){var c=center();emit(c.x,c.y,{n:14,sp:0.7,star:true,spread:c.w*0.4});},2300);
+      setTimeout(function(){haloTarget=0.18;hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16)) brightness(.94)';},3430);
+      setTimeout(function(){            // ③ THE FLASH — ピカーッ
+        trailOn=false; haloTarget=1;
+        hoku.style.filter='drop-shadow(0 14px 22px rgba(0,0,0,.18)) brightness(1.5) saturate(1.05)';
+        rings.push({t:0});
+        var c=center(); emit(c.x,c.y,{n:48,sp:1.5,star:true,spread:c.w*0.2,decay:0.012,size:2.2,hue:48});
+      },3760);
+      setTimeout(function(){haloTarget=0.12;hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16))';},4350);
+      anim.onfinish=function(){
+        hoku.classList.remove('is-anim');
+        hoku.classList.add('is-idle');   // CSS drives gentle float
+        anim.cancel();
+        startIdle();
+      };
+    }
+    function startIdle(){
+      haloTarget=0.10;
+      setInterval(function(){
+        if(document.hidden) return;
+        var c=center();
+        if(Math.random()<0.7) emit(c.x+(Math.random()-.5)*c.w*0.7, c.y+(Math.random()-.5)*c.w*0.7, {n:1,sp:0.12,star:true,decay:0.02,size:1.6});
+      },520);
+      setInterval(function(){            // soft "blink"
+        if(document.hidden) return;
+        hoku.animate([{filter:'drop-shadow(0 12px 20px rgba(0,0,0,.16)) brightness(1)'},
+                      {filter:'drop-shadow(0 12px 20px rgba(0,0,0,.16)) brightness(1.28)',offset:.5},
+                      {filter:'drop-shadow(0 12px 20px rgba(0,0,0,.16)) brightness(1)'}],{duration:300});
+      },3800);
+    }
+
+    hoku.classList.add('is-anim');
+    if(hoku.complete) requestAnimationFrame(run);
+    else hoku.addEventListener('load', function(){requestAnimationFrame(run);});
   })();
 </script>
 </body>
