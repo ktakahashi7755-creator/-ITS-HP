@@ -99,9 +99,9 @@
   @keyframes floaty{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
 
   /* ---------- Hero Hoku — cinematic 3D entrance ---------- */
-  .hoku-fx{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none}
-  .hoku-hero{position:absolute;left:-6%;bottom:8%;width:clamp(92px,18vw,124px);height:auto;z-index:5;
-             transform-origin:50% 62%;will-change:transform,opacity,filter;pointer-events:none;
+  .hoku-fx{position:absolute;inset:0;width:100%;height:100%;z-index:6;pointer-events:none}
+  .hoku-hero{position:absolute;left:0;top:0;width:clamp(92px,18vw,124px);height:auto;z-index:7;
+             transform-origin:50% 60%;will-change:transform,opacity,filter;pointer-events:none;
              filter:drop-shadow(0 12px 20px rgba(0,0,0,.16))}
   .hoku-hero.is-anim{opacity:0}
   /* gentle perpetual idle once landed (added by JS) */
@@ -130,7 +130,7 @@
   @media(max-width:860px){.nav__links{display:none}.nav__its{display:none}}
 
   /* ---------- hero ---------- */
-  .hero{padding:clamp(40px,7vw,76px) 0 clamp(54px,8vw,96px);
+  .hero{position:relative;overflow:hidden;padding:clamp(40px,7vw,76px) 0 clamp(54px,8vw,96px);
         background:radial-gradient(120% 90% at 80% 0%,#E8F3FF 0%,#F2F2F7 52%)}
   .hero__in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,56px);align-items:center}
   .hero__badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border-light);
@@ -301,10 +301,10 @@
     <div class="hero__visual">
       <span class="hero__blob" aria-hidden="true"></span>
       <div class="phone"><img src="images/familink/lp/home.jpg" alt="Familink ホーム画面：家族ボード・やること・今週の予定・体調をひと目で確認" width="640" height="1385" fetchpriority="high"></div>
-      <canvas class="hoku-fx" aria-hidden="true"></canvas>
-      <img class="hoku-hero" src="images/familink/hoku/main.webp" alt="AIガイド Hoku — 家族を支えるAIパートナー" width="124" height="123" loading="eager">
     </div>
   </div>
+  <canvas class="hoku-fx" aria-hidden="true"></canvas>
+  <img class="hoku-hero" src="images/familink/hoku/main.webp" alt="AIガイド Hoku — 家族を支えるAIパートナー" width="124" height="123" loading="eager">
 </section>
 
 <!-- ============ ★1 OCR ============ -->
@@ -478,24 +478,33 @@
     els.forEach(function(e){io.observe(e)});
   })();
 
-  // ---- Hero Hoku: cinematic 3D entrance + Canvas particle FX ----
+  // ---- Hero Hoku: full-screen cinematic entrance + Canvas particle FX ----
   (function(){
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var hoku = document.querySelector('.hoku-hero');
     var canvas = document.querySelector('.hoku-fx');
-    if(!hoku || !canvas || reduce) return;
-    var stage = hoku.parentElement;            // .hero__visual
+    var hero = document.querySelector('.hero');
+    var phone = hero && hero.querySelector('.phone');
+    if(!hoku || !canvas || !hero || !phone) return;
     var ctx = canvas.getContext('2d');
     var DPR = Math.min(window.devicePixelRatio || 1, 2);
-    var W=0, H=0;
-    function resize(){
-      var r = stage.getBoundingClientRect();
-      W=r.width; H=r.height;
-      canvas.width = Math.round(W*DPR); canvas.height = Math.round(H*DPR);
+    var W=0, H=0, rest={x:0,y:0};
+
+    function layout(){                       // size canvas to whole hero + park Hoku at phone's bottom-left
+      var hr=hero.getBoundingClientRect();
+      W=hr.width; H=hr.height;
+      canvas.width=Math.round(W*DPR); canvas.height=Math.round(H*DPR);
       ctx.setTransform(DPR,0,0,DPR,0,0);
+      var pr=phone.getBoundingClientRect();
+      var hw=hoku.offsetWidth||110, hh=hoku.offsetHeight||110;
+      rest.x=(pr.left-hr.left)-hw*0.42;
+      rest.y=(pr.bottom-hr.top)-hh*0.86;
+      hoku.style.left=rest.x+'px';
+      hoku.style.top =rest.y+'px';
     }
-    resize();
-    window.addEventListener('resize', resize, {passive:true});
+    layout();
+    window.addEventListener('resize', layout, {passive:true});
+    if(reduce){ hoku.classList.add('is-idle'); return; }   // positioned; CSS handles gentle float
 
     var parts=[], rings=[], halo=0, haloTarget=0, trailOn=false;
     function emit(x,y,o){
@@ -520,7 +529,7 @@
       ctx.closePath();ctx.fill();ctx.restore();
     }
     function center(){
-      var hr=hoku.getBoundingClientRect(), sr=stage.getBoundingClientRect();
+      var hr=hoku.getBoundingClientRect(), sr=hero.getBoundingClientRect();
       return {x:hr.left-sr.left+hr.width/2, y:hr.top-sr.top+hr.height/2, w:hr.width};
     }
     function loop(){
@@ -528,7 +537,7 @@
       var c=center();
       halo += (haloTarget-halo)*0.12;
       if(halo>0.01){
-        var rad=c.w*(0.7+halo*0.9);
+        var rad=c.w*(0.8+halo*1.1);
         var g=ctx.createRadialGradient(c.x,c.y,0,c.x,c.y,rad);
         g.addColorStop(0,'rgba(255,247,210,'+(0.55*halo)+')');
         g.addColorStop(0.4,'rgba(255,214,128,'+(0.30*halo)+')');
@@ -537,13 +546,16 @@
       }
       ctx.globalCompositeOperation='lighter';
       for(var ri=rings.length-1;ri>=0;ri--){
-        var rg=rings[ri]; rg.t+=0.022; if(rg.t>=1){rings.splice(ri,1);continue;}
-        var rr=c.w*(0.4+rg.t*2.5);
-        ctx.strokeStyle='rgba(255,'+Math.round(240-rg.t*45)+','+Math.round(195-rg.t*70)+','+(0.55*(1-rg.t))+')';
-        ctx.lineWidth=Math.max(1,4*(1-rg.t));
+        var rg=rings[ri]; rg.t+=0.018; if(rg.t>=1){rings.splice(ri,1);continue;}
+        var rr=c.w*(0.4+rg.t*3.6);
+        ctx.strokeStyle='rgba(255,'+Math.round(244-rg.t*45)+','+Math.round(205-rg.t*70)+','+(0.6*(1-rg.t))+')';
+        ctx.lineWidth=Math.max(1,5*(1-rg.t));
         ctx.beginPath();ctx.arc(c.x,c.y,rr,0,7);ctx.stroke();
       }
-      if(trailOn) emit(c.x, c.y+c.w*0.06, {n:2, sp:0.22, spread:c.w*0.16, decay:0.022, size:1.6});
+      if(trailOn){
+        emit(c.x, c.y+c.w*0.06, {n:2, sp:0.22, spread:c.w*0.18, decay:0.02, size:1.7});
+        if(Math.random()<0.75) emit(Math.random()*W, Math.random()*Math.min(H,window.innerHeight||H), {n:1, sp:0.1, star:true, decay:0.016, size:1.6}); // full-screen sparkle
+      }
       for(var i=parts.length-1;i>=0;i--){
         var p=parts[i];
         p.x+=p.vx; p.y+=p.vy; p.vy+=0.015; p.vx*=0.99; p.life-=p.decay;
@@ -557,37 +569,51 @@
     }
     requestAnimationFrame(loop);
 
-    function P(t){return 'perspective(640px) '+t;}
+    // delta from resting spot (transform:0,0) to a fraction of the visible stage
+    // (vertical mapped to the viewport band so the whole flight stays on-screen)
+    function d(fx,fy){ var vh=Math.min(H, window.innerHeight||H); return {x:(W*fx - hoku.offsetWidth/2)-rest.x, y:(vh*fy - hoku.offsetHeight/2)-rest.y}; }
+    function P(t){return 'perspective(720px) '+t;}
+    var DUR=5600;
     function run(){
-      var s = stage.clientWidth || 360;
-      var sx=s*0.52, sy=-s*0.46;
+      var a0=d(0.95,0.05), a1=d(0.80,0.16), a2=d(0.30,0.10), a3=d(0.72,0.42), a4=d(0.26,0.36), a5=d(0.12,0.60);
       var k=[
-        {transform:P('translate('+sx+'px,'+sy+'px) scale(.12) rotate(28deg)'), opacity:0, offset:0, easing:'cubic-bezier(.2,.7,.3,1)'},
-        {transform:P('translate('+(sx*0.62)+'px,'+(sy*0.66)+'px) scale(.42) rotate(16deg)'), opacity:1, offset:0.13},
-        {transform:P('translate('+(sx*0.20)+'px,'+(sy*0.30-s*0.06)+'px) scale(.72) rotate(-8deg) rotateY(180deg)'), opacity:1, offset:0.30, easing:'ease-in-out'},
-        {transform:P('translate('+(-s*0.14)+'px,'+(sy*0.22)+'px) scale(.86) rotate(6deg) rotateY(360deg)'), opacity:1, offset:0.44, easing:'ease-in-out'},
-        {transform:P('translate('+(s*0.06)+'px,'+(-s*0.04)+'px) scale(.92) rotate(-4deg) rotateY(360deg)'), opacity:1, offset:0.56, easing:'ease-in-out'},
-        {transform:P('translate('+(s*0.02)+'px,'+(-s*0.01)+'px) scale(.88) rotate(-2deg)'), opacity:1, offset:0.66, easing:'ease-out'},
-        {transform:P('translate('+(s*0.02)+'px,'+(-s*0.01)+'px) scale(.84) rotate(-1deg)'), opacity:1, offset:0.72, easing:'ease-in'},
-        {transform:P('translate(0,0) scale(1.06) rotate(1deg)'), opacity:1, offset:0.80, easing:'cubic-bezier(.2,1.4,.4,1)'},
-        {transform:P('translate(0,0) scale(1) rotate(-2deg)'), opacity:1, offset:0.90, easing:'ease-out'},
+        // ① shooting star from the top-right CORNER, tiny
+        {transform:P('translate('+a0.x+'px,'+a0.y+'px) scale(.08) rotate(32deg)'), opacity:0, offset:0, easing:'cubic-bezier(.2,.7,.3,1)'},
+        {transform:P('translate('+a1.x+'px,'+a1.y+'px) scale(.38) rotate(18deg)'), opacity:1, offset:0.12},
+        // ② playful flight sweeping the WHOLE screen + 3D spins
+        {transform:P('translate('+a2.x+'px,'+a2.y+'px) scale(.66) rotate(-10deg) rotateY(180deg)'), opacity:1, offset:0.26, easing:'ease-in-out'},
+        {transform:P('translate('+a3.x+'px,'+a3.y+'px) scale(.82) rotate(8deg) rotateY(360deg)'), opacity:1, offset:0.40, easing:'ease-in-out'},
+        {transform:P('translate('+a4.x+'px,'+a4.y+'px) scale(.9) rotate(-6deg) rotateY(540deg)'), opacity:1, offset:0.52, easing:'ease-in-out'},
+        {transform:P('translate('+a5.x+'px,'+a5.y+'px) scale(.95) rotate(3deg) rotateY(720deg)'), opacity:1, offset:0.62, easing:'ease-in'},
+        // ③ ARRIVE at resting spot, then SCRUNCH small (curl up / eyes shut)
+        {transform:P('translate(0,0) scale(.5,.4) rotate(-2deg)'), opacity:1, offset:0.70, easing:'cubic-bezier(.5,0,.6,.4)'},
+        {transform:P('translate(0,0) scale(.36,.3) rotate(0deg)'), opacity:1, offset:0.76, easing:'ease-out'},
+        // …POP! burst open big (eyes fly open) with overshoot
+        {transform:P('translate(0,0) scale(1.22,1.16) rotate(1deg)'), opacity:1, offset:0.82, easing:'cubic-bezier(.2,1.7,.35,1)'},
+        {transform:P('translate(0,0) scale(.94,.97) rotate(-1deg)'), opacity:1, offset:0.88, easing:'ease-in-out'},
+        // ④ settle to final resting pose
+        {transform:P('translate(0,0) scale(1.03,1.01) rotate(.5deg)'), opacity:1, offset:0.94},
         {transform:P('translate(0,0) scale(1) rotate(0deg)'), opacity:1, offset:1}
       ];
-      var anim=hoku.animate(k,{duration:5200, fill:'forwards'});
+      var anim=hoku.animate(k,{duration:DUR, fill:'forwards'});
       trailOn=true;
-      setTimeout(function(){haloTarget=0.5;},80);
-      setTimeout(function(){var c=center();emit(c.x,c.y,{n:14,sp:0.7,star:true,spread:c.w*0.4});},2300);
-      setTimeout(function(){haloTarget=0.18;hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16)) brightness(.94)';},3430);
-      setTimeout(function(){            // ③ THE FLASH — ピカーッ
-        trailOn=false; haloTarget=1;
-        hoku.style.filter='drop-shadow(0 14px 22px rgba(0,0,0,.18)) brightness(1.5) saturate(1.05)';
-        rings.push({t:0});
-        var c=center(); emit(c.x,c.y,{n:48,sp:1.5,star:true,spread:c.w*0.2,decay:0.012,size:2.2,hue:48});
-      },3760);
-      setTimeout(function(){haloTarget=0.12;hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16))';},4350);
+      setTimeout(function(){haloTarget=0.4;},80);
+      setTimeout(function(){var c=center();emit(c.x,c.y,{n:16,sp:0.8,star:true,spread:c.w*0.5});}, DUR*0.40); // mid-flight sparkle accent
+      // gather/dim as it scrunches (the "inhale" before opening)
+      setTimeout(function(){ trailOn=false; haloTarget=0.12; hoku.style.filter='drop-shadow(0 10px 16px rgba(0,0,0,.16)) brightness(.86)'; }, DUR*0.70);
+      // ★ THE POP — バンッと開く
+      setTimeout(function(){
+        haloTarget=1;
+        hoku.style.filter='drop-shadow(0 16px 24px rgba(0,0,0,.2)) brightness(1.6) saturate(1.06)';
+        rings.push({t:0}); rings.push({t:-0.12});
+        var c=center();
+        emit(c.x,c.y,{n:70,sp:1.9,star:true,spread:c.w*0.18,decay:0.01,size:2.4,hue:48});
+        emit(c.x,c.y,{n:30,sp:0.9,star:false,spread:c.w*0.1,decay:0.014,size:1.8,hue:50});
+      }, DUR*0.82);
+      setTimeout(function(){ haloTarget=0.13; hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16))'; }, DUR*0.90);
       anim.onfinish=function(){
         hoku.classList.remove('is-anim');
-        hoku.classList.add('is-idle');   // CSS drives gentle float
+        hoku.classList.add('is-idle');
         anim.cancel();
         startIdle();
       };
@@ -597,7 +623,7 @@
       setInterval(function(){
         if(document.hidden) return;
         var c=center();
-        if(Math.random()<0.7) emit(c.x+(Math.random()-.5)*c.w*0.7, c.y+(Math.random()-.5)*c.w*0.7, {n:1,sp:0.12,star:true,decay:0.02,size:1.6});
+        if(Math.random()<0.7) emit(c.x+(Math.random()-.5)*c.w*0.8, c.y+(Math.random()-.5)*c.w*0.8, {n:1,sp:0.12,star:true,decay:0.02,size:1.6});
       },520);
       setInterval(function(){            // soft "blink"
         if(document.hidden) return;
