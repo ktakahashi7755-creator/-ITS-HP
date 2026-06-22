@@ -100,7 +100,7 @@
 
   /* ---------- Hero Hoku — cinematic 3D entrance ---------- */
   .hoku-fx{position:absolute;inset:0;width:100%;height:100%;z-index:6;pointer-events:none}
-  .hoku-hero{position:absolute;left:0;top:0;width:clamp(92px,18vw,124px);height:auto;z-index:7;
+  .hoku-hero{position:absolute;left:0;top:0;width:clamp(118px,23vw,158px);height:auto;z-index:7;
              transform-origin:50% 60%;will-change:transform,opacity,filter;pointer-events:none;
              filter:drop-shadow(0 12px 20px rgba(0,0,0,.16))}
   .hoku-hero.is-anim{opacity:0}
@@ -304,7 +304,7 @@
     </div>
   </div>
   <canvas class="hoku-fx" aria-hidden="true"></canvas>
-  <img class="hoku-hero" src="images/familink/hoku/main.webp" alt="AIガイド Hoku — 家族を支えるAIパートナー" width="124" height="123" loading="eager">
+  <img class="hoku-hero" src="images/familink/hoku/hero-open.webp" alt="AIガイド Hoku — 家族を支えるAIパートナー" width="600" height="600" loading="eager">
 </section>
 
 <!-- ============ ★1 OCR ============ -->
@@ -506,6 +506,11 @@
     window.addEventListener('resize', layout, {passive:true});
     if(reduce){ hoku.classList.add('is-idle'); return; }   // positioned; CSS handles gentle float
 
+    // three real drawn frames — eyes open / gently closed / scrunched-shut
+    var FR={open:'images/familink/hoku/hero-open.webp',closed:'images/familink/hoku/hero-closed.webp',scrunch:'images/familink/hoku/hero-scrunch.webp'};
+    Object.keys(FR).forEach(function(k){var im=new Image();im.src=FR[k];});
+    function setFrame(k){ hoku.src=FR[k]; }
+
     var parts=[], rings=[], halo=0, haloTarget=0, trailOn=false;
     function emit(x,y,o){
       o=o||{}; var n=o.n||1;
@@ -584,33 +589,37 @@
         {transform:P('translate('+a2.x+'px,'+a2.y+'px) scale(.66) rotate(-10deg) rotateY(180deg)'), opacity:1, offset:0.26, easing:'ease-in-out'},
         {transform:P('translate('+a3.x+'px,'+a3.y+'px) scale(.82) rotate(8deg) rotateY(360deg)'), opacity:1, offset:0.40, easing:'ease-in-out'},
         {transform:P('translate('+a4.x+'px,'+a4.y+'px) scale(.9) rotate(-6deg) rotateY(540deg)'), opacity:1, offset:0.52, easing:'ease-in-out'},
-        {transform:P('translate('+a5.x+'px,'+a5.y+'px) scale(.95) rotate(3deg) rotateY(720deg)'), opacity:1, offset:0.62, easing:'ease-in'},
-        // ③ ARRIVE at resting spot, then SCRUNCH small (curl up / eyes shut)
-        {transform:P('translate(0,0) scale(.5,.4) rotate(-2deg)'), opacity:1, offset:0.70, easing:'cubic-bezier(.5,0,.6,.4)'},
-        {transform:P('translate(0,0) scale(.36,.3) rotate(0deg)'), opacity:1, offset:0.76, easing:'ease-out'},
-        // …POP! burst open big (eyes fly open) with overshoot
-        {transform:P('translate(0,0) scale(1.22,1.16) rotate(1deg)'), opacity:1, offset:0.82, easing:'cubic-bezier(.2,1.7,.35,1)'},
-        {transform:P('translate(0,0) scale(.94,.97) rotate(-1deg)'), opacity:1, offset:0.88, easing:'ease-in-out'},
+        {transform:P('translate('+a5.x+'px,'+a5.y+'px) scale(.95) rotate(3deg) rotateY(720deg)'), opacity:1, offset:0.60, easing:'ease-in'},
+        // ③ arrive, take a breath (eyes close), then SCRUNCH in (artwork carries the squash)
+        {transform:P('translate(0,0) scale(.92) rotate(-2deg)'), opacity:1, offset:0.66, easing:'ease-out'},
+        {transform:P('translate(0,0) scale(.82) rotate(0deg)'), opacity:1, offset:0.72, easing:'cubic-bezier(.5,0,.6,.4)'},
+        {transform:P('translate(0,0) scale(.76) rotate(0deg)'), opacity:1, offset:0.79, easing:'ease-in'},
+        // …POP! eyes fly open, burst big with overshoot
+        {transform:P('translate(0,0) scale(1.2) rotate(1deg)'), opacity:1, offset:0.84, easing:'cubic-bezier(.2,1.7,.35,1)'},
+        {transform:P('translate(0,0) scale(.95) rotate(-1deg)'), opacity:1, offset:0.90, easing:'ease-in-out'},
         // ④ settle to final resting pose
-        {transform:P('translate(0,0) scale(1.03,1.01) rotate(.5deg)'), opacity:1, offset:0.94},
+        {transform:P('translate(0,0) scale(1.03) rotate(.5deg)'), opacity:1, offset:0.96},
         {transform:P('translate(0,0) scale(1) rotate(0deg)'), opacity:1, offset:1}
       ];
       var anim=hoku.animate(k,{duration:DUR, fill:'forwards'});
       trailOn=true;
       setTimeout(function(){haloTarget=0.4;},80);
       setTimeout(function(){var c=center();emit(c.x,c.y,{n:16,sp:0.8,star:true,spread:c.w*0.5});}, DUR*0.40); // mid-flight sparkle accent
-      // gather/dim as it scrunches (the "inhale" before opening)
-      setTimeout(function(){ trailOn=false; haloTarget=0.12; hoku.style.filter='drop-shadow(0 10px 16px rgba(0,0,0,.16)) brightness(.86)'; }, DUR*0.70);
-      // ★ THE POP — バンッと開く
+      // ②→③ breath: eyes gently CLOSE, glow softens
+      setTimeout(function(){ trailOn=false; setFrame('closed'); haloTarget=0.2; hoku.style.filter='drop-shadow(0 11px 18px rgba(0,0,0,.16)) brightness(.96)'; }, DUR*0.64);
+      // scrunch shut, dim further (the "inhale")
+      setTimeout(function(){ setFrame('scrunch'); haloTarget=0.1; hoku.style.filter='drop-shadow(0 9px 14px rgba(0,0,0,.16)) brightness(.84)'; }, DUR*0.72);
+      // ★ THE POP — 目をバンッと開く
       setTimeout(function(){
+        setFrame('open');
         haloTarget=1;
         hoku.style.filter='drop-shadow(0 16px 24px rgba(0,0,0,.2)) brightness(1.6) saturate(1.06)';
         rings.push({t:0}); rings.push({t:-0.12});
         var c=center();
         emit(c.x,c.y,{n:70,sp:1.9,star:true,spread:c.w*0.18,decay:0.01,size:2.4,hue:48});
         emit(c.x,c.y,{n:30,sp:0.9,star:false,spread:c.w*0.1,decay:0.014,size:1.8,hue:50});
-      }, DUR*0.82);
-      setTimeout(function(){ haloTarget=0.13; hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16))'; }, DUR*0.90);
+      }, DUR*0.84);
+      setTimeout(function(){ haloTarget=0.13; hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16))'; }, DUR*0.92);
       anim.onfinish=function(){
         hoku.classList.remove('is-anim');
         hoku.classList.add('is-idle');
@@ -625,12 +634,11 @@
         var c=center();
         if(Math.random()<0.7) emit(c.x+(Math.random()-.5)*c.w*0.8, c.y+(Math.random()-.5)*c.w*0.8, {n:1,sp:0.12,star:true,decay:0.02,size:1.6});
       },520);
-      setInterval(function(){            // soft "blink"
+      setInterval(function(){            // real blink — eyes actually close, then open
         if(document.hidden) return;
-        hoku.animate([{filter:'drop-shadow(0 12px 20px rgba(0,0,0,.16)) brightness(1)'},
-                      {filter:'drop-shadow(0 12px 20px rgba(0,0,0,.16)) brightness(1.28)',offset:.5},
-                      {filter:'drop-shadow(0 12px 20px rgba(0,0,0,.16)) brightness(1)'}],{duration:300});
-      },3800);
+        setFrame('closed');
+        setTimeout(function(){ setFrame('open'); }, 140);
+      },4200);
     }
 
     hoku.classList.add('is-anim');
