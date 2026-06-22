@@ -507,7 +507,7 @@
 
     // drawn frames for the "birth" sequence: featureless orb -> faced glowing orb -> star (open) ; plus blink frame
     var FR={orb:'images/familink/hoku/hero-orb.webp', orbface:'images/familink/hoku/hero-orbface.webp',
-            open:'images/familink/hoku/hero-open.webp', closed:'images/familink/hoku/hero-closed.webp'};
+            scrunch:'images/familink/hoku/hero-scrunch.webp', open:'images/familink/hoku/hero-open.webp'};
     Object.keys(FR).forEach(function(k){var im=new Image();im.src=FR[k];});
     function setFrame(k){ hoku.src=FR[k]; }
 
@@ -541,33 +541,42 @@
     function d(fx,fy){ var vh=Math.min(H, window.innerHeight||H); return {x:(W*fx - hoku.offsetWidth/2)-rest.x, y:(vh*fy - hoku.offsetHeight/2)-rest.y}; }
     var KF=[];
     function buildKF(){
-      var a0=d(0.93,0.07),a1=d(0.72,0.20),a2=d(0.44,0.16),a3=d(0.56,0.40),a4=d(0.26,0.40),a5=d(0.13,0.56);
+      // a smooth single arc sweeping from the top-right corner down to the resting spot
+      var p0=d(0.92,0.08),p1=d(0.70,0.16),p2=d(0.45,0.14),p3=d(0.30,0.28),p4=d(0.18,0.45);
       KF=[
-        {u:0,    x:a0.x,y:a0.y,s:0.06,r:-6,o:0},
-        {u:0.16, x:a1.x,y:a1.y,s:0.30,r:-4,o:1},
-        {u:0.33, x:a2.x,y:a2.y,s:0.48,r:3, o:1},
-        {u:0.49, x:a3.x,y:a3.y,s:0.64,r:-3,o:1},
-        {u:0.64, x:a4.x,y:a4.y,s:0.80,r:2, o:1},
-        {u:0.75, x:a5.x,y:a5.y,s:0.91,r:-1,o:1},
-        {u:0.81, x:0,y:0,s:0.86,r:0,o:1},     // gather
-        {u:0.87, x:0,y:0,s:1.15,r:0,o:1},     // ぱんっ overshoot
-        {u:0.94, x:0,y:0,s:0.985,r:0,o:1},
-        {u:1,    x:0,y:0,s:1,r:0,o:1}
+        {u:0,     x:p0.x,y:p0.y,s:0.05,r:-6,o:0},
+        {u:0.15,  x:p1.x,y:p1.y,s:0.28,r:-4,o:1},
+        {u:0.31,  x:p2.x,y:p2.y,s:0.46,r:3, o:1},
+        {u:0.46,  x:p3.x,y:p3.y,s:0.62,r:-2,o:1},
+        {u:0.61,  x:p4.x,y:p4.y,s:0.78,r:1, o:1},
+        {u:0.74,  x:0,y:0,s:0.90,r:0,o:1},   // arrive at the spot
+        {u:0.80,  x:0,y:0,s:0.82,r:0,o:1},   // gather (orb pulls in)
+        {u:0.855, x:0,y:0,s:1.12,r:0,o:1},   // ぱんっ — face blooms (orbface flash)
+        {u:0.895, x:0,y:0,s:0.84,r:0,o:1},   // むっと縮こまる (scrunch, eyes shut)
+        {u:0.945, x:0,y:0,s:1.07,r:0,o:1},   // ぱっと開く (eyes pop open)
+        {u:0.98,  x:0,y:0,s:0.99,r:0,o:1},
+        {u:1,     x:0,y:0,s:1,r:0,o:1}
       ];
     }
     buildKF();
     window.addEventListener('resize', function(){ layout(); buildKF(); }, {passive:true});
     function smooth(t){ return t*t*(3-2*t); }
+    // Catmull-Rom: velocity is continuous through every waypoint → no per-point stutter
+    function cr(p0,p1,p2,p3,t){ var t2=t*t,t3=t2*t;
+      return 0.5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t2+(-p0+3*p1-3*p2+p3)*t3); }
     function sample(u){
-      if(u<=0) return KF[0];
-      if(u>=1) return KF[KF.length-1];
-      for(var i=0;i<KF.length-1;i++){
-        if(u<=KF[i+1].u){
-          var a=KF[i],b=KF[i+1],k=smooth((u-a.u)/(b.u-a.u));
-          return {x:a.x+(b.x-a.x)*k, y:a.y+(b.y-a.y)*k, s:a.s+(b.s-a.s)*k, r:a.r+(b.r-a.r)*k, o:a.o+(b.o-a.o)*k};
-        }
-      }
-      return KF[KF.length-1];
+      var L=KF.length-1;
+      if(u<=0){var f=KF[0];return {x:f.x,y:f.y,s:f.s,r:f.r,o:f.o};}
+      if(u>=1){var l=KF[L];return {x:l.x,y:l.y,s:l.s,r:l.r,o:l.o};}
+      var i=0; while(i<L && u>KF[i+1].u) i++;
+      var a=KF[i], b=KF[i+1], p=KF[i-1]||a, q=KF[i+2]||b, t=(u-a.u)/(b.u-a.u);
+      return {
+        x:cr(p.x,a.x,b.x,q.x,t),
+        y:cr(p.y,a.y,b.y,q.y,t),
+        s:Math.max(0.02, cr(p.s,a.s,b.s,q.s,t)),
+        r:cr(p.r,a.r,b.r,q.r,t),
+        o:Math.max(0,Math.min(1, a.o+(b.o-a.o)*smooth(t)))
+      };
     }
 
     function render(){
@@ -603,7 +612,7 @@
     }
 
     // ---- one deterministic timeline drives everything (no WAAPI / no setTimeout) ----
-    var INTRO=4900, started=false, t0=0, ph={trail:true,popped:false,bloomed:false,done:false};
+    var INTRO=5200, started=false, t0=0, ph={trail:true,popped:false,scrunched:false,bloomed:false,done:false};
     function tick(ts){
       if(!started){ started=true; t0=ts; }
       var t=ts-t0;
@@ -612,19 +621,23 @@
         var st=sample(u);
         hoku.style.transform='perspective(720px) translate('+st.x.toFixed(1)+'px,'+st.y.toFixed(1)+'px) scale('+st.s.toFixed(3)+') rotate('+st.r.toFixed(2)+'deg)';
         hoku.style.opacity=st.o;
-        if(ph.trail && u<0.79 && !document.hidden){
+        if(ph.trail && u<0.78 && !document.hidden){
           var c=center();
           emit(c.x, c.y+c.w*0.06, {n:2, sp:0.22, spread:c.w*0.18, decay:0.02, size:1.7});
-          if(Math.random()<0.65) emit(Math.random()*W, Math.random()*Math.min(H,window.innerHeight||H), {n:1, sp:0.1, star:true, decay:0.016, size:1.6});
+          if(Math.random()<0.6) emit(Math.random()*W, Math.random()*Math.min(H,window.innerHeight||H), {n:1, sp:0.1, star:true, decay:0.016, size:1.6});
         }
-        if(ph.trail && u>=0.79){ ph.trail=false; haloTarget=0.18; hoku.style.filter='drop-shadow(0 10px 16px rgba(0,0,0,.16)) brightness(.92)'; }
-        if(!ph.popped && u>=0.855){ ph.popped=true; setFrame('orbface'); haloTarget=1;   // ★ ぱんっ
+        if(ph.trail && u>=0.78){ ph.trail=false; haloTarget=0.18; hoku.style.filter='drop-shadow(0 10px 16px rgba(0,0,0,.16)) brightness(.9)'; }
+        if(!ph.popped && u>=0.835){ ph.popped=true; setFrame('orbface'); haloTarget=1;   // ★ ぱんっ — face blooms
           hoku.style.filter='drop-shadow(0 16px 24px rgba(0,0,0,.2)) brightness(1.5) saturate(1.04)';
           rings.push({t:0}); var cc=center();
-          emit(cc.x,cc.y,{n:70,sp:1.8,star:true,spread:cc.w*0.16,decay:0.011,size:2.4,hue:48});
-          emit(cc.x,cc.y,{n:26,sp:0.85,star:false,spread:cc.w*0.1,decay:0.015,size:1.7,hue:50});
+          emit(cc.x,cc.y,{n:64,sp:1.8,star:true,spread:cc.w*0.16,decay:0.011,size:2.4,hue:48});
+          emit(cc.x,cc.y,{n:24,sp:0.85,star:false,spread:cc.w*0.1,decay:0.015,size:1.7,hue:50});
         }
-        if(!ph.bloomed && u>=0.915){ ph.bloomed=true; setFrame('open'); }   // bloom to star under the flash
+        if(!ph.scrunched && u>=0.875){ ph.scrunched=true; setFrame('scrunch');   // むっと縮こまる (eyes shut)
+          haloTarget=0.7; hoku.style.filter='drop-shadow(0 12px 18px rgba(0,0,0,.18)) brightness(1.06)'; }
+        if(!ph.bloomed && u>=0.925){ ph.bloomed=true; setFrame('open'); haloTarget=1;   // ぱっと開く (eyes open)
+          rings.push({t:0}); var co=center();
+          emit(co.x,co.y,{n:34,sp:1.3,star:true,spread:co.w*0.14,decay:0.013,size:2.0,hue:48}); }
         if(u>=1){ ph.done=true;                                            // finalize once, cleanly
           setFrame('open');
           hoku.style.transform=''; hoku.style.opacity='';
