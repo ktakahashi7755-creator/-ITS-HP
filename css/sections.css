@@ -95,9 +95,9 @@
 
 /* real screenshot mockups */
 .fl-shots { position: relative; height: 580px; }
-.fl-shot { position: absolute; display: block; background: #fff; border: 9px solid var(--ink); border-radius: 40px; box-shadow: var(--shadow-lg); }
-.fl-shot--back { width: 230px; left: 4%; top: 54px; transform: rotate(-6deg); z-index: 1; }
-.fl-shot--front { width: 262px; right: 4%; top: 0; transform: rotate(3deg); z-index: 2; }
+.fl-shot { position: absolute; display: block; box-sizing: content-box; height: auto; background: #fff; border: 9px solid var(--ink); border-radius: 40px; box-shadow: var(--shadow-lg); }
+.fl-shot--back { width: 212px; left: 4%; top: 54px; transform: rotate(-6deg); z-index: 1; }
+.fl-shot--front { width: 244px; right: 4%; top: 0; transform: rotate(3deg); z-index: 2; }
 .fl-hoku { position: absolute; left: -6px; bottom: 28px; width: 124px; height: auto; z-index: 3; filter: drop-shadow(0 10px 18px rgba(26,24,20,.16)); animation: floatY 5s ease-in-out infinite; }
 .fl-showcase__tag { font-family: var(--font-display); font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; color: var(--ink); margin-bottom: 18px; }
 .fl-showcase__desc { font-size: 15px; line-height: 2.05; color: var(--ink-soft); max-width: 480px; }
