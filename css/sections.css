@@ -190,7 +190,7 @@
   .work-card--wide { display: grid; grid-template-columns: 1.3fr 1fr; }
   .work-card--wide .work-card__thumb { border-bottom: none; border-right: 1px solid var(--line); }
   .work-card--wide .work-card__body { display: flex; flex-direction: column; justify-content: center; padding: 44px clamp(34px, 3.6vw, 52px); }
-  .work-card--wide .work-card__title { font-size: clamp(24px, 2.4vw, 30px); }
+  .work-card--wide .work-card__title { font-size: clamp(24px, 2.4vw, 30px); word-break: keep-all; }
   .work-card--wide .work-card__text { font-size: 15px; line-height: 2.05; }
 }
 
