@@ -33,7 +33,7 @@
   .subhero__en { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(18px, 3vw, 28px); color: var(--ink-faint); }
   .svc-detail { padding: var(--section-y) 0; }
   .svc-detail:nth-child(even) { background: var(--paper); }
-  .svc-detail__inner { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(36px, 6vw, 80px); align-items: center; }
+  .svc-detail__inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 80px); align-items: center; }
   .svc-detail:nth-child(even) .svc-detail__media { order: 2; }
   .svc-detail__num { font-family: var(--font-display); font-size: clamp(60px, 12vw, 130px); font-weight: 600; line-height: 1; color: var(--ink); opacity: .14; margin-bottom: 4px; }
   /* clean natural photo (minimal editorial) — no duotone */
@@ -113,7 +113,7 @@
   <section class="svc-detail">
     <div class="container svc-detail__inner">
       <div class="svc-detail__media js-fade">
-        <img class="svc-detail__img" src="images/svc-consulting.webp" width="1000" height="665" alt="ITコンサルティング：クライアントへ提案する商談の様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <img class="svc-detail__img" src="images/svc-consulting.webp?v=2" width="1024" height="682" alt="ITコンサルティング：クライアントへ提案する商談の様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
         <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
       <div class="svc-detail__body js-fade">
