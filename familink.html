@@ -104,9 +104,9 @@
              transform-origin:50% 60%;will-change:transform,opacity,filter;pointer-events:none;
              filter:drop-shadow(0 12px 20px rgba(0,0,0,.16))}
   .hoku-hero.is-anim{opacity:0}
-  /* gentle perpetual idle once landed (added by JS) */
-  @keyframes hokuIdle{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-5px) rotate(1.5deg)}}
-  .hoku-hero.is-idle{animation:hokuIdle 4.6s ease-in-out infinite}
+  /* gentle perpetual idle once landed (added by JS) — starts at neutral for a seamless hand-off */
+  @keyframes hokuIdle{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-6px) rotate(1.3deg)}}
+  .hoku-hero.is-idle{animation:hokuIdle 5s ease-in-out infinite}
   @media(prefers-reduced-motion:reduce){
     .hoku-fx{display:none}
     .hoku-hero{opacity:1!important;transform:none!important;animation:floaty 5s ease-in-out infinite}
@@ -612,16 +612,18 @@
     }
 
     // ---- one deterministic timeline drives everything (no WAAPI / no setTimeout) ----
-    var INTRO=5200, started=false, t0=0, ph={trail:true,popped:false,scrunched:false,bloomed:false,done:false};
+    var INTRO=5200, started=false, t0=0, off=false, ph={trail:true,popped:false,scrunched:false,bloomed:false,done:false};
     function tick(ts){
       if(!started){ started=true; t0=ts; }
       var t=ts-t0;
+      var hr=hero.getBoundingClientRect();
+      var vis = hr.bottom>0 && hr.top<(window.innerHeight||document.documentElement.clientHeight||H);
       if(!ph.done){
         var u=t/INTRO; if(u>1) u=1;
         var st=sample(u);
         hoku.style.transform='perspective(720px) translate('+st.x.toFixed(1)+'px,'+st.y.toFixed(1)+'px) scale('+st.s.toFixed(3)+') rotate('+st.r.toFixed(2)+'deg)';
         hoku.style.opacity=st.o;
-        if(ph.trail && u<0.78 && !document.hidden){
+        if(ph.trail && u<0.78 && vis && !document.hidden){
           var c=center();
           emit(c.x, c.y+c.w*0.06, {n:2, sp:0.22, spread:c.w*0.18, decay:0.02, size:1.7});
           if(Math.random()<0.6) emit(Math.random()*W, Math.random()*Math.min(H,window.innerHeight||H), {n:1, sp:0.1, star:true, decay:0.016, size:1.6});
@@ -645,10 +647,11 @@
           hoku.classList.remove('is-anim'); hoku.classList.add('is-idle');
           haloTarget=0.10;
         }
-      } else if(!document.hidden && Math.random()<0.05){   // idle: occasional ambient sparkle only
+      } else if(vis && !document.hidden && Math.random()<0.05){   // idle: occasional ambient sparkle only
         var ci=center(); emit(ci.x+(Math.random()-.5)*ci.w*0.8, ci.y+(Math.random()-.5)*ci.w*0.8, {n:1,sp:0.12,star:true,decay:0.02,size:1.6});
       }
-      render();
+      if(vis){ off=false; render(); }              // draw only while the hero is on-screen (saves battery)
+      else if(!off){ off=true; ctx.clearRect(0,0,W,H); }
       requestAnimationFrame(tick);
     }
 
