@@ -14,38 +14,53 @@
 ## ファイル構成
 
 ```
-├── index.html            # トップページ（14セクション）
+├── index.html            # トップページ
 ├── services.html         # サービス詳細
-├── familink.html         # 自社プロダクト Familink
+├── familink.html         # 自社プロダクト Familink 製品ページ（LP・Familinkブランド・自己完結CSS）
 ├── css/
-│   ├── style.css         # デザイントークン・base・nav・hero・footer
-│   ├── sections.css      # 各セクション固有スタイル
+│   ├── style.css         # デザイントークン・base・nav・hero・footer（ITSサイト用）
+│   ├── sections.css      # 各セクション固有スタイル（ITSサイト用）
 │   └── animations.css    # スクロールリビール・カーソル・装飾モーション
 ├── js/
 │   ├── main.js           # ナビ・スムーズスクロール・Canvasパーティクル・フォーム
-│   └── animations.js     # スクロール演出 11関数（counter / text-reveal / magnetic 他）
-├── docs/                 # 要件定義・基本設計・詳細設計書（v2.0）
-├── images/               # 画像アセット
+│   └── animations.js     # スクロール演出
+├── docs/                 # 要件定義・基本設計・詳細設計書
+├── images/
+│   ├── familink/lp/      # Familink LP の実機スクショ・マスコット・OGP（Familink repo由来）
+│   └── ...               # ITSサイトの画像アセット
 ├── robots.txt
 └── sitemap.xml
 ```
 
-## 主なセクション（index.html）
+## Familink 製品ページ（familink.html）
 
-1. Hero — Canvasパーティクル + 大型テキスト + 2CTA
-2. Marquee Band — 技術キーワードティッカー
-3. Philosophy — 大型哲学ステートメント（Cormorant Garamond）
-4. About — Mission / Vision / Value / Product
-5. Stats — カウンターアニメーション
-6. Services — 4サービス（スタガー + 3Dティルト）
-7. Familink Showcase — 自社プロダクト（iPhoneモックアップ）
-8. Strengths — 選ばれる6つの理由
-9. Works — 実績
-10. CEO Message — 代表メッセージ
-11. Company — 会社概要
-12. CTA Band — 問い合わせ誘導
-13. Contact — お問い合わせフォーム（バリデーション付き）
-14. Footer
+ITS の自社プロダクト Familink の高コンバージョン LP。**Familink自身のブランド**（Primary `#0A84FF` / Secondary `#34C759` / Accent `#FF9F0A` / 背景 `#F2F2F7`、見出し Poppins・本文 Noto Sans JP）で構築し、`tokens.json`（Familinkリポジトリ）の正値に一致させています。1ファイル自己完結（インラインCSS / Vanilla JS）でITSサイトのCSSには依存しません。
+
+**構成（狙い）**
+1. ヒーロー — タグライン＋home実機モック＋浮かぶHoku＋CTA（第一印象とCV導線）
+2. ★予定表まるごとOCR — 「写真1枚でカレンダーに」＋3ステップ（最大の差別化を最初に）
+3. ★Hokuエージェント — 「話すだけで動く」＋できること一覧（AIの実用価値）
+4. ★ファミコイン×着せ替え — 連続ログイン報酬（継続・習慣化の訴求）
+5. 機能まとめ — calendar/tasks/budget/board/health/hoku の6カード
+6. 世界観・会社 — 3児パパが作る／提供：ITS合同会社
+7. CTA＋フッター
+
+**画像の出典**：`images/familink/lp/` は Familink リポジトリ（`docs/press/`）の実機@3xスクショ・マスコット（`hoku-soft`）・`app-icon` をWeb最適化して自己ホスト。OGPカード（`ogp.png`）は本リポジトリで生成。
+
+**要設定プレースホルダ（捏造せず空けてある箇所）**
+- フッターの「利用規約」「プライバシーポリシー」リンク（現在 `href="#"`、`要設定` バッジ付き）→ 正式な法務ページURLに差し替え
+- 正式な料金プラン表記（現状は「基本無料」のみ記載。有料/プレミアムの正式条件は未記載）
+
+## デプロイ（GitHub Pages）
+
+静的サイトのため**ビルド不要**。`main` ブランチへ push すると GitHub Pages（`Deploy to GitHub Pages` ワークフロー）が自動配信します。
+
+```bash
+git add -A && git commit -m "update" && git push origin main
+# → https://ktakahashi7755-creator.github.io/-ITS-HP/
+```
+
+画像を**同名で差し替えた**場合はブラウザ/CDNキャッシュ対策として参照URLに `?v=N` を付与してください。
 
 ## アクセシビリティ / パフォーマンス
 
