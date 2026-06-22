@@ -506,8 +506,9 @@
     window.addEventListener('resize', layout, {passive:true});
     if(reduce){ hoku.classList.add('is-idle'); return; }   // positioned; CSS handles gentle float
 
-    // three real drawn frames — eyes open / gently closed / scrunched-shut
-    var FR={open:'images/familink/hoku/hero-open.webp',closed:'images/familink/hoku/hero-closed.webp',scrunch:'images/familink/hoku/hero-scrunch.webp'};
+    // drawn frames for the "birth" sequence: featureless orb -> faced glowing orb -> star (open) ; plus blink frame
+    var FR={orb:'images/familink/hoku/hero-orb.webp', orbface:'images/familink/hoku/hero-orbface.webp',
+            open:'images/familink/hoku/hero-open.webp', closed:'images/familink/hoku/hero-closed.webp'};
     Object.keys(FR).forEach(function(k){var im=new Image();im.src=FR[k];});
     function setFrame(k){ hoku.src=FR[k]; }
 
@@ -552,6 +553,7 @@
       ctx.globalCompositeOperation='lighter';
       for(var ri=rings.length-1;ri>=0;ri--){
         var rg=rings[ri]; rg.t+=0.018; if(rg.t>=1){rings.splice(ri,1);continue;}
+        if(rg.t<=0) continue;            // delayed ring: wait until it actually starts (avoids negative radius)
         var rr=c.w*(0.4+rg.t*3.6);
         ctx.strokeStyle='rgba(255,'+Math.round(244-rg.t*45)+','+Math.round(205-rg.t*70)+','+(0.6*(1-rg.t))+')';
         ctx.lineWidth=Math.max(1,5*(1-rg.t));
@@ -580,47 +582,48 @@
     function P(t){return 'perspective(720px) '+t;}
     var DUR=5600;
     function run(){
-      var a0=d(0.95,0.05), a1=d(0.80,0.16), a2=d(0.30,0.10), a3=d(0.72,0.42), a4=d(0.26,0.36), a5=d(0.12,0.60);
+      setFrame('orb');                       // start as a featureless light-orb (no face)
+      var a0=d(0.95,0.05), a1=d(0.80,0.16), a2=d(0.30,0.10), a3=d(0.72,0.42), a4=d(0.26,0.36), a5=d(0.14,0.58);
       var k=[
-        // ① shooting star from the top-right CORNER, tiny
-        {transform:P('translate('+a0.x+'px,'+a0.y+'px) scale(.08) rotate(32deg)'), opacity:0, offset:0, easing:'cubic-bezier(.2,.7,.3,1)'},
-        {transform:P('translate('+a1.x+'px,'+a1.y+'px) scale(.38) rotate(18deg)'), opacity:1, offset:0.12},
-        // ② playful flight sweeping the WHOLE screen + 3D spins
-        {transform:P('translate('+a2.x+'px,'+a2.y+'px) scale(.66) rotate(-10deg) rotateY(180deg)'), opacity:1, offset:0.26, easing:'ease-in-out'},
-        {transform:P('translate('+a3.x+'px,'+a3.y+'px) scale(.82) rotate(8deg) rotateY(360deg)'), opacity:1, offset:0.40, easing:'ease-in-out'},
-        {transform:P('translate('+a4.x+'px,'+a4.y+'px) scale(.9) rotate(-6deg) rotateY(540deg)'), opacity:1, offset:0.52, easing:'ease-in-out'},
-        {transform:P('translate('+a5.x+'px,'+a5.y+'px) scale(.95) rotate(3deg) rotateY(720deg)'), opacity:1, offset:0.60, easing:'ease-in'},
-        // ③ arrive, take a breath (eyes close), then SCRUNCH in (artwork carries the squash)
-        {transform:P('translate(0,0) scale(.92) rotate(-2deg)'), opacity:1, offset:0.66, easing:'ease-out'},
-        {transform:P('translate(0,0) scale(.82) rotate(0deg)'), opacity:1, offset:0.72, easing:'cubic-bezier(.5,0,.6,.4)'},
-        {transform:P('translate(0,0) scale(.76) rotate(0deg)'), opacity:1, offset:0.79, easing:'ease-in'},
-        // …POP! eyes fly open, burst big with overshoot
-        {transform:P('translate(0,0) scale(1.2) rotate(1deg)'), opacity:1, offset:0.84, easing:'cubic-bezier(.2,1.7,.35,1)'},
-        {transform:P('translate(0,0) scale(.95) rotate(-1deg)'), opacity:1, offset:0.90, easing:'ease-in-out'},
-        // ④ settle to final resting pose
-        {transform:P('translate(0,0) scale(1.03) rotate(.5deg)'), opacity:1, offset:0.96},
+        // ① a tiny light-orb streaks in from the top-right CORNER
+        {transform:P('translate('+a0.x+'px,'+a0.y+'px) scale(.05) rotate(20deg)'), opacity:0, offset:0, easing:'cubic-bezier(.2,.7,.3,1)'},
+        {transform:P('translate('+a1.x+'px,'+a1.y+'px) scale(.26) rotateY(120deg)'), opacity:1, offset:0.12},
+        // ② tumbles across the WHOLE screen, spinning and GROWING
+        {transform:P('translate('+a2.x+'px,'+a2.y+'px) scale(.44) rotateY(360deg)'), opacity:1, offset:0.26, easing:'ease-in-out'},
+        {transform:P('translate('+a3.x+'px,'+a3.y+'px) scale(.62) rotateY(540deg)'), opacity:1, offset:0.40, easing:'ease-in-out'},
+        {transform:P('translate('+a4.x+'px,'+a4.y+'px) scale(.8) rotateY(720deg)'), opacity:1, offset:0.52, easing:'ease-in-out'},
+        {transform:P('translate('+a5.x+'px,'+a5.y+'px) scale(.92) rotateY(900deg)'), opacity:1, offset:0.62, easing:'ease-in'},
+        // ③ gathers / pulls inward — the calm before
+        {transform:P('translate(0,0) scale(.8) rotateY(1080deg)'), opacity:1, offset:0.70, easing:'cubic-bezier(.5,0,.6,.4)'},
+        {transform:P('translate(0,0) scale(.7)'), opacity:1, offset:0.77, easing:'ease-in'},
+        // …ぱんっ！ face bursts into being, big overshoot
+        {transform:P('translate(0,0) scale(1.28)'), opacity:1, offset:0.82, easing:'cubic-bezier(.2,1.8,.35,1)'},
+        // ④ blooms into the star and settles
+        {transform:P('translate(0,0) scale(1.04) rotate(-1deg)'), opacity:1, offset:0.89, easing:'ease-in-out'},
+        {transform:P('translate(0,0) scale(.99) rotate(.5deg)'), opacity:1, offset:0.95},
         {transform:P('translate(0,0) scale(1) rotate(0deg)'), opacity:1, offset:1}
       ];
       var anim=hoku.animate(k,{duration:DUR, fill:'forwards'});
       trailOn=true;
-      setTimeout(function(){haloTarget=0.4;},80);
-      setTimeout(function(){var c=center();emit(c.x,c.y,{n:16,sp:0.8,star:true,spread:c.w*0.5});}, DUR*0.40); // mid-flight sparkle accent
-      // ②→③ breath: eyes gently CLOSE, glow softens
-      setTimeout(function(){ trailOn=false; setFrame('closed'); haloTarget=0.2; hoku.style.filter='drop-shadow(0 11px 18px rgba(0,0,0,.16)) brightness(.96)'; }, DUR*0.64);
-      // scrunch shut, dim further (the "inhale")
-      setTimeout(function(){ setFrame('scrunch'); haloTarget=0.1; hoku.style.filter='drop-shadow(0 9px 14px rgba(0,0,0,.16)) brightness(.84)'; }, DUR*0.72);
-      // ★ THE POP — 目をバンッと開く
+      setTimeout(function(){haloTarget=0.45;},80);
+      setTimeout(function(){var c=center();emit(c.x,c.y,{n:16,sp:0.8,star:true,spread:c.w*0.5});}, DUR*0.42); // mid-flight sparkle accent
+      // gather / dim (the held breath before the burst)
+      setTimeout(function(){ trailOn=false; haloTarget=0.16; hoku.style.filter='drop-shadow(0 10px 16px rgba(0,0,0,.16)) brightness(.9)'; }, DUR*0.70);
+      // ★ ぱんっ！ — the face appears + flash
       setTimeout(function(){
-        setFrame('open');
+        setFrame('orbface');                 // round, glowing, eyes open — the awakening
         haloTarget=1;
-        hoku.style.filter='drop-shadow(0 16px 24px rgba(0,0,0,.2)) brightness(1.6) saturate(1.06)';
-        rings.push({t:0}); rings.push({t:-0.12});
+        hoku.style.filter='drop-shadow(0 16px 24px rgba(0,0,0,.2)) brightness(1.55) saturate(1.05)';
+        rings.push({t:0}); rings.push({t:-0.14});
         var c=center();
-        emit(c.x,c.y,{n:70,sp:1.9,star:true,spread:c.w*0.18,decay:0.01,size:2.4,hue:48});
-        emit(c.x,c.y,{n:30,sp:0.9,star:false,spread:c.w*0.1,decay:0.014,size:1.8,hue:50});
-      }, DUR*0.84);
-      setTimeout(function(){ haloTarget=0.13; hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16))'; }, DUR*0.92);
+        emit(c.x,c.y,{n:78,sp:2.0,star:true,spread:c.w*0.16,decay:0.01,size:2.5,hue:48});
+        emit(c.x,c.y,{n:32,sp:0.9,star:false,spread:c.w*0.1,decay:0.014,size:1.8,hue:50});
+      }, DUR*0.815);
+      // bloom: the glowing orb becomes the star Hoku (under cover of the flash)
+      setTimeout(function(){ setFrame('open'); }, DUR*0.875);
+      setTimeout(function(){ haloTarget=0.13; hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16))'; }, DUR*0.93);
       anim.onfinish=function(){
+        setFrame('open');
         hoku.classList.remove('is-anim');
         hoku.classList.add('is-idle');
         anim.cancel();
