@@ -61,6 +61,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  text-wrap: pretty;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -183,6 +184,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav__overlay { position: fixed; inset: 0; z-index: 1050; background: rgba(26,24,20,.35); opacity: 0; visibility: hidden; transition: opacity .4s, visibility .4s; }
 .nav__overlay.is-open { opacity: 1; visibility: visible; }
 body.nav-open { overflow: hidden; }
+/* keep the header (and its X / hamburger) tappable above the open drawer */
+body.nav-open .nav { z-index: 1200; }
+body.nav-open .nav__inner { pointer-events: none; }
+body.nav-open .nav__logo, body.nav-open .nav__burger { pointer-events: auto; }
 body.nav-open .nav__burger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 body.nav-open .nav__burger span:nth-child(2) { opacity: 0; }
 body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
