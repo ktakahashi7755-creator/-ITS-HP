@@ -188,9 +188,10 @@
 /* ---------- 09b AI AUTOMATION FEATURE ---------- */
 .ai-auto { background: var(--bg); padding: var(--section-y) 0; border-top: 1px solid var(--line); }
 .ai-auto__screens { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.2vw, 28px); max-width: 980px; margin: 0 auto clamp(44px, 5vw, 68px); align-items: start; }
-.ai-auto__screen { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; box-shadow: 0 22px 50px -28px rgba(26,24,20,.35); }
-.ai-auto__screen img { width: 100%; height: auto; display: block; }
-.ai-auto__screen--mid { transform: translateY(-20px); }
+.ai-auto__screen { margin: 0; }
+.ai-auto__screen img { width: 100%; height: auto; display: block; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 22px 50px -28px rgba(26,24,20,.35); }
+.ai-auto__cap { margin-top: 18px; text-align: center; font-size: 13px; line-height: 1.85; color: var(--ink-soft); }
+.ai-auto__cap strong { display: block; font-family: var(--font-display); font-size: 16.5px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
 .ai-auto__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(22px, 3vw, 44px); max-width: 900px; margin: 0 auto; }
 .ai-stat { text-align: center; }
 .ai-stat__icon { width: 50px; height: 50px; margin: 0 auto 16px; display: grid; place-items: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent); }
