@@ -537,7 +537,40 @@
       var hr=hoku.getBoundingClientRect(), sr=hero.getBoundingClientRect();
       return {x:hr.left-sr.left+hr.width/2, y:hr.top-sr.top+hr.height/2, w:hr.width};
     }
-    function loop(){
+    // delta from resting spot (transform:0,0) to a fraction of the visible stage
+    function d(fx,fy){ var vh=Math.min(H, window.innerHeight||H); return {x:(W*fx - hoku.offsetWidth/2)-rest.x, y:(vh*fy - hoku.offsetHeight/2)-rest.y}; }
+    var KF=[];
+    function buildKF(){
+      var a0=d(0.93,0.07),a1=d(0.72,0.20),a2=d(0.44,0.16),a3=d(0.56,0.40),a4=d(0.26,0.40),a5=d(0.13,0.56);
+      KF=[
+        {u:0,    x:a0.x,y:a0.y,s:0.06,r:-6,o:0},
+        {u:0.16, x:a1.x,y:a1.y,s:0.30,r:-4,o:1},
+        {u:0.33, x:a2.x,y:a2.y,s:0.48,r:3, o:1},
+        {u:0.49, x:a3.x,y:a3.y,s:0.64,r:-3,o:1},
+        {u:0.64, x:a4.x,y:a4.y,s:0.80,r:2, o:1},
+        {u:0.75, x:a5.x,y:a5.y,s:0.91,r:-1,o:1},
+        {u:0.81, x:0,y:0,s:0.86,r:0,o:1},     // gather
+        {u:0.87, x:0,y:0,s:1.15,r:0,o:1},     // ぱんっ overshoot
+        {u:0.94, x:0,y:0,s:0.985,r:0,o:1},
+        {u:1,    x:0,y:0,s:1,r:0,o:1}
+      ];
+    }
+    buildKF();
+    window.addEventListener('resize', function(){ layout(); buildKF(); }, {passive:true});
+    function smooth(t){ return t*t*(3-2*t); }
+    function sample(u){
+      if(u<=0) return KF[0];
+      if(u>=1) return KF[KF.length-1];
+      for(var i=0;i<KF.length-1;i++){
+        if(u<=KF[i+1].u){
+          var a=KF[i],b=KF[i+1],k=smooth((u-a.u)/(b.u-a.u));
+          return {x:a.x+(b.x-a.x)*k, y:a.y+(b.y-a.y)*k, s:a.s+(b.s-a.s)*k, r:a.r+(b.r-a.r)*k, o:a.o+(b.o-a.o)*k};
+        }
+      }
+      return KF[KF.length-1];
+    }
+
+    function render(){
       ctx.clearRect(0,0,W,H);
       var c=center();
       halo += (haloTarget-halo)*0.12;
@@ -552,15 +585,11 @@
       ctx.globalCompositeOperation='lighter';
       for(var ri=rings.length-1;ri>=0;ri--){
         var rg=rings[ri]; rg.t+=0.018; if(rg.t>=1){rings.splice(ri,1);continue;}
-        if(rg.t<=0) continue;            // delayed ring: wait until it actually starts (avoids negative radius)
+        if(rg.t<=0) continue;
         var rr=c.w*(0.4+rg.t*3.6);
         ctx.strokeStyle='rgba(255,'+Math.round(244-rg.t*45)+','+Math.round(205-rg.t*70)+','+(0.6*(1-rg.t))+')';
         ctx.lineWidth=Math.max(1,5*(1-rg.t));
         ctx.beginPath();ctx.arc(c.x,c.y,rr,0,7);ctx.stroke();
-      }
-      if(trailOn){
-        emit(c.x, c.y+c.w*0.06, {n:2, sp:0.22, spread:c.w*0.18, decay:0.02, size:1.7});
-        if(Math.random()<0.75) emit(Math.random()*W, Math.random()*Math.min(H,window.innerHeight||H), {n:1, sp:0.1, star:true, decay:0.016, size:1.6}); // full-screen sparkle
       }
       for(var i=parts.length-1;i>=0;i--){
         var p=parts[i];
@@ -571,76 +600,48 @@
         else{ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,7);ctx.fill();}
       }
       ctx.globalCompositeOperation='source-over';
-      requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
-
-    // delta from resting spot (transform:0,0) to a fraction of the visible stage
-    // (vertical mapped to the viewport band so the whole flight stays on-screen)
-    function d(fx,fy){ var vh=Math.min(H, window.innerHeight||H); return {x:(W*fx - hoku.offsetWidth/2)-rest.x, y:(vh*fy - hoku.offsetHeight/2)-rest.y}; }
-    function P(t){return 'perspective(720px) '+t;}
-    var DUR=5600;
-    function run(){
-      setFrame('orb');                       // start as a featureless light-orb (no face)
-      // smooth, sweeping arc across the screen (gentle in-plane sway only — no Y-flip flattening)
-      var a0=d(0.93,0.07), a1=d(0.72,0.20), a2=d(0.44,0.16), a3=d(0.56,0.40), a4=d(0.26,0.40), a5=d(0.13,0.56);
-      var GLIDE='cubic-bezier(.37,0,.63,1)';  // smooth, symmetric ease
-      var k=[
-        // ① a tiny light-orb eases in from the top-right corner
-        {transform:P('translate('+a0.x+'px,'+a0.y+'px) scale(.06) rotate(-6deg)'), opacity:0, offset:0, easing:'cubic-bezier(.22,.61,.36,1)'},
-        {transform:P('translate('+a1.x+'px,'+a1.y+'px) scale(.30) rotate(-4deg)'), opacity:1, offset:0.16, easing:GLIDE},
-        // ② glides across the whole screen, gently swaying and GROWING
-        {transform:P('translate('+a2.x+'px,'+a2.y+'px) scale(.48) rotate(3deg)'), opacity:1, offset:0.33, easing:GLIDE},
-        {transform:P('translate('+a3.x+'px,'+a3.y+'px) scale(.64) rotate(-3deg)'), opacity:1, offset:0.49, easing:GLIDE},
-        {transform:P('translate('+a4.x+'px,'+a4.y+'px) scale(.80) rotate(2deg)'), opacity:1, offset:0.64, easing:GLIDE},
-        {transform:P('translate('+a5.x+'px,'+a5.y+'px) scale(.91) rotate(-1deg)'), opacity:1, offset:0.75, easing:'cubic-bezier(.33,0,.25,1)'},
-        // ③ settles toward the spot and gathers softly
-        {transform:P('translate(0,0) scale(.86)'), opacity:1, offset:0.81, easing:'cubic-bezier(.4,0,.5,1)'},
-        // …ぱんっ！ face blooms in with a soft overshoot
-        {transform:P('translate(0,0) scale(1.15)'), opacity:1, offset:0.87, easing:'cubic-bezier(.18,1.25,.4,1)'},
-        // ④ eases down into the final pose
-        {transform:P('translate(0,0) scale(.985)'), opacity:1, offset:0.94, easing:'cubic-bezier(.4,0,.3,1)'},
-        {transform:P('translate(0,0) scale(1)'), opacity:1, offset:1}
-      ];
-      var anim=hoku.animate(k,{duration:DUR, fill:'forwards'});
-      trailOn=true;
-      setTimeout(function(){haloTarget=0.45;},80);
-      setTimeout(function(){var c=center();emit(c.x,c.y,{n:14,sp:0.7,star:true,spread:c.w*0.5});}, DUR*0.45); // mid-flight sparkle accent
-      // gather / dim (the soft breath before the bloom)
-      setTimeout(function(){ trailOn=false; haloTarget=0.18; hoku.style.filter='drop-shadow(0 10px 16px rgba(0,0,0,.16)) brightness(.92)'; }, DUR*0.79);
-      // ★ ぱんっ！ — the face blooms in + flash
-      setTimeout(function(){
-        setFrame('orbface');                 // round, glowing, eyes open — the awakening
-        haloTarget=1;
-        hoku.style.filter='drop-shadow(0 16px 24px rgba(0,0,0,.2)) brightness(1.5) saturate(1.04)';
-        rings.push({t:0});
-        var c=center();
-        emit(c.x,c.y,{n:72,sp:1.8,star:true,spread:c.w*0.16,decay:0.011,size:2.4,hue:48});
-        emit(c.x,c.y,{n:28,sp:0.85,star:false,spread:c.w*0.1,decay:0.015,size:1.7,hue:50});
-      }, DUR*0.855);
-      // bloom: the glowing orb becomes the star Hoku (under cover of the flash)
-      setTimeout(function(){ setFrame('open'); }, DUR*0.915);
-      setTimeout(function(){ haloTarget=0.12; hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16))'; }, DUR*0.96);
-      anim.onfinish=function(){
-        setFrame('open');
-        hoku.classList.remove('is-anim');
-        hoku.classList.add('is-idle');
-        anim.cancel();
-        startIdle();
-      };
-    }
-    function startIdle(){
-      haloTarget=0.10;
-      setInterval(function(){            // soft ambient sparkles only (no blinking)
-        if(document.hidden) return;
-        var c=center();
-        if(Math.random()<0.6) emit(c.x+(Math.random()-.5)*c.w*0.8, c.y+(Math.random()-.5)*c.w*0.8, {n:1,sp:0.12,star:true,decay:0.02,size:1.6});
-      },620);
     }
 
+    // ---- one deterministic timeline drives everything (no WAAPI / no setTimeout) ----
+    var INTRO=4900, started=false, t0=0, ph={trail:true,popped:false,bloomed:false,done:false};
+    function tick(ts){
+      if(!started){ started=true; t0=ts; }
+      var t=ts-t0;
+      if(!ph.done){
+        var u=t/INTRO; if(u>1) u=1;
+        var st=sample(u);
+        hoku.style.transform='perspective(720px) translate('+st.x.toFixed(1)+'px,'+st.y.toFixed(1)+'px) scale('+st.s.toFixed(3)+') rotate('+st.r.toFixed(2)+'deg)';
+        hoku.style.opacity=st.o;
+        if(ph.trail && u<0.79 && !document.hidden){
+          var c=center();
+          emit(c.x, c.y+c.w*0.06, {n:2, sp:0.22, spread:c.w*0.18, decay:0.02, size:1.7});
+          if(Math.random()<0.65) emit(Math.random()*W, Math.random()*Math.min(H,window.innerHeight||H), {n:1, sp:0.1, star:true, decay:0.016, size:1.6});
+        }
+        if(ph.trail && u>=0.79){ ph.trail=false; haloTarget=0.18; hoku.style.filter='drop-shadow(0 10px 16px rgba(0,0,0,.16)) brightness(.92)'; }
+        if(!ph.popped && u>=0.855){ ph.popped=true; setFrame('orbface'); haloTarget=1;   // ★ ぱんっ
+          hoku.style.filter='drop-shadow(0 16px 24px rgba(0,0,0,.2)) brightness(1.5) saturate(1.04)';
+          rings.push({t:0}); var cc=center();
+          emit(cc.x,cc.y,{n:70,sp:1.8,star:true,spread:cc.w*0.16,decay:0.011,size:2.4,hue:48});
+          emit(cc.x,cc.y,{n:26,sp:0.85,star:false,spread:cc.w*0.1,decay:0.015,size:1.7,hue:50});
+        }
+        if(!ph.bloomed && u>=0.915){ ph.bloomed=true; setFrame('open'); }   // bloom to star under the flash
+        if(u>=1){ ph.done=true;                                            // finalize once, cleanly
+          setFrame('open');
+          hoku.style.transform=''; hoku.style.opacity='';
+          hoku.style.filter='drop-shadow(0 12px 20px rgba(0,0,0,.16))';
+          hoku.classList.remove('is-anim'); hoku.classList.add('is-idle');
+          haloTarget=0.10;
+        }
+      } else if(!document.hidden && Math.random()<0.05){   // idle: occasional ambient sparkle only
+        var ci=center(); emit(ci.x+(Math.random()-.5)*ci.w*0.8, ci.y+(Math.random()-.5)*ci.w*0.8, {n:1,sp:0.12,star:true,decay:0.02,size:1.6});
+      }
+      render();
+      requestAnimationFrame(tick);
+    }
+
+    setFrame('orb');                 // begin as the featureless light-orb
     hoku.classList.add('is-anim');
-    if(hoku.complete) requestAnimationFrame(run);
-    else hoku.addEventListener('load', function(){requestAnimationFrame(run);});
+    requestAnimationFrame(tick);
   })();
 </script>
 </body>
