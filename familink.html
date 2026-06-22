@@ -168,6 +168,16 @@
   .reward__l .coin{width:26px;height:26px;border-radius:var(--r-full);background:var(--grad-accent);display:grid;place-items:center;flex:none;
                    font-family:var(--font-display);font-weight:800;font-size:12px;color:#7C4400}
   .reward__v{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--accent-dark);white-space:nowrap}
+  /* coin: 着せ替えコレクション */
+  .coin-collection{margin-top:clamp(40px,5vw,64px);background:linear-gradient(180deg,#FFF8EC 0%,#FFF3E0 100%);
+                   border:1px solid rgba(255,159,10,.2);border-radius:var(--r-2xl);padding:clamp(30px,4vw,46px) 20px;text-align:center}
+  .coin-collection__cap{font-family:var(--font-display);font-weight:700;font-size:clamp(16px,2.1vw,20px);color:var(--ink);margin-bottom:clamp(20px,3vw,30px)}
+  .coin-collection__row{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(10px,2.4vw,30px)}
+  .coin-collection figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:9px;transition:transform var(--t-spring)}
+  .coin-collection figure:hover{transform:translateY(-7px) scale(1.05)}
+  .coin-collection img{width:clamp(74px,12.5vw,108px);height:auto;filter:drop-shadow(0 9px 14px rgba(120,70,0,.16))}
+  .coin-collection figcaption{font-size:12.5px;font-weight:600;color:var(--accent-dark)}
+  .coin-collection__note{font-size:12px;color:var(--ink-muted);margin-top:22px}
 
   /* ---------- features grid ---------- */
   .grid-sec{padding:clamp(56px,9vw,100px) 0;background:#fff}
@@ -276,7 +286,7 @@
     <div class="hero__visual">
       <span class="hero__blob" aria-hidden="true"></span>
       <div class="phone"><img src="images/familink/lp/home.jpg" alt="Familink ホーム画面：家族ボード・やること・今週の予定・体調をひと目で確認" width="640" height="1385" fetchpriority="high"></div>
-      <img class="float-hoku" src="images/familink/lp/hoku-soft.webp" alt="AIガイド Hoku" width="118" height="117" loading="eager">
+      <img class="float-hoku" src="images/familink/hoku/main.webp" alt="AIガイド Hoku" width="118" height="117" loading="eager">
     </div>
   </div>
 </section>
@@ -306,7 +316,7 @@
   <div class="wrap feat__in">
     <div class="feat__media rv">
       <div class="phone"><img src="images/familink/lp/hoku-agent.jpg" alt="Hokuエージェントの会話画面：話しかけるだけで予定追加・準備リスト・買い物メモを代行" width="640" height="1385" loading="lazy"></div>
-      <img class="float-hoku" src="images/familink/lp/hoku-soft.webp" alt="" aria-hidden="true" width="100" height="99" loading="lazy">
+      <img class="float-hoku" src="images/familink/hoku/main.webp" alt="" aria-hidden="true" width="100" height="99" loading="lazy">
     </div>
     <div class="feat__body rv">
       <span class="eyebrow eyebrow--green">Hoku エージェント</span>
@@ -342,6 +352,18 @@
       <p class="feat__note"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/></svg>選んだ衣装はメインのHokuに反映。毎朝ひらくのが楽しみになります。</p>
     </div>
   </div>
+  <div class="wrap coin-collection rv">
+    <p class="coin-collection__cap">貯めたコインで、Hokuを着せ替え。お気に入りの一着を、家族みんなで。</p>
+    <div class="coin-collection__row">
+      <figure><img src="images/familink/hoku/firefighter.webp" alt="消防士のHoku" width="180" height="170" loading="lazy"><figcaption>消防士</figcaption></figure>
+      <figure><img src="images/familink/hoku/doctor.webp" alt="ドクターHoku" width="180" height="170" loading="lazy"><figcaption>ドクター</figcaption></figure>
+      <figure><img src="images/familink/hoku/chef.webp" alt="シェフHoku" width="180" height="170" loading="lazy"><figcaption>シェフ</figcaption></figure>
+      <figure><img src="images/familink/hoku/astronaut.webp" alt="宇宙飛行士Hoku" width="180" height="170" loading="lazy"><figcaption>宇宙飛行士</figcaption></figure>
+      <figure><img src="images/familink/hoku/pirate.webp" alt="海賊Hoku" width="180" height="170" loading="lazy"><figcaption>海賊</figcaption></figure>
+      <figure><img src="images/familink/hoku/graduate.webp" alt="卒業Hoku" width="180" height="170" loading="lazy"><figcaption>卒業</figcaption></figure>
+    </div>
+    <p class="coin-collection__note">※ 衣装は一例です。コレクションは順次ふえていきます。</p>
+  </div>
 </section>
 
 <!-- ============ FEATURES GRID ============ -->
@@ -373,7 +395,7 @@
       <p class="about__by">提供：<a href="index.html">ITS合同会社</a>（システム開発・自社プロダクト）</p>
     </div>
     <div class="about__card rv">
-      <img class="float-hoku" src="images/familink/lp/hoku-soft.webp" alt="AIガイド Hoku" width="96" height="95" loading="lazy">
+      <img class="float-hoku" src="images/familink/hoku/main.webp" alt="AIガイド Hoku" width="96" height="95" loading="lazy">
       <p class="about__quote">「家族のことは、<br>家族みんなで。」</p>
       <p>予定も、やることも、お金のことも、体調も。誰か一人が抱え込むのではなく、家族で分かち合える。Familinkは、その“チームの土台”になります。</p>
     </div>
@@ -390,7 +412,7 @@
         <a href="https://ktakahashi7755-creator.github.io/Familink/" target="_blank" rel="noopener" class="btn btn--light">無料で Familink を使ってみる</a>
         <a href="index.html#contact" class="btn btn--ghost-light">ITSへ問い合わせ</a>
       </div>
-      <img class="float-hoku" src="images/familink/lp/hoku-soft.webp" alt="" aria-hidden="true" width="110" height="109" loading="lazy">
+      <img class="float-hoku" src="images/familink/hoku/main.webp" alt="" aria-hidden="true" width="110" height="109" loading="lazy">
     </div>
   </div>
 </section>
