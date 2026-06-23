@@ -314,13 +314,13 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
   .hero {
     min-height: auto;
     background:
-      linear-gradient(180deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.82) 44%, rgba(255,255,255,.40) 74%, rgba(255,255,255,.18) 100%),
+      linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.88) 42%, rgba(255,255,255,.52) 74%, rgba(255,255,255,.22) 100%),
       url("../images/hero-office.jpg") center bottom / cover no-repeat;
   }
-  .hero__inner { grid-template-columns: 1fr; gap: 18px; }
-  .hero__cast { justify-self: center; max-width: 420px; margin-top: 10px; }
-  .hero__char--hoku { width: clamp(120px, 30vw, 170px); }
-  .hero__char--lumi { width: clamp(150px, 38vw, 215px); }
+  .hero__inner { grid-template-columns: 1fr; gap: clamp(14px, 4vw, 26px); padding-top: clamp(18px, 3.5vh, 40px); padding-bottom: 0; }
+  .hero__cast { justify-self: center; align-self: end; max-width: 440px; margin-top: clamp(4px, 1.5vw, 14px); gap: clamp(0px, 1vw, 10px); }
+  .hero__char--hoku { width: clamp(126px, 34vw, 184px); }
+  .hero__char--lumi { width: clamp(160px, 43vw, 236px); }
 }
 @media (max-width: 480px) {
   body { font-size: 15px; }
