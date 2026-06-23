@@ -319,7 +319,7 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
   }
   .hero__inner { grid-template-columns: 1fr; gap: clamp(6px, 2vw, 16px); padding-top: clamp(8px, 2vh, 22px); padding-bottom: clamp(36px, 7vw, 56px); }
   .hero__cast { order: -1; justify-self: center; align-self: start; max-width: 470px; margin: 0 auto clamp(2px, 1.2vw, 10px); gap: clamp(0px, 1vw, 10px); }
-  .hero__char--hoku { width: clamp(128px, 35vw, 188px); }
+  .hero__char--hoku { width: clamp(128px, 35vw, 188px); transform: translateY(-12px); }
   .hero__char--lumi { width: clamp(164px, 44vw, 240px); }
 }
 @media (max-width: 480px) {
