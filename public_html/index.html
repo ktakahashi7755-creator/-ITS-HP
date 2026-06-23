@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITS合同会社 — テクノロジーで世界を輝かせる | システム開発・ITコンサル・Web制作・Familink</title>
+<meta name="description" content="ITS合同会社は、システム受託開発・ITコンサルティング・Web制作・デザインを通じて企業のDXを支援するテクノロジーカンパニーです。自社プロダクト「Familink」で家族の暮らしも豊かにします。">
+<meta name="keywords" content="ITS合同会社,システム開発,ITコンサルティング,Web制作,DX,AI,Familink,高橋賢弥">
+<meta name="author" content="ITS合同会社">
+<link rel="canonical" href="https://its-tokyo.com/">
+
+<!-- OGP -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ITS合同会社 — テクノロジーで世界を輝かせる">
+<meta property="og:description" content="システム開発・ITコンサル・Web制作・デザイン。そして自社プロダクトFamilink。テクノロジーで企業と人の可能性を広げます。">
+<meta property="og:url" content="https://its-tokyo.com/">
+<meta property="og:image" content="https://its-tokyo.com/images/ogp.png">
+<meta property="og:site_name" content="ITS合同会社">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ITS合同会社 — テクノロジーで世界を輝かせる">
+<meta name="twitter:description" content="システム開発・ITコンサル・Web制作・デザイン。そして自社プロダクトFamilink。">
+<meta name="twitter:image" content="https://its-tokyo.com/images/ogp.png">
+<meta name="theme-color" content="#F6F3EC">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@300;400;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/animations.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ITS合同会社",
+  "alternateName": "ITS LLC",
+  "url": "https://its-tokyo.com/",
+  "logo": "https://its-tokyo.com/images/apple-touch-icon.png",
+  "description": "システム受託開発・ITコンサルティング・Web制作・デザインを提供するテクノロジーカンパニー。自社プロダクトFamilinkを開発。",
+  "founder": { "@type": "Person", "name": "高橋 賢弥" },
+  "foundingDate": "2024-07",
+  "address": { "@type": "PostalAddress", "addressCountry": "JP", "addressRegion": "日本" },
+  "sameAs": [],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "ITS Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "システム受託開発" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ITコンサルティング" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web制作・開発" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "デザイン" } }
+    ]
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- ===== PAGE LOAD CURTAIN ===== -->
+<div id="page-reveal" aria-hidden="true">
+  <span class="page-reveal__mark">ITS</span>
+</div>
+
+<!-- ===== SCROLL PROGRESS ===== -->
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<!-- ===== NAV ===== -->
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a href="#hero" class="nav__logo" aria-label="ITS合同会社 ホーム">
+      <span class="nav__logo-mark">ITS</span>
+      <span class="nav__logo-text">合同会社</span>
+    </a>
+    <nav class="nav__links" aria-label="メインナビゲーション">
+      <a href="#philosophy" class="nav__link">経営理念</a>
+      <a href="#about" class="nav__link">会社について</a>
+      <a href="#services" class="nav__link">サービス</a>
+      <a href="#familink" class="nav__link">プロダクト</a>
+      <a href="#works" class="nav__link">実績</a>
+      <a href="#company" class="nav__link">会社概要</a>
+    </nav>
+    <a href="#contact" class="nav__cta js-magnetic" data-magnetic-strength="0.25">お問い合わせ</a>
+    <button class="nav__burger" id="nav-burger" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav-drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== MOBILE DRAWER ===== -->
+<div class="nav__drawer" id="nav-drawer" aria-hidden="true">
+  <nav class="nav__drawer-links" aria-label="モバイルナビゲーション">
+    <a href="#philosophy">経営理念</a>
+    <a href="#about">会社について</a>
+    <a href="#services">サービス</a>
+    <a href="#familink">プロダクト</a>
+    <a href="#works">実績</a>
+    <a href="#company">会社概要</a>
+    <a href="#contact" class="nav__drawer-cta">お問い合わせ</a>
+  </nav>
+</div>
+<div class="nav__overlay" id="nav-overlay" aria-hidden="true"></div>
+
+<main>
+
+<!-- ===== 01 HERO ===== -->
+<section id="hero" class="hero">
+  <div class="hero__inner container">
+    <div class="hero__text">
+    <p class="hero__eyebrow">ITS合同会社 — MISSION / ミッション</p>
+    <h1 class="hero__title js-text-reveal">
+      <span class="js-text-reveal__line">テクノロジーで</span>
+      <span class="js-text-reveal__line">世界を輝かせる。</span>
+    </h1>
+    <p class="hero__en">STARS YOUR TECHNOLOGY</p>
+    <p class="hero__sub">私たちは、テクノロジーを駆使してIT人材の未来を輝かせることをミッションとしております。IT人材の価値創造をして世界にスターを輩出し、持続的な成長を実現します。</p>
+    <div class="hero__actions">
+      <a href="#contact" class="btn btn--primary">
+        プロジェクトの相談をする
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#services" class="btn btn--ghost">サービスを見る</a>
+    </div>
+    </div><!-- /.hero__text -->
+    <div class="hero__cast" aria-label="ITSのキャラクター Hoku と Lumi">
+      <figure class="hero__char hero__char--hoku">
+        <span class="hero__char-art"><img src="images/characters/hoku.webp" alt="やさしく照らすキャラクター Hoku（ホク）" width="560" height="527" loading="eager" decoding="async"></span>
+      </figure>
+      <figure class="hero__char hero__char--lumi">
+        <span class="hero__char-art"><img src="images/characters/lumi.webp?v=2" alt="未来をつなぐAIパートナー Lumi（ルミ）" width="556" height="798" loading="eager" decoding="async"></span>
+      </figure>
+    </div>
+  </div>
+  <a href="#philosophy" class="scroll-indicator" aria-label="下へスクロール">
+    <span class="scroll-indicator__text">SCROLL</span>
+    <span class="scroll-indicator__line"></span>
+  </a>
+</section>
+
+<!-- ===== 02 MARQUEE BAND ===== -->
+<section class="marquee-band" aria-hidden="true">
+  <div class="marquee-inner">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <span class="marquee-item">System Development</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">IT Consulting</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Web Production</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Design</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">DX Promotion</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">AI Solution</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Familink</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Cloud Architecture</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">UI / UX Design</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Data Analytics</span><span class="marquee-sep">◆</span>
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        <span class="marquee-item">System Development</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">IT Consulting</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Web Production</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Design</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">DX Promotion</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">AI Solution</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Familink</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Cloud Architecture</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">UI / UX Design</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Data Analytics</span><span class="marquee-sep">◆</span>
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        <span class="marquee-item">System Development</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">IT Consulting</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Web Production</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Design</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">DX Promotion</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">AI Solution</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Familink</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Cloud Architecture</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">UI / UX Design</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Data Analytics</span><span class="marquee-sep">◆</span>
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        <span class="marquee-item">System Development</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">IT Consulting</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Web Production</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Design</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">DX Promotion</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">AI Solution</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Familink</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Cloud Architecture</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">UI / UX Design</span><span class="marquee-sep">◆</span>
+        <span class="marquee-item">Data Analytics</span><span class="marquee-sep">◆</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 PHILOSOPHY ===== -->
+<section id="philosophy" class="philosophy">
+  <div class="philosophy__inner container">
+    <p class="philosophy__eyebrow js-line-reveal">Our Philosophy</p>
+    <blockquote class="philosophy__text js-text-reveal">
+      <span class="js-text-reveal__line">テクノロジーは、目的ではない。</span>
+      <span class="js-text-reveal__line">世界を輝かせ、人の可能性を広げる、</span>
+      <span class="js-text-reveal__line">最も強力な手段だ。</span>
+    </blockquote>
+    <p class="philosophy__sub js-fade">
+      ITS合同会社は「テクノロジーで世界を輝かせる」という信念のもと、
+      システム開発からプロダクト開発、IT人材の価値創造までを手がけています。
+      私たちが向き合うのは、画面の向こうにいる人の暮らしと、
+      その先にある社会のより良い未来です。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 04 ABOUT ===== -->
+<section id="about" class="about">
+  <div class="about__inner container">
+    <div class="about__head">
+      <p class="section-eyebrow js-fade">About Us</p>
+      <h2 class="section-title js-fade">会社について</h2>
+      <p class="about__lead js-fade">
+        ITS合同会社は、テクノロジーとデザインの力で企業の変革を支援する
+        スタジオ型のテクノロジーカンパニーです。受託開発で培った技術力を、
+        自社プロダクト「Familink」へと還元し、B2BとB2Cの両輪で価値を生み出します。
+      </p>
+      <a href="#services" class="text-link js-fade">提供サービスを見る
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="about__media js-fade"><img class="about__img" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1100&q=70" alt="ITS合同会社のチームが協働する様子" loading="lazy" decoding="async" onerror="this.closest('.about__media').remove()"></div>
+    </div>
+    <div class="about__cards js-stagger">
+      <article class="mvv-card js-stagger-item">
+        <span class="mvv-card__label">Mission</span>
+        <p class="mvv-card__text">テクノロジーで世界を輝かせる。IT人材の未来を輝かせ、価値創造を通じて世界にスターを輩出します。</p>
+      </article>
+      <article class="mvv-card js-stagger-item">
+        <span class="mvv-card__label">Vision</span>
+        <p class="mvv-card__text">受託開発と自社プロダクトの両輪で、世界に通用する日本のテクノロジースタジオを目指します。</p>
+      </article>
+      <article class="mvv-card js-stagger-item">
+        <span class="mvv-card__label">Value</span>
+        <p class="mvv-card__text">速く、誠実に、最後まで。クライアントと同じ目線で考え、伴走するパートナーであり続けます。</p>
+      </article>
+      <article class="mvv-card mvv-card--accent js-stagger-item">
+        <span class="mvv-card__label">Product</span>
+        <h3 class="mvv-card__title">Familink</h3>
+        <p class="mvv-card__text">家族をチームに。予定もタスクも、ひとつに。私たちの想いを形にした自社プロダクトです。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 STATS ===== -->
+<section class="stats">
+  <div class="stats__inner container">
+    <div class="stat-grid">
+      <div class="stat-card js-fade">
+        <div class="stat-card__val"><span class="js-counter" data-target="28" data-suffix="">0</span></div>
+        <div class="stat-card__label">導入・開発実績</div>
+      </div>
+      <div class="stat-card js-fade">
+        <div class="stat-card__val"><span class="js-counter" data-target="100" data-suffix="%">0</span></div>
+        <div class="stat-card__label">クライアント満足度</div>
+      </div>
+      <div class="stat-card js-fade">
+        <div class="stat-card__val"><span class="js-counter" data-target="2" data-suffix="年">0</span></div>
+        <div class="stat-card__label">サービス提供年数</div>
+      </div>
+      <div class="stat-card js-fade">
+        <div class="stat-card__val"><span class="js-counter" data-target="4" data-suffix="事業">0</span></div>
+        <div class="stat-card__label">展開中の事業領域</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 SERVICES ===== -->
+<section id="services" class="services">
+  <div class="services__inner container">
+    <div class="section-head">
+      <p class="section-eyebrow js-fade">Our Services</p>
+      <h2 class="section-title js-fade">提供サービス</h2>
+      <p class="section-desc js-fade">企業の課題に合わせて、最適なテクノロジーとデザインを。<br>4つの領域でビジネスの成長を支えます。</p>
+    </div>
+    <div class="svc-grid js-stagger">
+      <article class="svc-card js-stagger-item js-tilt">
+        <div class="svc-card__num">01</div>
+        <div class="svc-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M13 6l-2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="svc-card__title">システム受託開発</h3>
+        <p class="svc-card__text">業務フローに合わせたシステムを、要件整理から設計・開発・運用まで一貫して対応。Webアプリ・業務システム・API開発まで幅広く手がけます。</p>
+        <ul class="svc-card__tags"><li>Webアプリ</li><li>業務システム</li><li>API</li></ul>
+      </article>
+      <article class="svc-card js-stagger-item js-tilt">
+        <div class="svc-card__num">02</div>
+        <div class="svc-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="svc-card__title">ITコンサルティング</h3>
+        <p class="svc-card__text">DX推進・AI導入・業務自動化・クラウド移行の戦略立案から実行までを支援。生成AIの業務活用やAIツールの導入・定着支援も含め、現場の課題を可視化し、技術投資の意思決定をサポートします。</p>
+        <ul class="svc-card__tags"><li>DX推進</li><li>AI導入</li><li>業務自動化</li><li>クラウド</li></ul>
+      </article>
+      <article class="svc-card js-stagger-item js-tilt">
+        <div class="svc-card__num">03</div>
+        <div class="svc-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 21h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="svc-card__title">Web制作・開発</h3>
+        <p class="svc-card__text">コーポレートサイト・LP・Webサービスの企画から制作まで。デザインと実装の両面で、成果につながる体験を設計します。</p>
+        <ul class="svc-card__tags"><li>コーポレート</li><li>LP</li><li>Webサービス</li></ul>
+      </article>
+      <article class="svc-card js-stagger-item js-tilt">
+        <div class="svc-card__num">04</div>
+        <div class="svc-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M12 4a8 8 0 010 16M9 9h.01M15 15h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="svc-card__title">デザイン</h3>
+        <p class="svc-card__text">UI/UXデザイン・ブランディング・グラフィックまで。「伝わる」「使いやすい」を起点に、ビジネスの価値を高めるデザインを提供します。</p>
+        <ul class="svc-card__tags"><li>UI/UX</li><li>ブランディング</li><li>グラフィック</li></ul>
+      </article>
+    </div>
+    <div class="services__more js-fade">
+      <a href="services.html" class="btn btn--outline">サービス詳細ページへ
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 FAMILINK SHOWCASE ===== -->
+<section id="familink" class="fl-showcase">
+  <div class="fl-showcase__inner container">
+    <div class="fl-showcase__content">
+      <p class="fl-showcase__eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Featured Product — 自社プロダクト</p>
+      <div class="fl-showcase__brand">
+        <img class="fl-showcase__appicon" src="images/familink/app-icon.png" alt="Familink アプリアイコン" width="60" height="60" loading="lazy" decoding="async" data-fallback="https://ktakahashi7755-creator.github.io/Familink/press/app-icon-256.png">
+        <h2 class="fl-showcase__name">Familink</h2>
+      </div>
+      <p class="fl-showcase__tag">家族をチームに。予定も、やることも、ひとつに。</p>
+      <p class="fl-showcase__desc">予定・やること・家計・体調・AIガイド「Hoku」をひとつに。共働き・子育て世代が、家族みんなで子育てを“チーム”で回せる自社開発アプリです。</p>
+      <ul class="fl-showcase__features js-stagger">
+        <li class="js-stagger-item">家族のカレンダーで予定を共有</li>
+        <li class="js-stagger-item">かんたん家計で収支を見える化</li>
+        <li class="js-stagger-item">体調・成長をいつでも記録</li>
+        <li class="js-stagger-item">やること管理を担当・期限つきで</li>
+        <li class="js-stagger-item">家族ボードで連絡をひとつに</li>
+        <li class="js-stagger-item">AIガイド「Hoku」が毎日をサポート</li>
+      </ul>
+      <div class="fl-showcase__actions">
+        <a href="familink.html" class="btn btn--primary">Familinkを詳しく見る
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="fl-showcase__mockups">
+      <div class="fl-shots">
+        <img class="fl-shot fl-shot--back" src="images/familink/calendar.jpg" alt="Familink カレンダー画面" loading="lazy" decoding="async" data-fallback="https://ktakahashi7755-creator.github.io/Familink/press/screens/calendar.png">
+        <img class="fl-shot fl-shot--front" src="images/familink/home.jpg" alt="Familink ホーム画面" loading="lazy" decoding="async" data-fallback="https://ktakahashi7755-creator.github.io/Familink/press/screens/home.png">
+        <img class="fl-hoku" src="images/familink/hoku/main.webp" alt="AIガイド Hoku" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 08 STRENGTHS ===== -->
+<section id="strengths" class="strengths">
+  <div class="strengths__inner container">
+    <div class="section-head">
+      <p class="section-eyebrow js-fade">Why ITS</p>
+      <h2 class="section-title js-fade">選ばれる理由</h2>
+      <p class="section-desc js-fade">技術力だけでなく、伴走する姿勢で。<br>ITSが選ばれ続ける6つの理由。</p>
+    </div>
+    <div class="strengths-grid js-stagger">
+      <article class="strength-item js-stagger-item">
+        <div class="strength-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3 class="strength-item__title">スピード</h3>
+        <p class="strength-item__text">最短即日でプロトタイプを提示。素早い検証で、意思決定を加速します。</p>
+      </article>
+      <article class="strength-item js-stagger-item">
+        <div class="strength-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 class="strength-item__title">品質保証</h3>
+        <p class="strength-item__text">コードレビューとテストを徹底。長く安心して使える品質を担保します。</p>
+      </article>
+      <article class="strength-item js-stagger-item">
+        <div class="strength-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h3 class="strength-item__title">サポート体制</h3>
+        <p class="strength-item__text">納品して終わりではなく、導入後も継続的に伴走し改善を続けます。</p>
+      </article>
+      <article class="strength-item js-stagger-item">
+        <div class="strength-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5L12 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        <h3 class="strength-item__title">AI・最新技術</h3>
+        <p class="strength-item__text">生成AIやクラウドなど、最新技術を実務に落とし込み価値へ変えます。</p>
+      </article>
+      <article class="strength-item js-stagger-item">
+        <div class="strength-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7l9-4 9 4-9 4-9-4zM7 10v5c0 1.5 2.5 3 5 3s5-1.5 5-3v-5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3 class="strength-item__title">IT・DX教育</h3>
+        <p class="strength-item__text">DXリテラシー研修や内製化支援で、組織の「技術の自走」を後押しします。</p>
+      </article>
+      <article class="strength-item js-stagger-item">
+        <div class="strength-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M16 18a4 4 0 00-8 0M12 14a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 20a6 6 0 016-4M21 20a6 6 0 00-6-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h3 class="strength-item__title">協創精神</h3>
+        <p class="strength-item__text">課題を「一緒に考える」パートナーとして、本質的な成功を追求します。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 09 WORKS ===== -->
+<section id="works" class="works">
+  <div class="works__inner container">
+    <div class="section-head">
+      <p class="section-eyebrow js-fade">Our Works</p>
+      <h2 class="section-title js-fade">実績</h2>
+      <p class="section-desc js-fade">業種・規模を問わず、テクノロジーで成果を。<br>代表的なプロジェクトをご紹介します。</p>
+    </div>
+    <div class="works-grid works-grid--single js-stagger">
+      <article class="work-card work-card--wide js-stagger-item">
+        <div class="work-card__thumb work-card__thumb--1 work-card__thumb--frame"><img class="work-card__img" src="images/work-inventory.jpg?v=2" alt="在庫管理システムのダッシュボード画面" loading="lazy" decoding="async" onerror="this.closest('.work-card__thumb').classList.add('is-fallback');this.remove();"><span class="work-card__index">01</span><span class="work-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7M12 11v10" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span></div>
+        <div class="work-card__body">
+          <ul class="work-card__tags"><li>システム開発</li><li>業務効率化</li></ul>
+          <h3 class="work-card__title">在庫管理システムの構築・内製化支援</h3>
+          <p class="work-card__text">属人化していた在庫管理をクラウドで一元化。在庫状況の可視化と欠品・過剰在庫のアラートにより、月40時間の工数削減を実現しました。</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 09b AI AUTOMATION FEATURE ===== -->
+<section id="ai-automation" class="ai-auto">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-eyebrow js-fade">AI Solution</p>
+      <h2 class="section-title js-fade">生成AIによる<br>問い合わせ自動化</h2>
+      <p class="section-desc js-fade">チャットボット・チャット型AIエージェント・音声対応まで、用途に合わせた生成AIで問い合わせ対応を自動化。<br>対応時間の削減と顧客満足度の向上を実現します。</p>
+    </div>
+    <div class="ai-auto__screens js-stagger">
+      <figure class="ai-auto__screen js-stagger-item">
+        <img src="images/ai/chatbot.jpg?v=2" alt="チャットボットの会話画面" loading="lazy" decoding="async">
+        <figcaption class="ai-auto__cap"><strong>チャットボット</strong>FAQや定型の問い合わせを自動で一次対応。待ち時間と対応工数を削減します。</figcaption>
+      </figure>
+      <figure class="ai-auto__screen js-stagger-item">
+        <img src="images/ai/agent.jpg?v=2" alt="チャット型AIエージェントの会話画面" loading="lazy" decoding="async">
+        <figcaption class="ai-auto__cap"><strong>チャット型AIエージェント</strong>会話の文脈を踏まえ、最適なプランや回答を提案。複雑な相談にも対応します。</figcaption>
+      </figure>
+      <figure class="ai-auto__screen js-stagger-item">
+        <img src="images/ai/voice.jpg?v=2" alt="音声版エージェントの画面" loading="lazy" decoding="async">
+        <figcaption class="ai-auto__cap"><strong>音声版エージェント</strong>音声で自然に対話。電話窓口やハンズフリーでの対応を自動化します。</figcaption>
+      </figure>
+    </div>
+    <div class="ai-auto__stats js-stagger">
+      <div class="ai-stat js-stagger-item">
+        <div class="ai-stat__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 class="ai-stat__title">対応時間を約60%削減</h3>
+        <p class="ai-stat__text">過去ログとナレッジから、一次回答を即時に自動化。</p>
+      </div>
+      <div class="ai-stat js-stagger-item">
+        <div class="ai-stat__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 class="ai-stat__title">対応効率が約2.3倍に向上</h3>
+        <p class="ai-stat__text">定型対応はAIに任せ、人は重要な案件へ集中。</p>
+      </div>
+      <div class="ai-stat js-stagger-item">
+        <div class="ai-stat__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M9 10h.01M15 10h.01M8.5 14.5a4 4 0 007 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 class="ai-stat__title">顧客満足度が大幅に向上</h3>
+        <p class="ai-stat__text">24時間365日、待たせない応対で体験を改善。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 09c CROSS-PLATFORM CRM ===== -->
+<section id="crm" class="crm-feature">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-eyebrow js-fade">Cross-platform</p>
+      <h2 class="section-title js-fade">PCでも、スマホでも。</h2>
+      <p class="section-desc js-fade">通信企業向けCRM・営業支援ツールを開発。デスクトップでもスマートフォンでも、<br>同じ体験で使えるアプリケーションを構築します。</p>
+    </div>
+    <div class="crm-showcase">
+      <figure class="crm-screen crm-screen--pc js-fade">
+        <img src="images/crm/pc.jpg?v=2" alt="CRMダッシュボード（デスクトップ画面）" loading="lazy" decoding="async">
+        <figcaption>Desktop — デスクトップ画面</figcaption>
+      </figure>
+      <figure class="crm-screen crm-screen--mobile js-fade">
+        <img src="images/crm/mobile.jpg?v=2" alt="CRMダッシュボード（スマートフォン画面）" loading="lazy" decoding="async">
+        <figcaption>Mobile — スマートフォン画面</figcaption>
+      </figure>
+    </div>
+    <p class="crm-feature__note js-fade">要件に合わせて、Webアプリ・業務システムをPC／スマホ両対応で設計・開発します。</p>
+  </div>
+</section>
+
+<!-- ===== 10 CEO MESSAGE ===== -->
+<section id="message" class="ceo">
+  <div class="ceo__inner container">
+    <div class="ceo__quote-col">
+      <p class="ceo__eyebrow js-line-reveal">Message</p>
+      <blockquote class="ceo__quote js-text-reveal">
+        <span class="js-text-reveal__line">すべての判断基準は、</span>
+        <span class="js-text-reveal__line">人の役に立てるかどうかだ。</span>
+      </blockquote>
+      <div class="ceo__body js-stagger">
+        <p class="js-stagger-item">私たちITS合同会社は、テクノロジーを「目的」ではなく「手段」として捉えています。どんなに優れた技術も、人の暮らしや企業の成長に貢献できなければ意味がありません。</p>
+        <p class="js-stagger-item">受託開発で磨いた技術を、自社プロダクト「Familink」へと還元し、社会に新しい価値を届け続ける。それが私たちの使命です。これからも、お客様と同じ目線で、本質的な課題解決に挑み続けます。</p>
+      </div>
+      <div class="ceo__sign js-fade">
+        <span class="ceo__sign-role">代表</span>
+        <span class="ceo__sign-name">高橋 賢弥</span>
+      </div>
+    </div>
+    <div class="ceo__photo-col js-fade">
+      <div class="ceo__photo">
+        <img class="ceo__photo-img" src="images/ceo.jpg" alt="ITS合同会社 代表 高橋 賢弥" loading="lazy" decoding="async">
+      </div>
+      <div class="ceo__photo-caption">高橋 賢弥 — ITS合同会社 代表</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11 COMPANY ===== -->
+<section id="company" class="company">
+  <div class="company__inner container">
+    <div class="section-head">
+      <p class="section-eyebrow js-fade">Company</p>
+      <h2 class="section-title js-fade">会社概要</h2>
+    </div>
+    <div class="company__table js-fade">
+      <dl class="company__row"><dt>会社名</dt><dd>ITS合同会社（ITS LLC）</dd></dl>
+      <dl class="company__row"><dt>代表</dt><dd>高橋 賢弥</dd></dl>
+      <dl class="company__row"><dt>事業内容</dt><dd>システム受託開発 / ITコンサルティング / Web制作・開発 / デザイン / 自社プロダクト「Familink」の開発・運営</dd></dl>
+      <dl class="company__row"><dt>設立</dt><dd>2024年7月</dd></dl>
+      <dl class="company__row"><dt>所在地</dt><dd>〒160-0023 東京都新宿区西新宿3丁目3番13号 西新宿水間ビル2F</dd></dl>
+      <dl class="company__row"><dt>プロダクト</dt><dd>Familink — 家族をつなぐ家族管理アプリ</dd></dl>
+      <dl class="company__row"><dt>お問い合わせ</dt><dd><a href="#contact" class="text-link">お問い合わせフォームへ</a></dd></dl>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 12 CTA BAND ===== -->
+<section class="cta-band">
+  <div class="cta-band__inner container">
+    <div class="cta-band__glow" aria-hidden="true"></div>
+    <p class="cta-band__eyebrow">Let's build together</p>
+    <h2 class="cta-band__title">テクノロジーで、<br>次の一歩を踏み出しませんか。</h2>
+    <p class="cta-band__text">システム開発からWeb制作、DX推進まで。お気軽にご相談ください。</p>
+    <div class="cta-band__actions">
+      <a href="#contact" class="btn btn--light js-magnetic" data-magnetic-strength="0.28">お問い合わせはこちら</a>
+      <a href="#services" class="btn btn--ghost-light">サービスを見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 13 CONTACT ===== -->
+<section id="contact" class="contact">
+  <div class="contact__inner container">
+    <div class="contact__head">
+      <p class="section-eyebrow js-fade">Contact</p>
+      <h2 class="section-title js-fade">お問い合わせ</h2>
+      <p class="section-desc js-fade">プロジェクトのご相談・お見積もり・採用に関するお問い合わせまで。<br>下記フォームよりお気軽にご連絡ください。</p>
+    </div>
+    <form class="contact__form js-fade" id="contact-form" novalidate>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="cf-name">お名前 <span class="req">必須</span></label>
+          <input type="text" id="cf-name" name="name" autocomplete="name" required>
+          <span class="form-error" data-for="cf-name"></span>
+        </div>
+        <div class="form-field">
+          <label for="cf-email">メールアドレス <span class="req">必須</span></label>
+          <input type="email" id="cf-email" name="email" autocomplete="email" required>
+          <span class="form-error" data-for="cf-email"></span>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="cf-type">ご相談内容の種別 <span class="req">必須</span></label>
+        <select id="cf-type" name="type" required>
+          <option value="">選択してください</option>
+          <option value="system">システム受託開発</option>
+          <option value="consulting">ITコンサルティング</option>
+          <option value="web">Web制作・開発</option>
+          <option value="design">デザイン</option>
+          <option value="familink">Familinkについて</option>
+          <option value="recruit">採用について</option>
+          <option value="other">その他</option>
+        </select>
+        <span class="form-error" data-for="cf-type"></span>
+      </div>
+      <div class="form-field">
+        <label for="cf-message">お問い合わせ内容 <span class="req">必須</span></label>
+        <textarea id="cf-message" name="message" rows="5" required></textarea>
+        <span class="form-error" data-for="cf-message"></span>
+      </div>
+      <button type="submit" class="btn btn--primary contact__submit">
+        送信する
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <p class="contact__note">※ 現在フォームはデモUIです。実際の送信機能は今後実装予定です。</p>
+    </form>
+    <div class="contact__success" id="contact-success" hidden>
+      <div class="contact__success-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>送信が完了しました</h3>
+      <p>お問い合わせいただきありがとうございます。担当者より折り返しご連絡いたします。</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer__inner container">
+    <div class="footer__brand">
+      <a href="#hero" class="footer__logo"><span class="footer__logo-mark">ITS</span>合同会社</a>
+      <p class="footer__tagline">テクノロジーで、<br>世界を輝かせる。</p>
+    </div>
+    <nav class="footer__col" aria-label="サービス">
+      <h3 class="footer__col-title">Services</h3>
+      <a href="#services">システム受託開発</a>
+      <a href="#services">ITコンサルティング</a>
+      <a href="#services">Web制作・開発</a>
+      <a href="#services">デザイン</a>
+    </nav>
+    <nav class="footer__col" aria-label="プロダクト">
+      <h3 class="footer__col-title">Product</h3>
+      <a href="familink.html">Familink</a>
+      <a href="familink.html#features">機能紹介</a>
+    </nav>
+    <nav class="footer__col" aria-label="会社情報">
+      <h3 class="footer__col-title">Company</h3>
+      <a href="#about">会社について</a>
+      <a href="#works">実績</a>
+      <a href="#company">会社概要</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+  </div>
+  <div class="footer__bottom container">
+    <p>&copy; 2026 ITS合同会社 (ITS LLC). All rights reserved.</p>
+    <a href="#hero" class="footer__top">ページトップへ
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/animations.js"></script>
+</body>
+</html>

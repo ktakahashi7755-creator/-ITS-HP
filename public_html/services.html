@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サービス — ITS合同会社 | システム開発・ITコンサル・Web制作・デザイン</title>
+<meta name="description" content="ITS合同会社のサービス一覧。システム受託開発、ITコンサルティング、Web制作・開発、デザインの4領域で、企業のDXとビジネス成長を支援します。">
+<meta name="keywords" content="ITS合同会社,サービス,システム開発,ITコンサルティング,Web制作,デザイン,DX">
+<link rel="canonical" href="https://its-tokyo.com/services.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="サービス — ITS合同会社">
+<meta property="og:description" content="システム開発・ITコンサル・Web制作・デザインの4領域で企業を支援します。">
+<meta property="og:url" content="https://its-tokyo.com/services.html">
+<meta property="og:image" content="https://its-tokyo.com/images/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://its-tokyo.com/images/ogp.png">
+<meta name="theme-color" content="#F6F3EC">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@300;400;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/animations.css">
+<style>
+  .subhero { position: relative; padding: calc(var(--nav-h) + 96px) 0 84px; background: var(--paper); color: var(--ink); overflow: hidden; border-bottom: 1px solid var(--line); }
+  .subhero__blob { display: none; }
+  .subhero__inner { position: relative; z-index: 2; }
+  .subhero__crumb { font-family: var(--font-product); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 22px; }
+  .subhero__crumb a { color: var(--accent); }
+  .subhero__title { font-family: var(--font-display); font-size: clamp(2.6rem, 7vw, 5.2rem); font-weight: 600; line-height: 1.08; margin-bottom: 18px; }
+  .subhero__en { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(18px, 3vw, 28px); color: var(--ink-faint); }
+  .svc-detail { padding: var(--section-y) 0; }
+  .svc-detail:nth-child(even) { background: var(--paper); }
+  .svc-detail__inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 80px); align-items: center; }
+  .svc-detail:nth-child(even) .svc-detail__media { order: 2; }
+  .svc-detail__num { font-family: var(--font-display); font-size: clamp(60px, 12vw, 130px); font-weight: 600; line-height: 1; color: var(--ink); opacity: .14; margin-bottom: 4px; }
+  /* clean natural photo (minimal editorial) — no duotone */
+  .svc-detail__media { position: relative; display: grid; place-items: center; aspect-ratio: 4/3; border-radius: var(--radius-lg); background: var(--paper); border: 1px solid var(--line); color: var(--ink); overflow: hidden; box-shadow: 0 26px 56px -38px rgba(26,24,20,.34); }
+  .svc-detail__img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.94) contrast(1.02); }
+  /* icon badge hidden when photo is present; only shown as graceful fallback */
+  .svc-detail__badge { display: none; }
+  .svc-detail__media.is-fallback { background: var(--bg); box-shadow: none; }
+  .svc-detail__media.is-fallback .svc-detail__badge { display: grid; place-items: center; width: 34%; height: auto; aspect-ratio: 1; color: var(--ink); }
+  .svc-detail__media.is-fallback .svc-detail__badge svg { width: 100%; height: 100%; }
+  .svc-detail__label { font-family: var(--font-product); font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .svc-detail__title { font-family: var(--font-display); font-size: clamp(26px, 3.6vw, 40px); font-weight: 600; color: var(--ink); margin-bottom: 20px; }
+  .svc-detail__text { font-size: 15.5px; line-height: 2.1; color: var(--ink-soft); margin-bottom: 26px; max-width: 520px; }
+  .svc-detail__list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; max-width: 520px; }
+  .svc-detail__list li { display: flex; align-items: center; gap: 12px; font-size: 14.5px; color: var(--ink); padding: 13px 0; border-top: 1px solid var(--line); }
+  .svc-detail__list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  @media (max-width: 900px) { .svc-detail__inner { grid-template-columns: 1fr; } .svc-detail:nth-child(even) .svc-detail__media { order: -1; } .svc-detail__list { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<header class="nav is-scrolled" id="nav">
+  <div class="nav__inner container">
+    <a href="index.html" class="nav__logo" aria-label="ITS合同会社 ホーム"><span class="nav__logo-mark">ITS</span><span class="nav__logo-text">合同会社</span></a>
+    <nav class="nav__links" aria-label="メインナビゲーション">
+      <a href="index.html#philosophy" class="nav__link">経営理念</a>
+      <a href="index.html#about" class="nav__link">会社について</a>
+      <a href="services.html" class="nav__link is-active">サービス</a>
+      <a href="familink.html" class="nav__link">プロダクト</a>
+      <a href="index.html#works" class="nav__link">実績</a>
+      <a href="index.html#company" class="nav__link">会社概要</a>
+    </nav>
+    <a href="index.html#contact" class="nav__cta js-magnetic" data-magnetic-strength="0.25">お問い合わせ</a>
+    <button class="nav__burger" id="nav-burger" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav-drawer"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="nav__drawer" id="nav-drawer" aria-hidden="true">
+  <nav class="nav__drawer-links" aria-label="モバイルナビゲーション">
+    <a href="index.html#philosophy">経営理念</a>
+    <a href="index.html#about">会社について</a>
+    <a href="services.html">サービス</a>
+    <a href="familink.html">プロダクト</a>
+    <a href="index.html#works">実績</a>
+    <a href="index.html#company">会社概要</a>
+    <a href="index.html#contact" class="nav__drawer-cta">お問い合わせ</a>
+  </nav>
+</div>
+<div class="nav__overlay" id="nav-overlay" aria-hidden="true"></div>
+
+<main>
+  <section class="subhero">
+    <div class="subhero__blob" aria-hidden="true"></div>
+    <div class="subhero__inner container">
+      <p class="subhero__crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Services</p>
+      <h1 class="subhero__title">サービス</h1>
+      <p class="subhero__en">Engineering &amp; Design for your business.</p>
+    </div>
+  </section>
+
+  <section class="svc-detail">
+    <div class="container svc-detail__inner">
+      <div class="svc-detail__media js-fade">
+        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="システム開発：ノートPCでコードを書く開発の様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M13 6l-2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="svc-detail__body js-fade">
+        <div class="svc-detail__num">01</div>
+        <p class="svc-detail__label">System Development</p>
+        <h2 class="svc-detail__title">システム受託開発</h2>
+        <p class="svc-detail__text">企業の業務課題やフローに合わせて、必要なシステムを設計・開発します。要件整理から運用・改善提案まで一貫して対応し、長く使える堅牢なシステムを実現します。</p>
+        <ul class="svc-detail__list"><li>Webアプリケーション</li><li>業務システム</li><li>API・基盤開発</li><li>保守・運用支援</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-detail">
+    <div class="container svc-detail__inner">
+      <div class="svc-detail__media js-fade">
+        <img class="svc-detail__img" src="images/svc-consulting.webp?v=2" width="1024" height="682" alt="ITコンサルティング：クライアントへ提案する商談の様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="svc-detail__body js-fade">
+        <div class="svc-detail__num">02</div>
+        <p class="svc-detail__label">IT Consulting</p>
+        <h2 class="svc-detail__title">ITコンサルティング</h2>
+        <p class="svc-detail__text">DX推進・AI導入・業務自動化・クラウド移行の戦略立案から実行までを支援します。生成AIの業務活用やAIツールの導入・定着まで含め、現場の課題を可視化し、効果的な技術投資の意思決定をサポートします。</p>
+        <ul class="svc-detail__list"><li>DX戦略立案</li><li>AI導入コンサルティング</li><li>生成AI・LLM活用</li><li>業務自動化</li><li>クラウド移行</li><li>内製化支援</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-detail">
+    <div class="container svc-detail__inner">
+      <div class="svc-detail__media js-fade">
+        <img class="svc-detail__img" src="images/svc-web.webp" width="1400" height="944" alt="Web制作・開発：レスポンシブ対応のコーポレートサイト制作例（PC・スマートフォン表示）" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 21h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      </div>
+      <div class="svc-detail__body js-fade">
+        <div class="svc-detail__num">03</div>
+        <p class="svc-detail__label">Web Production</p>
+        <h2 class="svc-detail__title">Web制作・開発</h2>
+        <p class="svc-detail__text">コーポレートサイト・ランディングページ・Webサービスの企画から制作まで対応。デザインと実装の両面から、成果につながる体験を設計します。</p>
+        <ul class="svc-detail__list"><li>コーポレートサイト</li><li>ランディングページ</li><li>Webサービス</li><li>CMS構築</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-detail">
+    <div class="container svc-detail__inner">
+      <div class="svc-detail__media js-fade">
+        <img class="svc-detail__img" src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&amp;fit=crop&amp;w=1000&amp;q=72" alt="デザイン：デザインツールでUI/UXを制作する様子" loading="lazy" decoding="async" onerror="this.closest('.svc-detail__media').classList.add('is-fallback');this.remove();">
+        <span class="svc-detail__badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M12 4a8 8 0 010 16M9 9h.01M15 15h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      </div>
+      <div class="svc-detail__body js-fade">
+        <div class="svc-detail__num">04</div>
+        <p class="svc-detail__label">Design</p>
+        <h2 class="svc-detail__title">デザイン</h2>
+        <p class="svc-detail__text">UI/UXデザインからブランディング、グラフィックまで。「伝わる」「使いやすい」を起点に、ビジネスの価値を高めるデザインを提供します。</p>
+        <ul class="svc-detail__list"><li>UI/UXデザイン</li><li>ブランディング</li><li>グラフィック</li><li>デザインシステム</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="cta-band__inner container">
+      <div class="cta-band__glow" aria-hidden="true"></div>
+      <p class="cta-band__eyebrow">Let's build together</p>
+      <h2 class="cta-band__title">プロジェクトのご相談はこちら</h2>
+      <p class="cta-band__text">小さな相談から大きな開発まで、お気軽にお問い合わせください。</p>
+      <div class="cta-band__actions">
+        <a href="index.html#contact" class="btn btn--light js-magnetic" data-magnetic-strength="0.28">お問い合わせ</a>
+        <a href="index.html" class="btn btn--ghost-light">トップへ戻る</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer__inner container">
+    <div class="footer__brand">
+      <a href="index.html" class="footer__logo"><span class="footer__logo-mark">ITS</span>合同会社</a>
+      <p class="footer__tagline">テクノロジーで、<br>世界を輝かせる。</p>
+    </div>
+    <nav class="footer__col" aria-label="サービス">
+      <h3 class="footer__col-title">Services</h3>
+      <a href="services.html">システム受託開発</a><a href="services.html">ITコンサルティング</a><a href="services.html">Web制作・開発</a><a href="services.html">デザイン</a>
+    </nav>
+    <nav class="footer__col" aria-label="プロダクト">
+      <h3 class="footer__col-title">Product</h3>
+      <a href="familink.html">Familink</a><a href="familink.html#features">機能紹介</a>
+    </nav>
+    <nav class="footer__col" aria-label="会社情報">
+      <h3 class="footer__col-title">Company</h3>
+      <a href="index.html#about">会社について</a><a href="index.html#works">実績</a><a href="index.html#company">会社概要</a><a href="index.html#contact">お問い合わせ</a>
+    </nav>
+  </div>
+  <div class="footer__bottom container">
+    <p>&copy; 2026 ITS合同会社 (ITS LLC). All rights reserved.</p>
+    <a href="#" class="footer__top">ページトップへ<svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/animations.js"></script>
+</body>
+</html>
