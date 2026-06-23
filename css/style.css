@@ -197,7 +197,10 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
    ========================================================================== */
 .hero {
   position: relative; min-height: 100svh; display: flex; align-items: center;
-  background: var(--bg); color: var(--ink); overflow: hidden; padding-top: var(--nav-h);
+  color: var(--ink); overflow: hidden; padding-top: var(--nav-h);
+  background:
+    linear-gradient(100deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.74) 34%, rgba(255,255,255,.34) 58%, rgba(248,249,252,.08) 100%),
+    url("../images/hero-office.jpg") center 38% / cover no-repeat;
 }
 .hero::after { /* faint baseline rule under hero */
   content: ''; position: absolute; left: var(--pad-x); right: var(--pad-x); bottom: 0; height: 1px; background: var(--line);
@@ -249,9 +252,9 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
 .hero__inner { display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr); align-items: center; gap: clamp(24px, 4vw, 64px); }
 .hero__text { position: relative; z-index: 3; min-width: 0; }
 .hero__cast {
-  position: relative; z-index: 2; justify-self: end; align-self: center;
-  display: flex; align-items: flex-end; justify-content: center; gap: clamp(6px, 1.6vw, 26px);
-  width: 100%; max-width: 560px;
+  position: relative; z-index: 2; justify-self: end; align-self: end;
+  display: flex; align-items: flex-end; justify-content: center; gap: clamp(2px, 1vw, 18px);
+  width: 100%; max-width: 580px;
   opacity: 0; animation: heroFadeUp 1.2s var(--ease-out) .55s forwards;
 }
 .hero__char { margin: 0; display: flex; flex-direction: column; align-items: center; }
@@ -262,8 +265,8 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
   width: 76%; height: 18px; border-radius: 50%;
   background: radial-gradient(ellipse at center, rgba(26,24,20,.22), rgba(26,24,20,0) 70%);
 }
-.hero__char--hoku { width: clamp(120px, 16vw, 200px); transform: translateY(10px); }
-.hero__char--lumi { width: clamp(150px, 21vw, 280px); }
+.hero__char--hoku { width: clamp(118px, 16vw, 205px); transform: translateY(6px); }
+.hero__char--lumi { width: clamp(150px, 20vw, 262px); }
 .hero__char--lumi .hero__char-art img { animation-delay: -2.6s; }
 .hero__char--lumi .hero__char-art::before { /* purple aura */
   content: ''; position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
