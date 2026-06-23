@@ -40,13 +40,15 @@
 
 /* ---------- 04 ABOUT ---------- */
 .about { background: var(--bg); padding: var(--section-y) 0; }
-.about__inner { display: grid; grid-template-columns: 1fr 1.12fr; gap: clamp(44px, 7vw, 96px); align-items: start; }
+.about__inner { display: grid; grid-template-columns: 1fr 1.12fr; gap: clamp(44px, 7vw, 96px); align-items: stretch; }
+.about__head { display: flex; flex-direction: column; }
 .about__lead { margin: 26px 0 30px; font-size: 17px; line-height: 2.15; color: var(--ink-soft); }
-.about__media { margin-top: 40px; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 16 / 10; background: var(--paper); }
+.about__media { margin-top: 40px; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; flex: 1 1 auto; min-height: 200px; background: var(--paper); }
 .about__img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.94) contrast(1.02); }
-.about__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.about__cards { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .mvv-card {
   background: var(--bg); padding: 34px 30px; transition: background .4s var(--ease-out);
+  display: flex; flex-direction: column; justify-content: center;
 }
 .mvv-card:hover { background: var(--paper); }
 .mvv-card__label { display: block; font-family: var(--font-product); font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }

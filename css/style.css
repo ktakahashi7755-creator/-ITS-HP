@@ -215,9 +215,10 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
 .hero__eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
 .hero__title {
   font-family: var(--font-display);
-  font-size: clamp(2.35rem, 7vw, 6.4rem); font-weight: 600; line-height: 1.1;
-  letter-spacing: 0.01em; color: var(--ink); margin-bottom: 34px; max-width: 22ch;
+  font-size: clamp(2rem, 4.8vw, 4.3rem); font-weight: 600; line-height: 1.18;
+  letter-spacing: 0.01em; color: var(--ink); margin-bottom: 34px; max-width: none;
 }
+.hero__title .js-text-reveal__line { white-space: nowrap; }
 .hero__en {
   font-family: var(--font-display); font-style: italic; font-weight: 400;
   font-size: clamp(18px, 2.4vw, 26px); color: var(--ink-faint); margin-bottom: 30px;
@@ -309,10 +310,17 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
   .footer__inner { grid-template-columns: 1fr 1fr; gap: 36px; }
   .footer__brand { grid-column: 1 / -1; }
   .footer__bottom { flex-direction: column; gap: 14px; text-align: center; }
-  /* hero: stack text above the character cast */
-  .hero { min-height: auto; }
-  .hero__inner { grid-template-columns: 1fr; gap: 22px; }
-  .hero__cast { justify-self: center; max-width: 400px; margin-top: 4px; }
+  /* hero: stack text above the character cast; show the office floor behind the cast */
+  .hero {
+    min-height: auto;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.82) 44%, rgba(255,255,255,.40) 74%, rgba(255,255,255,.18) 100%),
+      url("../images/hero-office.jpg") center bottom / cover no-repeat;
+  }
+  .hero__inner { grid-template-columns: 1fr; gap: 18px; }
+  .hero__cast { justify-self: center; max-width: 420px; margin-top: 10px; }
+  .hero__char--hoku { width: clamp(120px, 30vw, 170px); }
+  .hero__char--lumi { width: clamp(150px, 38vw, 215px); }
 }
 @media (max-width: 480px) {
   body { font-size: 15px; }
