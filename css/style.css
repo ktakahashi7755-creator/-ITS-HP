@@ -310,12 +310,12 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
   .footer__inner { grid-template-columns: 1fr 1fr; gap: 36px; }
   .footer__brand { grid-column: 1 / -1; }
   .footer__bottom { flex-direction: column; gap: 14px; text-align: center; }
-  /* hero: stack text above the character cast; show the office floor behind the cast */
+  /* hero: stack text above the character cast; show the office behind the cast */
   .hero {
     min-height: auto;
     background:
-      linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.88) 42%, rgba(255,255,255,.52) 74%, rgba(255,255,255,.22) 100%),
-      url("../images/hero-office.jpg") center bottom / cover no-repeat;
+      linear-gradient(180deg, rgba(255,255,255,.93) 0%, rgba(255,255,255,.82) 30%, rgba(255,255,255,.44) 54%, rgba(255,255,255,.12) 78%, rgba(255,255,255,.04) 100%),
+      url("../images/hero-office-mobile.jpg") center / cover no-repeat;
   }
   .hero__inner { grid-template-columns: 1fr; gap: clamp(14px, 4vw, 26px); padding-top: clamp(18px, 3.5vh, 40px); padding-bottom: 0; }
   .hero__cast { justify-self: center; align-self: end; max-width: 440px; margin-top: clamp(4px, 1.5vw, 14px); gap: clamp(0px, 1vw, 10px); }
