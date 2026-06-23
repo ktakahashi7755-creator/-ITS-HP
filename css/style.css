@@ -327,4 +327,7 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
   .footer__inner { grid-template-columns: 1fr; }
   .btn { width: 100%; }
   .hero__actions { flex-direction: column; }
+  /* keep the hero eyebrow on one tidy line on the smallest phones */
+  .hero__eyebrow { font-size: 11px; letter-spacing: 0.09em; gap: 9px; margin-bottom: 26px; }
+  .hero__eyebrow::before { width: 18px; }
 }
