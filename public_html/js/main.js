@@ -155,15 +155,33 @@
       return ok;
     }
 
+    var submitBtn = form.querySelector('.contact__submit');
+    var errorBox = document.getElementById('contact-error');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (errorBox) errorBox.hidden = true;
       if (!validate()) {
         var firstErr = form.querySelector('.has-error input, .has-error select, .has-error textarea');
         if (firstErr) firstErr.focus();
         return;
       }
-      form.hidden = true;
-      if (success) { success.hidden = false; success.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' }); }
+      var btnLabel = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '送信中…'; }
+
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (res) { return res.json().catch(function () { return { ok: res.ok }; }).then(function (data) { return { status: res.status, data: data }; }); })
+        .then(function (r) {
+          if (r.data && r.data.ok) {
+            form.hidden = true;
+            if (success) { success.hidden = false; success.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' }); }
+          } else {
+            throw new Error('send-failed');
+          }
+        })
+        .catch(function () {
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = btnLabel; }
+          if (errorBox) { errorBox.hidden = false; errorBox.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' }); }
+        });
     });
 
     form.querySelectorAll('input, select, textarea').forEach(function (el) {

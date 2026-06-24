@@ -58,6 +58,17 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ITS合同会社",
+  "alternateName": "ITS LLC",
+  "url": "https://ktakahashi7755-creator.github.io/-ITS-HP/",
+  "inLanguage": "ja",
+  "publisher": { "@type": "Organization", "name": "ITS合同会社" }
+}
+</script>
 </head>
 <body>
 
@@ -569,7 +580,9 @@
       <h2 class="section-title js-fade">お問い合わせ</h2>
       <p class="section-desc js-fade">プロジェクトのご相談・お見積もり・採用に関するお問い合わせまで。<br>下記フォームよりお気軽にご連絡ください。</p>
     </div>
-    <form class="contact__form js-fade" id="contact-form" novalidate>
+    <form class="contact__form js-fade" id="contact-form" action="contact.php" method="post" novalidate>
+      <!-- spam honeypot (人間には非表示) -->
+      <input type="text" name="website" id="cf-website" tabindex="-1" autocomplete="off" aria-hidden="true" class="cf-hp">
       <div class="form-row">
         <div class="form-field">
           <label for="cf-name">お名前 <span class="req">必須</span></label>
@@ -605,7 +618,8 @@
         送信する
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <p class="contact__note">※ 現在フォームはデモUIです。実際の送信機能は今後実装予定です。</p>
+      <p class="contact__error" id="contact-error" role="alert" hidden>送信に失敗しました。時間をおいて再度お試しいただくか、<a href="mailto:info@its-tokyo.com">info@its-tokyo.com</a> まで直接ご連絡ください。</p>
+      <p class="contact__note">ご入力いただいた内容は、お問い合わせ対応の目的にのみ利用いたします。</p>
     </form>
     <div class="contact__success" id="contact-success" hidden>
       <div class="contact__success-icon" aria-hidden="true">
