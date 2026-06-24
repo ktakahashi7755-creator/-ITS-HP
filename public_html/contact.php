@@ -6,9 +6,10 @@
    ============================================================ */
 
 // ===== 設定（必要に応じて変更） =====
-$TO        = 'info@its-tokyo.com';                 // ★お問い合わせの届け先（要確認）
-$FROM      = 'no-reply@its-tokyo.com';             // 送信元（独自ドメインのアドレス推奨）
-$SITE_NAME = 'ITS合同会社 公式サイト';
+$TO         = 'info@its-tokyo.com';                 // ★お問い合わせの届け先（要確認）
+$FROM       = 'no-reply@its-tokyo.com';             // 送信元（独自ドメインのアドレス推奨）
+$SITE_NAME  = 'ITS合同会社 公式サイト';
+$AUTO_REPLY = true;                                 // 送信者へ受付確認メールを自動返信する
 
 header('Content-Type: application/json; charset=utf-8');
 mb_language('Japanese');
@@ -81,6 +82,25 @@ $headers .= 'X-Mailer: PHP/' . phpversion();
 $sent = mb_send_mail($TO, $subject, $body, $headers);
 
 if ($sent) {
+  // --- 送信者へ自動返信（受付確認メール） ---
+  if ($AUTO_REPLY) {
+    $ar_subject = '【ITS合同会社】お問い合わせを受け付けました';
+    $ar_body =
+      "{$name} 様\n\n" .
+      "この度はお問い合わせいただき、誠にありがとうございます。\n" .
+      "下記の内容で受け付けいたしました。担当者より追ってご連絡いたしますので、\n" .
+      "今しばらくお待ちくださいますようお願い申し上げます。\n\n" .
+      "──────────────────────────────\n" .
+      "種別　　： {$typeLabel}\n" .
+      "【お問い合わせ内容】\n{$msg}\n" .
+      "──────────────────────────────\n\n" .
+      "※本メールは自動送信です。お心当たりがない場合は破棄してください。\n\n" .
+      "ITS合同会社\n" .
+      "https://its-tokyo.com/\n";
+    $ar_headers  = 'From: ' . mb_encode_mimeheader($SITE_NAME) . ' <' . $FROM . '>' . "\r\n";
+    $ar_headers .= 'Reply-To: ' . $TO . "\r\n";
+    @mb_send_mail($email, $ar_subject, $ar_body, $ar_headers);
+  }
   echo json_encode(['ok' => true]);
 } else {
   http_response_code(500);
