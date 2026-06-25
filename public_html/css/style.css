@@ -325,13 +325,20 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
   .hero__sub--mobile { display: block; margin-bottom: clamp(22px, 5vw, 32px); }
   .hero__actions--mobile { display: flex; margin-bottom: 0; }
   .hero__actions--mobile .btn { width: auto; }
-  .hero__cast { order: 0; align-self: center; margin-top: auto; max-width: 500px; gap: clamp(0px, 1vw, 10px); }
+  .hero__cast { order: 0; align-self: center; margin-top: auto; max-width: 500px; gap: clamp(0px, 1vw, 10px); position: relative; }
+  /* soft ambient light behind the cast so the figures melt into the bright office */
+  .hero__cast::before { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 116%; height: 116%; z-index: -1; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(ellipse 60% 56% at center, rgba(255,255,255,.5), rgba(255,255,255,.16) 46%, rgba(255,255,255,0) 72%);
+    filter: blur(14px); }
   .hero__char--hoku { width: clamp(140px, 40vw, 210px); transform: none; }
   .hero__char--lumi { width: clamp(178px, 49vw, 264px); }
-  /* grounding: firmer contact shadow + soft reflection on the reflective floor */
+  /* grounding + blend: contact shadow, floor reflection, and tone matched to the airy office */
   .hero__char-art::after { bottom: -5px; width: 90%; height: 26px;
-    background: radial-gradient(ellipse at center, rgba(26,24,20,.34), rgba(26,24,20,0) 72%); }
-  .hero__char-art img { -webkit-box-reflect: below 0px linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,0) 42%); }
+    background: radial-gradient(ellipse at center, rgba(26,24,20,.30), rgba(26,24,20,0) 72%); }
+  .hero__char-art img {
+    filter: drop-shadow(0 14px 24px rgba(26,24,20,.13)) saturate(.94) contrast(.97) brightness(1.03);
+    -webkit-box-reflect: below 0px linear-gradient(rgba(0,0,0,.26), rgba(0,0,0,0) 42%); }
 }
 @media (max-width: 480px) {
   body { font-size: 15px; }
