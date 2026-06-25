@@ -332,15 +332,16 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
     background: radial-gradient(ellipse 60% 56% at center, rgba(255,255,255,.5), rgba(255,255,255,.16) 46%, rgba(255,255,255,0) 72%);
     filter: blur(14px); }
   /* width compensates for the halo padding baked into the -scene images */
-  .hero__char--hoku { width: clamp(158px, 45vw, 237px); transform: none; }
-  .hero__char--lumi { width: clamp(201px, 55vw, 298px); }
-  /* grounding: soft contact shadow + faint glossy-floor reflection.
-     colour grade / depth-of-field / light-wrap are baked into the -scene images. */
-  .hero__char-art::after { bottom: -4px; width: 84%; height: 24px;
-    background: radial-gradient(ellipse at center, rgba(40,46,58,.26), rgba(40,46,58,0) 72%); }
+  .hero__char--hoku { width: clamp(160px, 46vw, 240px); transform: none; }
+  .hero__char--lumi { width: clamp(204px, 56vw, 302px); }
+  /* grounding: cool soft contact shadow (nudged right — window light comes from the left)
+     + faint glossy-floor reflection. Grade / depth-of-field / light-wrap / directional
+     light are baked into the -scene images (feet sit exactly on the box bottom edge). */
+  .hero__char-art::after { left: 54%; bottom: -3px; width: 78%; height: 22px;
+    background: radial-gradient(ellipse at center, rgba(44,50,62,.28), rgba(44,50,62,0) 70%); }
   .hero__char-art img {
-    filter: drop-shadow(0 12px 20px rgba(40,46,58,.12));
-    -webkit-box-reflect: below 0px linear-gradient(rgba(0,0,0,.20), rgba(0,0,0,0) 40%); }
+    filter: drop-shadow(0 13px 22px rgba(44,50,62,.13));
+    -webkit-box-reflect: below 0px linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,0) 36%); }
 }
 @media (max-width: 480px) {
   body { font-size: 15px; }
