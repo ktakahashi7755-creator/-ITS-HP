@@ -312,23 +312,26 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
   .footer__inner { grid-template-columns: 1fr 1fr; gap: 36px; }
   .footer__brand { grid-column: 1 / -1; }
   .footer__bottom { flex-direction: column; gap: 14px; text-align: center; }
-  /* hero (mobile): copy on top, characters grounded large at the bottom (office behind) */
+  /* hero (mobile): copy on top, characters standing on the office floor */
   .hero {
     min-height: 100svh;
     background:
-      linear-gradient(180deg, rgba(255,255,255,.66) 0%, rgba(255,255,255,.46) 24%, rgba(255,255,255,.24) 46%, rgba(255,255,255,.10) 66%, rgba(255,255,255,.06) 100%),
+      linear-gradient(180deg, rgba(255,255,255,.70) 0%, rgba(255,255,255,.48) 22%, rgba(255,255,255,.22) 44%, rgba(255,255,255,.07) 64%, rgba(255,255,255,.02) 100%),
       url("../images/hero-office-mobile.jpg") center bottom / cover no-repeat;
   }
-  .hero__inner { grid-template-columns: 1fr; gap: 0; padding-top: clamp(18px, 4vh, 40px); padding-bottom: 0; align-content: start; }
-  /* mobile copy swap (mockup) */
+  /* flex column: copy stays at top, the cast is pushed down to stand on the floor, floor visible below */
+  .hero__inner { display: flex; flex-direction: column; padding-top: clamp(18px, 4vh, 40px); padding-bottom: clamp(42px, 12vw, 88px); }
   .hero__eyebrow, .hero__en, .hero__sub--desktop, .hero__actions--desktop { display: none; }
   .hero__sub--mobile { display: block; margin-bottom: clamp(22px, 5vw, 32px); }
   .hero__actions--mobile { display: flex; margin-bottom: 0; }
   .hero__actions--mobile .btn { width: auto; }
-  /* characters at the bottom, standing on the office floor */
-  .hero__cast { order: 0; justify-self: center; align-self: end; max-width: 480px; margin: clamp(20px, 6vw, 48px) auto 0; gap: clamp(2px, 1.5vw, 14px); }
-  .hero__char--hoku { width: clamp(132px, 37vw, 198px); transform: none; }
-  .hero__char--lumi { width: clamp(170px, 46vw, 252px); }
+  .hero__cast { order: 0; align-self: center; margin-top: auto; max-width: 500px; gap: clamp(0px, 1vw, 10px); }
+  .hero__char--hoku { width: clamp(140px, 40vw, 210px); transform: none; }
+  .hero__char--lumi { width: clamp(178px, 49vw, 264px); }
+  /* grounding: firmer contact shadow + soft reflection on the reflective floor */
+  .hero__char-art::after { bottom: -5px; width: 90%; height: 26px;
+    background: radial-gradient(ellipse at center, rgba(26,24,20,.34), rgba(26,24,20,0) 72%); }
+  .hero__char-art img { -webkit-box-reflect: below 0px linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,0) 42%); }
 }
 @media (max-width: 480px) {
   body { font-size: 15px; }
