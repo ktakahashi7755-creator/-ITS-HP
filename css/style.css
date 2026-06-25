@@ -331,14 +331,16 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
     width: 116%; height: 116%; z-index: -1; border-radius: 50%; pointer-events: none;
     background: radial-gradient(ellipse 60% 56% at center, rgba(255,255,255,.5), rgba(255,255,255,.16) 46%, rgba(255,255,255,0) 72%);
     filter: blur(14px); }
-  .hero__char--hoku { width: clamp(140px, 40vw, 210px); transform: none; }
-  .hero__char--lumi { width: clamp(178px, 49vw, 264px); }
-  /* grounding + blend: contact shadow, floor reflection, and tone matched to the airy office */
-  .hero__char-art::after { bottom: -5px; width: 90%; height: 26px;
-    background: radial-gradient(ellipse at center, rgba(26,24,20,.30), rgba(26,24,20,0) 72%); }
+  /* width compensates for the halo padding baked into the -scene images */
+  .hero__char--hoku { width: clamp(158px, 45vw, 237px); transform: none; }
+  .hero__char--lumi { width: clamp(201px, 55vw, 298px); }
+  /* grounding: soft contact shadow + faint glossy-floor reflection.
+     colour grade / depth-of-field / light-wrap are baked into the -scene images. */
+  .hero__char-art::after { bottom: -4px; width: 84%; height: 24px;
+    background: radial-gradient(ellipse at center, rgba(40,46,58,.26), rgba(40,46,58,0) 72%); }
   .hero__char-art img {
-    filter: drop-shadow(0 14px 24px rgba(26,24,20,.13)) saturate(.94) contrast(.97) brightness(1.03);
-    -webkit-box-reflect: below 0px linear-gradient(rgba(0,0,0,.26), rgba(0,0,0,0) 42%); }
+    filter: drop-shadow(0 12px 20px rgba(40,46,58,.12));
+    -webkit-box-reflect: below 0px linear-gradient(rgba(0,0,0,.20), rgba(0,0,0,0) 40%); }
 }
 @media (max-width: 480px) {
   body { font-size: 15px; }
