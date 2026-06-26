@@ -326,22 +326,20 @@ body.nav-open .nav__burger span:nth-child(3) { transform: translateY(-6.5px) rot
   .hero__actions--mobile { display: flex; margin-bottom: 0; }
   .hero__actions--mobile .btn { width: auto; }
   .hero__cast { order: 0; align-self: center; margin-top: auto; max-width: 500px; gap: clamp(0px, 1vw, 10px); position: relative; }
-  /* soft ambient light behind the cast so the figures melt into the bright office */
-  .hero__cast::before { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-    width: 116%; height: 116%; z-index: -1; border-radius: 50%; pointer-events: none;
-    background: radial-gradient(ellipse 60% 56% at center, rgba(255,255,255,.5), rgba(255,255,255,.16) 46%, rgba(255,255,255,0) 72%);
-    filter: blur(14px); }
-  /* width compensates for the halo padding baked into the -scene images */
-  .hero__char--hoku { width: clamp(160px, 46vw, 240px); transform: none; }
-  .hero__char--lumi { width: clamp(204px, 56vw, 302px); }
-  /* grounding: cool soft contact shadow (nudged right — window light comes from the left)
-     + faint glossy-floor reflection. Grade / depth-of-field / light-wrap / directional
-     light are baked into the -scene images (feet sit exactly on the box bottom edge). */
-  .hero__char-art::after { left: 54%; bottom: -3px; width: 78%; height: 22px;
-    background: radial-gradient(ellipse at center, rgba(44,50,62,.28), rgba(44,50,62,0) 70%); }
+  /* light haze just behind the feet so they sit on the floor without washing the office */
+  .hero__cast::before { content: ''; position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%);
+    width: 96%; height: 40%; z-index: -1; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(ellipse 60% 60% at center, rgba(255,255,255,.34), rgba(255,255,255,.10) 50%, rgba(255,255,255,0) 74%);
+    filter: blur(16px); }
+  /* realistic HD mascots — original renders, no colour grade. Only grounded on the floor. */
+  .hero__char--hoku { width: clamp(140px, 40vw, 210px); transform: none; }
+  .hero__char--lumi { width: clamp(178px, 49vw, 264px); }
+  /* grounding only: soft contact shadow + faint glossy-floor reflection */
+  .hero__char-art::after { left: 50%; bottom: -2px; width: 84%; height: 24px;
+    background: radial-gradient(ellipse at center, rgba(40,46,58,.30), rgba(40,46,58,0) 72%); }
   .hero__char-art img {
-    filter: drop-shadow(0 13px 22px rgba(44,50,62,.13));
-    -webkit-box-reflect: below 0px linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,0) 36%); }
+    filter: drop-shadow(0 14px 24px rgba(40,46,58,.18));
+    -webkit-box-reflect: below 0px linear-gradient(rgba(0,0,0,.24), rgba(0,0,0,0) 42%); }
 }
 @media (max-width: 480px) {
   body { font-size: 15px; }
