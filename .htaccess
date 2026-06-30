@@ -7,6 +7,12 @@
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
+  # --- 実在するファイル・ディレクトリはそのまま配信（リダイレクトループ防止） ---
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+
   # --- (任意) www を非wwwへ統一：canonical(https://its-tokyo.com/)に合わせる場合は有効化 ---
   # RewriteCond %{HTTP_HOST} ^www\.its-tokyo\.com [NC]
   # RewriteRule ^(.*)$ https://its-tokyo.com/$1 [R=301,L]
@@ -19,7 +25,7 @@
   RewriteRule ^(works|work|portfolio)\.?(html)?/?$                           /#works       [R=301,L,NC]
   RewriteRule ^(contact|contactus|contact-us|contact\.html|inquiry)/?$       /#contact     [R=301,L,NC]
   RewriteRule ^(recruit|career|careers)\.?(html)?/?$                         /#contact     [R=301,L,NC]
-  RewriteRule ^(familink|product|products)\.?(html)?/?$                      /familink.html [R=301,L,NC]
+  RewriteRule ^(familink|product|products|product\.html|products\.html)/?$   /familink.html [R=301,L,NC]
   RewriteRule ^index\.(php|htm)$                                             /            [R=301,L,NC]
 </IfModule>
 
